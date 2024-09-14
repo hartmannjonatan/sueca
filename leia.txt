@@ -1,0 +1,2 @@
+para executar:
+python main.py
