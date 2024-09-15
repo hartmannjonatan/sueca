@@ -20,11 +20,12 @@ class TelaJogo:
         self.janela_principal.geometry(f"{largura}x{altura}+{x}+{y}")
 
         self.configurar_background()
-        self.criar_slot_cartas()
         self.criar_area_jogador_1()
         self.criar_area_jogador_2()
         self.criar_area_jogador_3()
         self.criar_area_jogador_4()
+        self.criar_frame_jogador_atual()
+        self.criar_area_de_jogo()
         
     def configurar_background(self):
         largura = 1200
@@ -39,15 +40,12 @@ class TelaJogo:
         self.canvas.pack(fill="both", expand=True)
         
         self.canvas.create_image(0, 0, anchor="nw", image=self.imagem_fundo_tk)
-    
-    def criar_slot_cartas(self):
+        
+    def criar_area_jogador_1(self):
         imagem_slot_cartas = Image.open("images/tela_jogo/cardsslot.png")
         imagem_slot_cartas = imagem_slot_cartas.resize((1100, 153), Image.LANCZOS)
         self.imagem_slot_cartas = ImageTk.PhotoImage(imagem_slot_cartas)
 
-        self.canvas.create_image(600, 600, anchor="center", image=self.imagem_slot_cartas)
-    
-    def criar_area_jogador_1(self):
         imagem_carta1 = Image.open("images/tela_jogo/cartas/a_paus.png")
         imagem_carta1 = imagem_carta1.resize((82, 115), Image.LANCZOS)
         self.imagem_carta1 = ImageTk.PhotoImage(imagem_carta1)
@@ -60,6 +58,7 @@ class TelaJogo:
         nome_jogador1 = nome_jogador1.resize((180, 30), Image.LANCZOS)
         self.nome_jogador1 = ImageTk.PhotoImage(nome_jogador1)
 
+        self.canvas.create_image(600, 600, anchor="center", image=self.imagem_slot_cartas)
         self.canvas.create_image(180, 605, anchor="center", image=self.imagem_carta1)
         self.canvas.create_image(271, 605, anchor="center", image=self.imagem_carta2)
         self.canvas.create_image(135, 500, anchor="nw", image=self.nome_jogador1)
@@ -103,4 +102,41 @@ class TelaJogo:
         self.canvas.create_image(100, 350, anchor="center", image=self.bolo_cartas_jogador_4)
         self.canvas.create_image(10, 228, anchor="nw", image=self.nome_jogador4)
 
+    def criar_frame_jogador_atual(self):
+        frame_jogador_atual = Image.open("images/tela_jogo/actualplayer.png")
+        frame_jogador_atual = frame_jogador_atual.resize((350, 30), Image.LANCZOS)
+        self.frame_jogador_atual = ImageTk.PhotoImage(frame_jogador_atual)
+
+        self.canvas.create_image(10, 15, anchor="nw", image=self.frame_jogador_atual)
         
+    def criar_area_de_jogo(self):
+        slot_carta_jogador1 = Image.open("images/tela_jogo/singlecardslot.png")
+        slot_carta_jogador1 = slot_carta_jogador1.resize((96, 125), Image.LANCZOS)
+        self.slot_carta_jogador1 = ImageTk.PhotoImage(slot_carta_jogador1)
+
+        carta_jogador1 = Image.open("images/tela_jogo/cartas/a_copas.png")
+        carta_jogador1 = carta_jogador1.resize((82, 115), Image.LANCZOS)
+        self.carta_jogador1 = ImageTk.PhotoImage(carta_jogador1)
+
+        slot_carta_jogador2 = Image.open("images/tela_jogo/singlecardslot.png")
+        slot_carta_jogador2 = slot_carta_jogador1.resize((96, 125), Image.LANCZOS)
+        self.slot_carta_jogador2 = ImageTk.PhotoImage(slot_carta_jogador2)
+
+        slot_carta_jogador3 = Image.open("images/tela_jogo/singlecardslot.png")
+        slot_carta_jogador3 = slot_carta_jogador1.resize((96, 125), Image.LANCZOS)
+        self.slot_carta_jogador3 = ImageTk.PhotoImage(slot_carta_jogador3)
+
+        slot_carta_jogador4 = Image.open("images/tela_jogo/singlecardslot.png")
+        slot_carta_jogador4 = slot_carta_jogador1.resize((96, 125), Image.LANCZOS)
+        self.slot_carta_jogador4 = ImageTk.PhotoImage(slot_carta_jogador4)
+
+        self.canvas.create_image(600, 465, anchor="center", image=self.slot_carta_jogador1)
+        self.canvas.create_image(597, 465, anchor="center", image=self.carta_jogador1)
+
+        self.canvas.create_image(450, 350, anchor="center", image=self.slot_carta_jogador2)
+
+        self.canvas.create_image(600, 275, anchor="center", image=self.slot_carta_jogador3)
+
+        self.canvas.create_image(750, 350, anchor="center", image=self.slot_carta_jogador4)
+        
+
