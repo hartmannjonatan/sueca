@@ -1,15 +1,18 @@
 Criando e ativando o ambiente virtual:
 
 # cria o ambiente virtual (pasta venv)
-python -m venv nome_do_ambiente
+python -m venv venv
 
 # ativa o ambiente virtual
-source nome_do_ambiente/bin/activate  # Para Linux/macOS
+source venv/bin/activate  # Para Linux/macOS
 # ou
-source nome_do_ambiente\Scripts\activate  # Para Windows
+source venv\Scripts\activate  # Para Windows
 
 # instala todas as dependências necessárias para rodar o programa
 pip install -r requirements.txt
 
 para executar, basta estar na pasta /sueca e digitar:
 python main.py
+
+Para desativar o ambiente virtual:
+deactivate
