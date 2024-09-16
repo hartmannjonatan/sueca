@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 from PIL import Image, ImageTk
 
 class TelaJogo:
@@ -60,9 +61,12 @@ class TelaJogo:
         self.nome_jogador1 = ImageTk.PhotoImage(nome_jogador1)
 
         self.canvas.create_image(600, 600, anchor="center", image=self.imagem_slot_cartas)
-        self.canvas.create_image(180, 605, anchor="center", image=self.imagem_carta1)
-        self.canvas.create_image(271, 605, anchor="center", image=self.imagem_carta2)
+        self.carta1 = self.canvas.create_image(180, 605, anchor="center", image=self.imagem_carta1)
+        self.carta2 = self.canvas.create_image(271, 605, anchor="center", image=self.imagem_carta2)
         self.canvas.create_image(135, 500, anchor="nw", image=self.nome_jogador1)
+
+        self.canvas.tag_bind(self.carta1, "<Button-1>", self.mostrar_aviso)
+        self.canvas.tag_bind(self.carta2, "<Button-1>", self.mostrar_aviso)
     
     def criar_area_jogador_2(self):
         bolo_cartas = Image.open("images/tela_jogo/cardsstack.png")
@@ -85,7 +89,6 @@ class TelaJogo:
         nome_jogador3 = Image.open("images/tela_jogo/playertag.png")
         nome_jogador3 = nome_jogador3.resize((180, 30), Image.LANCZOS)
         self.nome_jogador3 = ImageTk.PhotoImage(nome_jogador3)
-
 
         self.canvas.create_image(600, 100, anchor="center", image=self.bolo_cartas_jogador_3)
         self.canvas.create_image(600, 185, anchor="center", image=self.nome_jogador3)
@@ -237,3 +240,6 @@ class TelaJogo:
 
     def click_botao_fechar(self, event):
         pass
+
+    def mostrar_aviso(self, event):
+        messagebox.showwarning("Aviso", "Você clicou em uma carta!")
