@@ -24,8 +24,9 @@ class TelaJogo:
         self.criar_area_jogador_2()
         self.criar_area_jogador_3()
         self.criar_area_jogador_4()
-        self.criar_frame_jogador_atual()
         self.criar_area_de_jogo()
+        self.criar_frame_jogador_atual()
+        self.criar_botoes_menu()
         
     def configurar_background(self):
         largura = 1200
@@ -50,7 +51,7 @@ class TelaJogo:
         imagem_carta1 = imagem_carta1.resize((82, 115), Image.LANCZOS)
         self.imagem_carta1 = ImageTk.PhotoImage(imagem_carta1)
 
-        imagem_carta2 = Image.open("images/tela_jogo/cartas/dama_copas.png")
+        imagem_carta2 = Image.open("images/tela_jogo/cartas/a_espadas.png")
         imagem_carta2 = imagem_carta2.resize((82, 115), Image.LANCZOS)
         self.imagem_carta2 = ImageTk.PhotoImage(imagem_carta2)
 
@@ -122,6 +123,10 @@ class TelaJogo:
         slot_carta_jogador2 = slot_carta_jogador1.resize((96, 125), Image.LANCZOS)
         self.slot_carta_jogador2 = ImageTk.PhotoImage(slot_carta_jogador2)
 
+        carta_jogador2 = Image.open("images/tela_jogo/cartas/dama_copas.png")
+        carta_jogador2 = carta_jogador2.resize((82, 115), Image.LANCZOS)
+        self.carta_jogador2 = ImageTk.PhotoImage(carta_jogador2)
+
         slot_carta_jogador3 = Image.open("images/tela_jogo/singlecardslot.png")
         slot_carta_jogador3 = slot_carta_jogador1.resize((96, 125), Image.LANCZOS)
         self.slot_carta_jogador3 = ImageTk.PhotoImage(slot_carta_jogador3)
@@ -133,10 +138,102 @@ class TelaJogo:
         self.canvas.create_image(600, 465, anchor="center", image=self.slot_carta_jogador1)
         self.canvas.create_image(597, 465, anchor="center", image=self.carta_jogador1)
 
-        self.canvas.create_image(450, 350, anchor="center", image=self.slot_carta_jogador2)
+        self.canvas.create_image(750, 350, anchor="center", image=self.slot_carta_jogador2)
+        self.canvas.create_image(747, 350, anchor="center", image=self.carta_jogador2)
 
         self.canvas.create_image(600, 275, anchor="center", image=self.slot_carta_jogador3)
 
-        self.canvas.create_image(750, 350, anchor="center", image=self.slot_carta_jogador4)
-        
+        self.canvas.create_image(450, 350, anchor="center", image=self.slot_carta_jogador4)
+    
+    def criar_botoes_menu(self):
+        imagem_botao_naipe_rodada = Image.open("images/tela_jogo/botoes/botao_copas.png")
+        imagem_botao_naipe_rodada = imagem_botao_naipe_rodada.resize((50, 50), Image.LANCZOS)
+        self.img_botao_naipe_rodada = ImageTk.PhotoImage(imagem_botao_naipe_rodada)
 
+        self.botao_naipe_rodada = self.canvas.create_image(980, 40, image=self.img_botao_naipe_rodada)
+
+        self.canvas.tag_bind(self.botao_naipe_rodada, "<Button-1>", self.click_botao_naipe)
+        self.canvas.tag_bind(self.botao_naipe_rodada, "<Enter>", self.on_hover_botao_naipe)
+        self.canvas.tag_bind(self.botao_naipe_rodada, "<Leave>", self.saida_botao_naipe)
+
+        imagem_botao_pontuacao = Image.open("images/tela_jogo/botoes/botao_pontuacao.png")
+        imagem_botao_pontuacao = imagem_botao_pontuacao.resize((50, 50), Image.LANCZOS)
+        self.img_botao_pontuacao = ImageTk.PhotoImage(imagem_botao_pontuacao)
+
+        self.botao_pontuacao = self.canvas.create_image(1040, 40, image=self.img_botao_pontuacao)
+
+        self.canvas.tag_bind(self.botao_pontuacao, "<Button-1>", self.click_botao_pontuacao)
+        self.canvas.tag_bind(self.botao_pontuacao, "<Enter>", self.on_hover_botao_pontuacao)
+        self.canvas.tag_bind(self.botao_pontuacao, "<Leave>", self.saida_botao_pontuacao)
+
+        imagem_botao_regras = Image.open("images/tela_jogo/botoes/botao_regras.png")
+        imagem_botao_regras = imagem_botao_regras.resize((50, 50), Image.LANCZOS)
+        self.img_botao_regras = ImageTk.PhotoImage(imagem_botao_regras)
+
+        self.botao_regras = self.canvas.create_image(1100, 40, image=self.img_botao_regras)
+
+        self.canvas.tag_bind(self.botao_regras, "<Button-1>", self.click_botao_regras)
+        self.canvas.tag_bind(self.botao_regras, "<Enter>", self.on_hover_botao_regras)
+        self.canvas.tag_bind(self.botao_regras, "<Leave>", self.saida_botao_regras)
+
+        imagem_botao_fechar = Image.open("images/tela_jogo/botoes/botao_fechar.png")
+        imagem_botao_fechar = imagem_botao_fechar.resize((50, 50), Image.LANCZOS)
+        self.img_botao_fechar = ImageTk.PhotoImage(imagem_botao_fechar)
+
+        self.botao_fechar = self.canvas.create_image(1160, 40, image=self.img_botao_fechar)
+
+        self.canvas.tag_bind(self.botao_fechar, "<Button-1>", self.click_botao_fechar)
+        self.canvas.tag_bind(self.botao_fechar, "<Enter>", self.on_hover_botao_fechar)
+        self.canvas.tag_bind(self.botao_fechar, "<Leave>", self.saida_botao_fechar)
+
+    def on_hover_botao_naipe(self, event):
+        imagem_botao_naipe_rodada = Image.open("images/tela_jogo/botoes/botao_copas.png")
+        imagem_botao_naipe_rodada = imagem_botao_naipe_rodada.resize((60, 60), Image.LANCZOS)
+        self.img_botao_naipe_rodada_grande = ImageTk.PhotoImage(imagem_botao_naipe_rodada)
+
+        self.canvas.itemconfig(self.botao_naipe_rodada, image=self.img_botao_naipe_rodada_grande)
+    
+    def saida_botao_naipe(self, event):
+        self.canvas.itemconfig(self.botao_naipe_rodada, image=self.img_botao_naipe_rodada)
+
+    def click_botao_naipe(self, event):
+        pass
+
+    def on_hover_botao_pontuacao(self, event):
+        imagem_botao_pontuacao = Image.open("images/tela_jogo/botoes/botao_pontuacao.png")
+        imagem_botao_pontuacao = imagem_botao_pontuacao.resize((60, 60), Image.LANCZOS)
+        self.img_botao_pontuacao_grande = ImageTk.PhotoImage(imagem_botao_pontuacao)
+
+        self.canvas.itemconfig(self.botao_pontuacao, image=self.img_botao_pontuacao_grande)
+
+    def saida_botao_pontuacao(self, event):
+        self.canvas.itemconfig(self.botao_pontuacao, image=self.img_botao_pontuacao)
+
+    def click_botao_pontuacao(self, event):
+        pass
+
+    def on_hover_botao_regras(self, event):
+        imagem_botao_regras = Image.open("images/tela_jogo/botoes/botao_regras.png")
+        imagem_botao_regras = imagem_botao_regras.resize((60, 60), Image.LANCZOS)
+        self.img_botao_regras_grande = ImageTk.PhotoImage(imagem_botao_regras)
+
+        self.canvas.itemconfig(self.botao_regras, image=self.img_botao_regras_grande)
+
+    def saida_botao_regras(self, event):
+        self.canvas.itemconfig(self.botao_regras, image=self.img_botao_regras)
+
+    def click_botao_regras(self, event):
+        pass
+
+    def on_hover_botao_fechar(self, event):
+        imagem_botao_fechar = Image.open("images/tela_jogo/botoes/botao_fechar.png")
+        imagem_botao_fechar = imagem_botao_fechar.resize((60, 60), Image.LANCZOS)
+        self.img_botao_fechar_grande = ImageTk.PhotoImage(imagem_botao_fechar)
+
+        self.canvas.itemconfig(self.botao_fechar, image=self.img_botao_fechar_grande)
+
+    def saida_botao_fechar(self, event):
+        self.canvas.itemconfig(self.botao_fechar, image=self.img_botao_fechar)
+
+    def click_botao_fechar(self, event):
+        pass
