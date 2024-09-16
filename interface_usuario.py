@@ -48,7 +48,7 @@ class InterfaceUsuario:
 
     def on_hover_botao_jogar(self, event):
         imagem_botao = Image.open("images/tela_inicial/botao_jogar.png")
-        imagem_botao = imagem_botao.resize((220, 100), Image.LANCZOS)
+        imagem_botao = imagem_botao.resize((210, 85), Image.LANCZOS)
         self.imagem_botao_grande = ImageTk.PhotoImage(imagem_botao)
 
         self.canvas.itemconfig(self.botao_jogar, image=self.imagem_botao_grande)
@@ -188,10 +188,6 @@ class InterfaceUsuario:
 
         self.botao_naipe_rodada = self.canvas.create_image(980, 40, image=self.img_botao_naipe_rodada)
 
-        self.canvas.tag_bind(self.botao_naipe_rodada, "<Button-1>", self.click_botao_naipe)
-        self.canvas.tag_bind(self.botao_naipe_rodada, "<Enter>", self.on_hover_botao_naipe)
-        self.canvas.tag_bind(self.botao_naipe_rodada, "<Leave>", self.saida_botao_naipe)
-
         imagem_botao_pontuacao = Image.open("images/tela_jogo/botoes/botao_pontuacao.png")
         imagem_botao_pontuacao = imagem_botao_pontuacao.resize((50, 50), Image.LANCZOS)
         self.img_botao_pontuacao = ImageTk.PhotoImage(imagem_botao_pontuacao)
@@ -221,19 +217,6 @@ class InterfaceUsuario:
         self.canvas.tag_bind(self.botao_fechar, "<Button-1>", self.click_botao_fechar)
         self.canvas.tag_bind(self.botao_fechar, "<Enter>", self.on_hover_botao_fechar)
         self.canvas.tag_bind(self.botao_fechar, "<Leave>", self.saida_botao_fechar)
-
-    def on_hover_botao_naipe(self, event):
-        imagem_botao_naipe_rodada = Image.open("images/tela_jogo/botoes/botao_copas.png")
-        imagem_botao_naipe_rodada = imagem_botao_naipe_rodada.resize((60, 60), Image.LANCZOS)
-        self.img_botao_naipe_rodada_grande = ImageTk.PhotoImage(imagem_botao_naipe_rodada)
-
-        self.canvas.itemconfig(self.botao_naipe_rodada, image=self.img_botao_naipe_rodada_grande)
-    
-    def saida_botao_naipe(self, event):
-        self.canvas.itemconfig(self.botao_naipe_rodada, image=self.img_botao_naipe_rodada)
-
-    def click_botao_naipe(self, event):
-        pass
 
     def on_hover_botao_pontuacao(self, event):
         imagem_botao_pontuacao = Image.open("images/tela_jogo/botoes/botao_pontuacao.png")
