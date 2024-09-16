@@ -6,19 +6,58 @@ class TelaJogo:
 
     def __init__(self):
         self.janela_principal = Tk()
-        self.configurar_janela()
+
+        self.configurar_tela_inicial()
+
         self.janela_principal.mainloop()
 
-    def configurar_janela(self):
+    def configurar_tela_inicial(self):
+        largura = 1200
+        altura = 700
+        
         self.janela_principal.title("Sueca")
         self.janela_principal.geometry("1200x700")
         self.janela_principal.resizable(False, False)
 
-        largura = 1200
-        altura = 700
+        imagem_fundo = Image.open("images/tela_inicial/background.png")
+        imagem_fundo = imagem_fundo.resize((largura, altura), Image.LANCZOS)
+        
+        self.imagem_fundo_inicial = ImageTk.PhotoImage(imagem_fundo)
+
+        self.canvas = Canvas(self.janela_principal, width=largura, height=altura)
+        self.canvas.pack(fill="both", expand=True)
+        
+        self.canvas.create_image(0, 0, anchor="nw", image=self.imagem_fundo_inicial)
+       
         x = (self.janela_principal.winfo_screenwidth() // 2) - (largura // 2)
         y = (self.janela_principal.winfo_screenheight() // 2) - (altura // 2) - 10
         self.janela_principal.geometry(f"{largura}x{altura}+{x}+{y}")
+
+        imagem_botao = Image.open("images/tela_inicial/botao_jogar.png")
+        imagem_botao = imagem_botao.resize((200, 80), Image.LANCZOS)
+        self.imagem_botao = ImageTk.PhotoImage(imagem_botao)
+
+        self.botao_jogar = self.canvas.create_image(600, 450, anchor="center", image=self.imagem_botao)
+
+        self.canvas.tag_bind(self.botao_jogar, "<Button-1>", self.iniciar_jogo)
+        self.canvas.tag_bind(self.botao_jogar, "<Enter>", self.on_hover_botao_jogar)
+        self.canvas.tag_bind(self.botao_jogar, "<Leave>", self.saida_botao_jogar)
+
+    def iniciar_jogo(self, event):
+        self.configurar_janela_jogo()
+
+    def on_hover_botao_jogar(self, event):
+        imagem_botao = Image.open("images/tela_inicial/botao_jogar.png")
+        imagem_botao = imagem_botao.resize((220, 100), Image.LANCZOS)
+        self.imagem_botao_grande = ImageTk.PhotoImage(imagem_botao)
+
+        self.canvas.itemconfig(self.botao_jogar, image=self.imagem_botao_grande)
+
+    def saida_botao_jogar(self, event):
+        self.canvas.itemconfig(self.botao_jogar, image=self.imagem_botao)
+
+    def configurar_janela_jogo(self):
+        self.canvas.delete("all")
 
         self.configurar_background()
         self.criar_area_jogador_1()
@@ -30,19 +69,13 @@ class TelaJogo:
         self.criar_botoes_menu()
         
     def configurar_background(self):
-        largura = 1200
-        altura = 700
-
         imagem_fundo = Image.open("images/tela_jogo/background.png")
-        imagem_fundo = imagem_fundo.resize((largura, altura), Image.LANCZOS)
+        imagem_fundo = imagem_fundo.resize((1200, 700), Image.LANCZOS)
         
-        self.imagem_fundo_tk = ImageTk.PhotoImage(imagem_fundo)
+        self.imagem_fundo_jogo = ImageTk.PhotoImage(imagem_fundo)
 
-        self.canvas = Canvas(self.janela_principal, width=largura, height=altura)
-        self.canvas.pack(fill="both", expand=True)
-        
-        self.canvas.create_image(0, 0, anchor="nw", image=self.imagem_fundo_tk)
-        
+        self.canvas.create_image(0, 0, anchor="nw", image=self.imagem_fundo_jogo)
+    
     def criar_area_jogador_1(self):
         imagem_slot_cartas = Image.open("images/tela_jogo/cardsslot.png")
         imagem_slot_cartas = imagem_slot_cartas.resize((1100, 153), Image.LANCZOS)
