@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 from PIL import Image, ImageTk
 
-class TelaJogo:
+class InterfaceUsuario:
 
     def __init__(self):
         self.janela_principal = Tk()
