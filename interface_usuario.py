@@ -186,13 +186,13 @@ class InterfaceUsuario:
         imagem_botao_naipe_rodada = imagem_botao_naipe_rodada.resize((50, 50), Image.LANCZOS)
         self.img_botao_naipe_rodada = ImageTk.PhotoImage(imagem_botao_naipe_rodada)
 
-        self.botao_naipe_rodada = self.canvas.create_image(980, 40, image=self.img_botao_naipe_rodada)
+        self.botao_naipe_rodada = self.canvas.create_image(1040, 40, image=self.img_botao_naipe_rodada)
 
         imagem_botao_pontuacao = Image.open("images/tela_jogo/botoes/botao_pontuacao.png")
         imagem_botao_pontuacao = imagem_botao_pontuacao.resize((50, 50), Image.LANCZOS)
         self.img_botao_pontuacao = ImageTk.PhotoImage(imagem_botao_pontuacao)
 
-        self.botao_pontuacao = self.canvas.create_image(1040, 40, image=self.img_botao_pontuacao)
+        self.botao_pontuacao = self.canvas.create_image(1100, 40, image=self.img_botao_pontuacao)
 
         self.canvas.tag_bind(self.botao_pontuacao, "<Button-1>", self.click_botao_pontuacao)
         self.canvas.tag_bind(self.botao_pontuacao, "<Enter>", self.on_hover_botao_pontuacao)
@@ -202,21 +202,11 @@ class InterfaceUsuario:
         imagem_botao_regras = imagem_botao_regras.resize((50, 50), Image.LANCZOS)
         self.img_botao_regras = ImageTk.PhotoImage(imagem_botao_regras)
 
-        self.botao_regras = self.canvas.create_image(1100, 40, image=self.img_botao_regras)
+        self.botao_regras = self.canvas.create_image(1160, 40, image=self.img_botao_regras)
 
         self.canvas.tag_bind(self.botao_regras, "<Button-1>", self.click_botao_regras)
         self.canvas.tag_bind(self.botao_regras, "<Enter>", self.on_hover_botao_regras)
         self.canvas.tag_bind(self.botao_regras, "<Leave>", self.saida_botao_regras)
-
-        imagem_botao_fechar = Image.open("images/tela_jogo/botoes/botao_fechar.png")
-        imagem_botao_fechar = imagem_botao_fechar.resize((50, 50), Image.LANCZOS)
-        self.img_botao_fechar = ImageTk.PhotoImage(imagem_botao_fechar)
-
-        self.botao_fechar = self.canvas.create_image(1160, 40, image=self.img_botao_fechar)
-
-        self.canvas.tag_bind(self.botao_fechar, "<Button-1>", self.click_botao_fechar)
-        self.canvas.tag_bind(self.botao_fechar, "<Enter>", self.on_hover_botao_fechar)
-        self.canvas.tag_bind(self.botao_fechar, "<Leave>", self.saida_botao_fechar)
 
     def on_hover_botao_pontuacao(self, event):
         imagem_botao_pontuacao = Image.open("images/tela_jogo/botoes/botao_pontuacao.png")
@@ -242,19 +232,6 @@ class InterfaceUsuario:
         self.canvas.itemconfig(self.botao_regras, image=self.img_botao_regras)
 
     def click_botao_regras(self, event):
-        pass
-
-    def on_hover_botao_fechar(self, event):
-        imagem_botao_fechar = Image.open("images/tela_jogo/botoes/botao_fechar.png")
-        imagem_botao_fechar = imagem_botao_fechar.resize((60, 60), Image.LANCZOS)
-        self.img_botao_fechar_grande = ImageTk.PhotoImage(imagem_botao_fechar)
-
-        self.canvas.itemconfig(self.botao_fechar, image=self.img_botao_fechar_grande)
-
-    def saida_botao_fechar(self, event):
-        self.canvas.itemconfig(self.botao_fechar, image=self.img_botao_fechar)
-
-    def click_botao_fechar(self, event):
         pass
 
     def mostrar_aviso(self, event):
