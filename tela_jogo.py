@@ -171,7 +171,7 @@ class TelaJogo:
         self.canvas.itemconfig(self.botao_pontuacao, image=self.img_botao_pontuacao)
 
     def click_botao_pontuacao(self, event):
-        pass
+        messagebox.showwarning("Pontuação", "Você clicou no botão de pontuação!")
 
     def on_hover_botao_regras(self, event):
         imagem_botao_regras = Image.open("images/tela_jogo/botoes/botao_regras.png")
@@ -184,7 +184,7 @@ class TelaJogo:
         self.canvas.itemconfig(self.botao_regras, image=self.img_botao_regras)
 
     def click_botao_regras(self, event):
-        pass
+        messagebox.showwarning("Regras do Jogo", "Você clicou no botão de regras do jogo!")
 
     def mostrar_aviso(self, event):
         messagebox.showwarning("Aviso", "Você clicou em uma carta!")
