@@ -2,11 +2,17 @@ from tkinter import *
 from tkinter import messagebox
 from PIL import Image, ImageTk
 
+from tela_instrucao import TelaInstrucao
+from tela_pontuacao import TelaPontuacao
+
 class TelaJogo:
 
     def __init__(self, janela_principal, canvas):
         self.janela_principal = janela_principal
         self.canvas = canvas
+
+        self.tela_instrucao = TelaInstrucao()
+        self.tela_pontuacao = TelaPontuacao()
     
     def configurar_tela(self):
         self.canvas.delete("all")
@@ -171,7 +177,7 @@ class TelaJogo:
         self.canvas.itemconfig(self.botao_pontuacao, image=self.img_botao_pontuacao)
 
     def click_botao_pontuacao(self, event):
-        messagebox.showwarning("Pontuação", "Você clicou no botão de pontuação!")
+        self.tela_pontuacao.abrir_tela()
 
     def on_hover_botao_regras(self, event):
         imagem_botao_regras = Image.open("images/tela_jogo/botoes/botao_regras.png")
@@ -184,7 +190,7 @@ class TelaJogo:
         self.canvas.itemconfig(self.botao_regras, image=self.img_botao_regras)
 
     def click_botao_regras(self, event):
-        messagebox.showwarning("Regras do Jogo", "Você clicou no botão de regras do jogo!")
+        self.tela_instrucao.abrir_tela()
 
     def mostrar_aviso(self, event):
         messagebox.showwarning("Aviso", "Você clicou em uma carta!")
