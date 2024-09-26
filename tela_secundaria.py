@@ -11,7 +11,7 @@ class TelaSecundaria(ABC):
         self.tela.withdraw()
         self.configurar_tela()
 
-        self.tela.protocol("WM_DELETE_WINDOW", self.fechar_janela)
+        self.tela.protocol("WM_DELETE_WINDOW", self.fechar_tela)
 
     @abstractmethod
     def configurar_tela(self):
@@ -20,6 +20,6 @@ class TelaSecundaria(ABC):
     def abrir_tela(self):
         self.tela.deiconify()
     
-    def fechar_janela(self):
+    def fechar_tela(self):
         self.tela.withdraw()
     
