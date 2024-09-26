@@ -26,7 +26,6 @@ class InterfaceJogador:
         self.tela_input_nome.abrir_tela()
         self.janela_principal.focus_force()
 
-
     def iniciar_jogo(self):
         self.tela_jogo.configurar_tela()
 
