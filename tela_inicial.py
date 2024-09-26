@@ -52,3 +52,4 @@ class TelaInicial:
 
     def saida_botao(self, event):
         self.canvas.itemconfig(self.botao_jogar, image=self.imagem_botao)
+    
