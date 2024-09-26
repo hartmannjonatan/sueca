@@ -19,7 +19,7 @@ class TelaPontuacao(TelaSecundaria):
         y = (self.tela.winfo_screenheight() // 2) - (400 // 2) - 10
         self.tela.geometry(f"600x400+{x}+{y}")
 
-        imagem_fundo = Image.open("images/tela_pontuacao/imagem_pontuacao2.png")
+        imagem_fundo = Image.open("images/tela_pontuacao/imagem_pontuacao.png")
         imagem_fundo = imagem_fundo.resize((600, 400))
 
         self.imagem_fundo = ImageTk.PhotoImage(imagem_fundo)
