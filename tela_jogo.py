@@ -33,7 +33,8 @@ class TelaJogo:
         self.imagem_fundo_jogo = ImageTk.PhotoImage(imagem_fundo)
 
         self.canvas.create_image(0, 0, anchor="nw", image=self.imagem_fundo_jogo)
-    
+        self.canvas.config(cursor="")
+
     def criar_area_jogador_1(self):
         imagem_slot_cartas = Image.open("images/tela_jogo/cardsslot.png")
         imagem_slot_cartas = imagem_slot_cartas.resize((1100, 153), Image.LANCZOS)
@@ -48,7 +49,7 @@ class TelaJogo:
         self.imagem_carta2 = ImageTk.PhotoImage(imagem_carta2)
 
         nome_jogador1 = Image.open("images/tela_jogo/playertag.png")
-        nome_jogador1 = nome_jogador1.resize((180, 30), Image.LANCZOS)
+        nome_jogador1 = nome_jogador1.resize((180, 35), Image.LANCZOS)
         self.nome_jogador1 = ImageTk.PhotoImage(nome_jogador1)
 
         self.canvas.create_image(600, 600, anchor="center", image=self.imagem_slot_cartas)
@@ -57,7 +58,15 @@ class TelaJogo:
         self.canvas.create_image(135, 500, anchor="nw", image=self.nome_jogador1)
 
         self.canvas.tag_bind(self.carta1, "<Button-1>", self.mostrar_aviso)
+        self.canvas.tag_bind(self.carta1, "<Enter>", self.on_hover_carta)
+        self.canvas.tag_bind(self.carta1, "<Leave>", self.saida_carta)
+
         self.canvas.tag_bind(self.carta2, "<Button-1>", self.mostrar_aviso)
+        self.canvas.tag_bind(self.carta2, "<Enter>", self.on_hover_carta)
+        self.canvas.tag_bind(self.carta2, "<Leave>", self.saida_carta)
+
+        self.label_jogador1 = Label(self.janela_principal, text="Rodrigo", font=("Arial", 14), bg="#F2B035")
+        self.label_jogador1.place(anchor="nw", x=140, y=505)
     
     def criar_area_jogador_2(self):
         bolo_cartas = Image.open("images/tela_jogo/cardsstack.png")
@@ -66,11 +75,14 @@ class TelaJogo:
         self.bolo_cartas_jogador_2 = ImageTk.PhotoImage(bolo_cartas)
 
         nome_jogador2 = Image.open("images/tela_jogo/playertag.png")
-        nome_jogador2 = nome_jogador2.resize((180, 30), Image.LANCZOS)
+        nome_jogador2 = nome_jogador2.resize((180, 35), Image.LANCZOS)
         self.nome_jogador2 = ImageTk.PhotoImage(nome_jogador2)
 
         self.canvas.create_image(1100, 350, anchor="center", image=self.bolo_cartas_jogador_2)
         self.canvas.create_image(1190, 228, anchor="ne", image=self.nome_jogador2)
+
+        self.label_jogador2 = Label(self.janela_principal, text="Jonathan", font=("Arial", 14), bg="#F2B035")
+        self.label_jogador2.place(anchor="nw", x=1015, y=233)
     
     def criar_area_jogador_3(self):
         bolo_cartas = Image.open("images/tela_jogo/cardsstack.png")
@@ -78,11 +90,14 @@ class TelaJogo:
         self.bolo_cartas_jogador_3 = ImageTk.PhotoImage(bolo_cartas)
 
         nome_jogador3 = Image.open("images/tela_jogo/playertag.png")
-        nome_jogador3 = nome_jogador3.resize((180, 30), Image.LANCZOS)
+        nome_jogador3 = nome_jogador3.resize((180, 35), Image.LANCZOS)
         self.nome_jogador3 = ImageTk.PhotoImage(nome_jogador3)
 
         self.canvas.create_image(600, 100, anchor="center", image=self.bolo_cartas_jogador_3)
         self.canvas.create_image(600, 185, anchor="center", image=self.nome_jogador3)
+
+        self.label_jogador2 = Label(self.janela_principal, text="Henrique", font=("Arial", 14), bg="#F2B035")
+        self.label_jogador2.place(anchor="nw", x=515, y=173)
     
     def criar_area_jogador_4(self):
         bolo_cartas = Image.open("images/tela_jogo/cardsstack.png")
@@ -91,18 +106,23 @@ class TelaJogo:
         self.bolo_cartas_jogador_4 = ImageTk.PhotoImage(bolo_cartas)
 
         nome_jogador4 = Image.open("images/tela_jogo/playertag.png")
-        nome_jogador4 = nome_jogador4.resize((180, 30), Image.LANCZOS)
+        nome_jogador4 = nome_jogador4.resize((180, 35), Image.LANCZOS)
         self.nome_jogador4 = ImageTk.PhotoImage(nome_jogador4)
 
         self.canvas.create_image(100, 350, anchor="center", image=self.bolo_cartas_jogador_4)
         self.canvas.create_image(10, 228, anchor="nw", image=self.nome_jogador4)
 
+        self.label_jogador2 = Label(self.janela_principal, text="Ricardo", font=("Arial", 14), bg="#F2B035")
+        self.label_jogador2.place(anchor="nw", x=15, y=233)
+
     def criar_frame_jogador_atual(self):
         frame_jogador_atual = Image.open("images/tela_jogo/actualplayer.png")
-        frame_jogador_atual = frame_jogador_atual.resize((350, 30), Image.LANCZOS)
+        frame_jogador_atual = frame_jogador_atual.resize((350, 40), Image.LANCZOS)
         self.frame_jogador_atual = ImageTk.PhotoImage(frame_jogador_atual)
 
         self.canvas.create_image(10, 15, anchor="nw", image=self.frame_jogador_atual)
+        self.label_jogador_atual = Label(self.janela_principal, text="Aguarde, vez de Henrique...", font=("Arial", 14), bg="#f2f2f2")
+        self.label_jogador_atual.place(anchor="nw", x=15, y=20)
         
     def criar_area_de_jogo(self):
         slot_carta_jogador1 = Image.open("images/tela_jogo/singlecardslot.png")
@@ -172,9 +192,11 @@ class TelaJogo:
         self.img_botao_pontuacao_grande = ImageTk.PhotoImage(imagem_botao_pontuacao)
 
         self.canvas.itemconfig(self.botao_pontuacao, image=self.img_botao_pontuacao_grande)
+        self.canvas.config(cursor="hand2")
 
     def saida_botao_pontuacao(self, event):
         self.canvas.itemconfig(self.botao_pontuacao, image=self.img_botao_pontuacao)
+        self.canvas.config(cursor="")
 
     def click_botao_pontuacao(self, event):
         self.tela_pontuacao.abrir_tela()
@@ -185,12 +207,20 @@ class TelaJogo:
         self.img_botao_regras_grande = ImageTk.PhotoImage(imagem_botao_regras)
 
         self.canvas.itemconfig(self.botao_regras, image=self.img_botao_regras_grande)
+        self.canvas.config(cursor="hand2")
 
     def saida_botao_regras(self, event):
         self.canvas.itemconfig(self.botao_regras, image=self.img_botao_regras)
+        self.canvas.config(cursor="")
 
     def click_botao_regras(self, event):
         self.tela_instrucao.abrir_tela()
 
     def mostrar_aviso(self, event):
         messagebox.showwarning("Aviso", "Você clicou em uma carta!")
+    
+    def on_hover_carta(self, event):
+        self.canvas.config(cursor="hand2")
+    
+    def saida_carta(self, event):
+        self.canvas.config(cursor="")

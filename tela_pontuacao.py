@@ -29,16 +29,16 @@ class TelaPontuacao(TelaSecundaria):
         self.canvas.create_image(0, 0, anchor="nw", image=self.imagem_fundo)
 
         self.nome_jogador1 = Label(self.tela, text="Rodrigo e", font=("Arial", 18), bg="#D9D9D9", fg="#0E400D")
-        self.nome_jogador2 = Label(self.tela, text="Henrique", font=("Arial", 18), bg="#D9D9D9", fg="#0E400D")
-        self.nome_jogador3 = Label(self.tela, text="Jonathan", font=("Arial", 18), bg="#D9D9D9", fg="#0E400D")
+        self.nome_jogador3 = Label(self.tela, text="Henrique", font=("Arial", 18), bg="#D9D9D9", fg="#0E400D")
+        self.nome_jogador2 = Label(self.tela, text="Jonathan", font=("Arial", 18), bg="#D9D9D9", fg="#0E400D")
         self.nome_jogador4 = Label(self.tela, text="Ricardo", font=("Arial", 18), bg="#D9D9D9", fg="#0E400D")
         
         self.pontuacao_dupla1 = Label(self.tela, text="52", font=("Arial", 22), bg="#D9D9D9", fg="#0E400D")
         self.pontuacao_dupla2 = Label(self.tela, text="20", font=("Arial", 22), bg="#D9D9D9", fg="#0E400D")
 
         self.nome_jogador1.place(anchor="center", x=270, y=115)
-        self.nome_jogador2.place(anchor="center", x=270, y=145)
-        self.nome_jogador3.place(anchor="center", x=480, y=115)
+        self.nome_jogador3.place(anchor="center", x=270, y=145)
+        self.nome_jogador2.place(anchor="center", x=480, y=115)
         self.nome_jogador4.place(anchor="center", x=480, y=145)
 
         self.pontuacao_dupla1.place(anchor="center", x=270, y=200)

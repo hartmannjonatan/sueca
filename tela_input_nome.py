@@ -61,6 +61,9 @@ class TelaInputNome(TelaSecundaria):
         self.imagem_botao_grande = ImageTk.PhotoImage(imagem_botao_grande)
 
         self.canvas.itemconfig(self.botao, image=self.imagem_botao_grande)
+        self.canvas.config(cursor="hand2")
+
     
     def saida_botao(self, event):
         self.canvas.itemconfig(self.botao, image=self.imagem_botao)
+        self.canvas.config(cursor="")
