@@ -1,4 +1,4 @@
-from interface_usuario import InterfaceUsuario
+from interface_jogador import InterfaceJogador
 
 if __name__ == "__main__":
-    tela_jogo = InterfaceUsuario()
+    tela_jogo = InterfaceJogador()

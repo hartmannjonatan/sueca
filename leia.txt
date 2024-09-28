@@ -4,7 +4,7 @@ Criando e ativando o ambiente virtual:
 python -m venv venv
 
 # ativa o ambiente virtual
-source venv\Scripts\activate  # Para Linux/macOS
+source venv\bin\activate  # Para Linux/macOS
 # ou
 source venv\Scripts\Activate  # Para Windows
 
