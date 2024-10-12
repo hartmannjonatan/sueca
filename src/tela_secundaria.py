@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from tkinter import *
 import tkinter as tk
 
+
 class TelaSecundaria(ABC):
 
     def __init__(self):

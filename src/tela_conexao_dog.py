@@ -4,12 +4,15 @@ from PIL import Image, ImageTk
 
 from tela_secundaria import TelaSecundaria
 
-class TelaInputNome(TelaSecundaria):
-    def __init__(self):
+
+class TelaConexaoDOG(TelaSecundaria):
+    def __init__(self, interface_jogador, dog_actor):
         super().__init__()
+        self.dog_actor = dog_actor
+        self.interface_jogador = interface_jogador
     
     def configurar_tela(self):
-        self.tela.title("Insira seu nome")
+        self.tela.title("Conectar ao DOG Server")
         self.tela.resizable(False, False)
 
         self.tela.attributes("-topmost", True)
@@ -22,11 +25,11 @@ class TelaInputNome(TelaSecundaria):
         y = (self.tela.winfo_screenheight() // 2) - (200 // 2) - 10
         self.tela.geometry(f"400x200+{x}+{y}")
 
-        imagem_fundo = Image.open("images/tela_input_nome/imagem_fundo.png")
+        imagem_fundo = Image.open("images/tela_conexao_dog/imagem_fundo.png")
         imagem_fundo = imagem_fundo.resize((400, 200))
         self.imagem_fundo = ImageTk.PhotoImage(imagem_fundo)
 
-        imagem_botao = Image.open("images/tela_input_nome/botao_conectar.png")
+        imagem_botao = Image.open("images/tela_conexao_dog/botao_conectar.png")
         imagem_botao = imagem_botao.resize((105, 44))
         self.imagem_botao = ImageTk.PhotoImage(imagem_botao)
 
@@ -45,25 +48,42 @@ class TelaInputNome(TelaSecundaria):
         self.canvas.tag_bind(self.botao, "<Leave>",  self.saida_botao)
     
     def fechar_tela(self):
+        self.nome_jogador = "Jogador Default"
+
         self.tela.grab_release()
-        self.tela.destroy()
+        self.tela.withdraw()
+
+        self.conectar_ao_dog()
+        self.interface_jogador.analisar_mensagem_dog(self.mensagem_dog)
     
     def limpar_input(self, event):
         if self.input_nome.get() == 'Digite seu nome...':
             self.input_nome.delete(0, "end")
         
     def acao_botao(self, event):
-        self.fechar_tela()
+        self.nome_jogador = self.input_nome.get()
+
+        self.tela.grab_release()
+        self.tela.withdraw()
+
+        self.conectar_ao_dog()
+        self.interface_jogador.analisar_mensagem_dog(self.mensagem_dog)
+
     
     def on_hover_botao(self, event):
-        imagem_botao_grande = Image.open("images/tela_input_nome/botao_conectar.png")
+        imagem_botao_grande = Image.open("images/tela_conexao_dog/botao_conectar.png")
         imagem_botao_grande = imagem_botao_grande.resize((125, 50))
         self.imagem_botao_grande = ImageTk.PhotoImage(imagem_botao_grande)
 
         self.canvas.itemconfig(self.botao, image=self.imagem_botao_grande)
         self.canvas.config(cursor="hand2")
-
     
     def saida_botao(self, event):
         self.canvas.itemconfig(self.botao, image=self.imagem_botao)
         self.canvas.config(cursor="")
+ 
+    def conectar_ao_dog(self):
+        try:
+            self.mensagem_dog = self.dog_actor.initialize(self.nome_jogador, self.dog_actor)
+        except:
+            self.mensagem_dog = "Erro"

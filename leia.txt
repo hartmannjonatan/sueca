@@ -1,3 +1,6 @@
+primeiramente, vá para a pasta src 
+cd src
+
 Criando e ativando o ambiente virtual:
 
 # cria o ambiente virtual (pasta venv)
@@ -6,10 +9,10 @@ python -m venv venv
 # ativa o ambiente virtual
 source venv\bin\activate  # Para Linux/macOS
 # ou
-source venv\Scripts\Activate  # Para Windows
+source venv/Scripts/Activate  # Para Windows
 
 # instala todas as dependências necessárias para rodar o programa
-pip install -r requirements.txt
+pip install -r ../requirements.txt
 
 para executar, basta estar na pasta /sueca e digitar:
 python3 main.py # Para Linux/macOS
