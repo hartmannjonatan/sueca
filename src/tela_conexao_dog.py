@@ -6,9 +6,8 @@ from tela_secundaria import TelaSecundaria
 
 
 class TelaConexaoDOG(TelaSecundaria):
-    def __init__(self, interface_jogador, dog_actor):
+    def __init__(self, interface_jogador):
         super().__init__()
-        self.dog_actor = dog_actor
         self.interface_jogador = interface_jogador
     
     def configurar_tela(self):
@@ -84,6 +83,6 @@ class TelaConexaoDOG(TelaSecundaria):
  
     def conectar_ao_dog(self):
         try:
-            self.mensagem_dog = self.dog_actor.initialize(self.nome_jogador, self.dog_actor)
+            self.mensagem_dog = self.interface_jogador.dog_server_interface.initialize(self.nome_jogador, self.interface_jogador.dog_server_interface)
         except:
             self.mensagem_dog = "Não conectado a Dog Server"

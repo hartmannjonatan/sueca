@@ -23,7 +23,7 @@ class InterfaceJogador(DogPlayerInterface):
         self.tela_inicial = TelaInicial(self.janela_principal, self.canvas, self)
         self.tela_jogo = TelaJogo(self.janela_principal, self.canvas)
         self.dog_server_interface = DogActor()
-        self.tela_input_nome = TelaConexaoDOG(self, self.dog_server_interface)
+        self.tela_input_nome = TelaConexaoDOG(self)
         self.tela_conectado = TelaConectado()
         self.tela_conexao_falhou = TelaConexaoFalhou()
         self.tela_jogadores_insuficientes = TelaJogadoresInsuficientes()
@@ -43,16 +43,23 @@ class InterfaceJogador(DogPlayerInterface):
     def analisar_mensagem_dog(self, mensagem):
         if mensagem == "Conectado a Dog Server":
             self.tela_conectado.abrir_tela()
-            self.tela_inicial.canvas.itemconfig(self.tela_inicial.botao_jogar, state = "normal")
+            self.tela_inicial.canvas.itemconfig(self.tela_inicial.botao_jogar, state="normal")
         elif mensagem == "Não conectado a Dog Server":
             self.tela_conexao_falhou.abrir_tela()
         elif mensagem == "Jogadores insuficientes":
             self.tela_jogadores_insuficientes.abrir_tela()
     
     def iniciar_partida(self):
-        status_inicio = self.dog_server_interface.start_match(4)
+        status_inicio = self.dog_server_interface.start_match(2)
         mensagem = status_inicio.get_message()
-        self.analisar_mensagem_dog(mensagem)
+        print(mensagem)
+
+    
+    def receive_start(self, start_status):
+        mensagem = start_status.get_message()
+        print(mensagem)
+
+    
 
 
     
