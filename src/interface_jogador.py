@@ -1,7 +1,4 @@
 from tkinter import *
-from tkinter import simpledialog
-
-from PIL import Image, ImageTk
 
 from dog.dog_interface import DogPlayerInterface
 from dog.dog_actor import DogActor
@@ -12,6 +9,7 @@ from tela_conectado import TelaConectado
 from tela_conexao_dog import TelaConexaoDOG
 from tela_conexao_falhou import TelaConexaoFalhou
 from tela_jogadores_insuficientes import TelaJogadoresInsuficientes
+from tela_recebimento_partida import TelaRecebimentoPartida
 
 
 class InterfaceJogador(DogPlayerInterface):
@@ -27,6 +25,7 @@ class InterfaceJogador(DogPlayerInterface):
         self.tela_conectado = TelaConectado()
         self.tela_conexao_falhou = TelaConexaoFalhou()
         self.tela_jogadores_insuficientes = TelaJogadoresInsuficientes()
+        self.tela_recebimento_partida = TelaRecebimentoPartida()
 
         self.configurar_tela_inicial()
 
@@ -48,16 +47,18 @@ class InterfaceJogador(DogPlayerInterface):
             self.tela_conexao_falhou.abrir_tela()
         elif mensagem == "Jogadores insuficientes":
             self.tela_jogadores_insuficientes.abrir_tela()
-    
-    def iniciar_partida(self):
-        status_inicio = self.dog_server_interface.start_match(2)
-        mensagem = status_inicio.get_message()
-        print(mensagem)
+        elif mensagem == "Partida iniciada":
+            self.tela_recebimento_partida.abrir_tela()
+            self.iniciar_jogo()
 
+    def iniciar_partida(self):
+        start_status = self.dog_server_interface.start_match(2)
+        mensagem = start_status.get_message()
+        self.analisar_mensagem_dog(mensagem)
     
     def receive_start(self, start_status):
         mensagem = start_status.get_message()
-        print(mensagem)
+        self.analisar_mensagem_dog(mensagem)
 
     
 

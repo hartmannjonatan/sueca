@@ -83,6 +83,6 @@ class TelaConexaoDOG(TelaSecundaria):
  
     def conectar_ao_dog(self):
         try:
-            self.mensagem_dog = self.interface_jogador.dog_server_interface.initialize(self.nome_jogador, self.interface_jogador.dog_server_interface)
+            self.mensagem_dog = self.interface_jogador.dog_server_interface.initialize(self.nome_jogador, self.interface_jogador)
         except:
             self.mensagem_dog = "Não conectado a Dog Server"
