@@ -86,4 +86,4 @@ class TelaConexaoDOG(TelaSecundaria):
         try:
             self.mensagem_dog = self.dog_actor.initialize(self.nome_jogador, self.dog_actor)
         except:
-            self.mensagem_dog = "Erro"
+            self.mensagem_dog = "Não conectado a Dog Server"

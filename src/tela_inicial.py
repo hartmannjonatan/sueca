@@ -3,11 +3,10 @@ from PIL import Image, ImageTk
 
 class TelaInicial:
 
-    def __init__(self, janela_principal, canvas, funcao):
+    def __init__(self, janela_principal, canvas, interface_jogador):
         self.janela_principal = janela_principal
         self.canvas = canvas
-
-        self.funcao_botao_jogar = funcao
+        self.interface_jogador = interface_jogador
 
     def configurar_tela(self):
         largura = 1200
@@ -35,13 +34,14 @@ class TelaInicial:
         self.imagem_botao = ImageTk.PhotoImage(imagem_botao)
 
         self.botao_jogar = self.canvas.create_image(600, 450, anchor="center", image=self.imagem_botao)
+        self.canvas.itemconfig(self.botao_jogar, state="disabled")
 
         self.canvas.tag_bind(self.botao_jogar, "<Button-1>", self.acao_botao)
         self.canvas.tag_bind(self.botao_jogar, "<Enter>",   self.on_hover_botao)
         self.canvas.tag_bind(self.botao_jogar, "<Leave>",  self.saida_botao)
     
     def acao_botao(self, event):
-        self.funcao_botao_jogar()
+        self.interface_jogador.iniciar_partida()
 
     def on_hover_botao(self, event):
         imagem_botao = Image.open("images/tela_inicial/botao_jogar.png")
