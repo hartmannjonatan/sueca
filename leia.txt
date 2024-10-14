@@ -17,7 +17,11 @@ pip install -r ../requirements.txt
 para executar, basta estar na pasta /sueca e digitar:
 python3 main.py # Para Linux/macOS
 # ou
+python3 src/main.py (Caso esteja fora de src)
+
 python main.py # Para Windows
+# ou
+python src/main.py (Caso esteja fora de src)
 
 Para desativar o ambiente virtual:
 deactivate

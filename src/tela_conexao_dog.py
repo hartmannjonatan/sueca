@@ -1,6 +1,8 @@
 from tkinter import *
 from PIL import Image, ImageTk
 
+import os
+
 from images import IMAGES_DIR
 
 from tela_secundaria import TelaSecundaria
@@ -84,6 +86,10 @@ class TelaConexaoDOG(TelaSecundaria):
  
     def conectar_ao_dog(self):
         try:
+            diretorio_atual = os.getcwd()
+            if "src" not in diretorio_atual:
+                os.chdir("src")
+                
             self.mensagem_dog = self.interface_jogador.dog_server_interface.initialize(self.nome_jogador, self.interface_jogador)
         except:
             self.mensagem_dog = "Não conectado a Dog Server"

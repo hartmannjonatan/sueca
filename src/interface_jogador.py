@@ -1,7 +1,5 @@
 from tkinter import *
 
-from images import IMAGES_DIR
-
 from dog.dog_interface import DogPlayerInterface
 from dog.dog_actor import DogActor
 
@@ -23,7 +21,7 @@ class InterfaceJogador(DogPlayerInterface):
         self.tela_inicial = TelaInicial(self.janela_principal, self.canvas, self)
         self.tela_jogo = TelaJogo(self.janela_principal, self.canvas)
         self.dog_server_interface = DogActor()
-        self.tela_input_nome = TelaConexaoDOG(self)
+        self.tela_conexao_dog = TelaConexaoDOG(self)
         self.tela_conectado = TelaConectado()
         self.tela_conexao_falhou = TelaConexaoFalhou()
         self.tela_jogadores_insuficientes = TelaJogadoresInsuficientes()
@@ -35,7 +33,7 @@ class InterfaceJogador(DogPlayerInterface):
 
     def configurar_tela_inicial(self):
         self.tela_inicial.configurar_tela()
-        self.tela_input_nome.abrir_tela()
+        self.tela_conexao_dog.abrir_tela()
         self.janela_principal.focus_force()
 
     def iniciar_jogo(self):
@@ -54,7 +52,7 @@ class InterfaceJogador(DogPlayerInterface):
             self.iniciar_jogo()
 
     def iniciar_partida(self):
-        start_status = self.dog_server_interface.start_match(2)
+        start_status = self.dog_server_interface.start_match(3)
         mensagem = start_status.get_message()
         self.analisar_mensagem_dog(mensagem)
     
