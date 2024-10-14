@@ -1,6 +1,9 @@
 from tkinter import *
 from PIL import Image, ImageTk
 
+from images import IMAGES_DIR
+
+
 class TelaInicial:
 
     def __init__(self, janela_principal, canvas, interface_jogador):
@@ -16,7 +19,7 @@ class TelaInicial:
         self.janela_principal.geometry("1200x700")
         self.janela_principal.resizable(False, False)
 
-        imagem_fundo = Image.open("images/tela_inicial/background.png")
+        imagem_fundo = Image.open(IMAGES_DIR / "tela_inicial/background.png")
         imagem_fundo = imagem_fundo.resize((largura, altura), Image.LANCZOS)
         
         self.imagem_fundo_inicial = ImageTk.PhotoImage(imagem_fundo)
@@ -29,7 +32,7 @@ class TelaInicial:
         y = (self.janela_principal.winfo_screenheight() // 2) - (altura // 2) - 10
         self.janela_principal.geometry(f"{largura}x{altura}+{x}+{y}")
 
-        imagem_botao = Image.open("images/tela_inicial/botao_jogar.png")
+        imagem_botao = Image.open(IMAGES_DIR / "tela_inicial/botao_jogar.png")
         imagem_botao = imagem_botao.resize((200, 80), Image.LANCZOS)
         self.imagem_botao = ImageTk.PhotoImage(imagem_botao)
 
@@ -44,7 +47,7 @@ class TelaInicial:
         self.interface_jogador.iniciar_partida()
 
     def on_hover_botao(self, event):
-        imagem_botao = Image.open("images/tela_inicial/botao_jogar.png")
+        imagem_botao = Image.open(IMAGES_DIR / "tela_inicial/botao_jogar.png")
         imagem_botao = imagem_botao.resize((210, 85), Image.LANCZOS)
         self.imagem_botao_grande = ImageTk.PhotoImage(imagem_botao)
 

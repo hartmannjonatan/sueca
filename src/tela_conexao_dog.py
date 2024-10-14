@@ -1,6 +1,7 @@
 from tkinter import *
-import tkinter as tk
 from PIL import Image, ImageTk
+
+from images import IMAGES_DIR
 
 from tela_secundaria import TelaSecundaria
 
@@ -24,11 +25,11 @@ class TelaConexaoDOG(TelaSecundaria):
         y = (self.tela.winfo_screenheight() // 2) - (200 // 2) - 10
         self.tela.geometry(f"400x200+{x}+{y}")
 
-        imagem_fundo = Image.open("images/tela_conexao_dog/imagem_fundo.png")
+        imagem_fundo = Image.open(IMAGES_DIR / "tela_conexao_dog/imagem_fundo.png")
         imagem_fundo = imagem_fundo.resize((400, 200))
         self.imagem_fundo = ImageTk.PhotoImage(imagem_fundo)
 
-        imagem_botao = Image.open("images/tela_conexao_dog/botao_conectar.png")
+        imagem_botao = Image.open(IMAGES_DIR / "tela_conexao_dog/botao_conectar.png")
         imagem_botao = imagem_botao.resize((105, 44))
         self.imagem_botao = ImageTk.PhotoImage(imagem_botao)
 
@@ -70,7 +71,7 @@ class TelaConexaoDOG(TelaSecundaria):
 
     
     def on_hover_botao(self, event):
-        imagem_botao_grande = Image.open("images/tela_conexao_dog/botao_conectar.png")
+        imagem_botao_grande = Image.open(IMAGES_DIR / "tela_conexao_dog/botao_conectar.png")
         imagem_botao_grande = imagem_botao_grande.resize((125, 50))
         self.imagem_botao_grande = ImageTk.PhotoImage(imagem_botao_grande)
 

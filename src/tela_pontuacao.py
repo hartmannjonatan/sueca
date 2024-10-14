@@ -2,7 +2,10 @@ from tkinter import *
 import tkinter as tk
 from PIL import Image, ImageTk
 
+from images import IMAGES_DIR
+
 from tela_secundaria import TelaSecundaria
+
 
 class TelaPontuacao(TelaSecundaria):
 
@@ -19,7 +22,7 @@ class TelaPontuacao(TelaSecundaria):
         y = (self.tela.winfo_screenheight() // 2) - (400 // 2) - 10
         self.tela.geometry(f"600x400+{x}+{y}")
 
-        imagem_fundo = Image.open("images/tela_pontuacao/imagem_pontuacao.png")
+        imagem_fundo = Image.open(IMAGES_DIR / "tela_pontuacao/imagem_pontuacao.png")
         imagem_fundo = imagem_fundo.resize((600, 400))
 
         self.imagem_fundo = ImageTk.PhotoImage(imagem_fundo)
@@ -44,11 +47,11 @@ class TelaPontuacao(TelaSecundaria):
         self.pontuacao_dupla1.place(anchor="center", x=270, y=200)
         self.pontuacao_dupla2.place(anchor="center", x=480, y=200)
 
-        imagem_galho_dupla1 = Image.open("images/tela_pontuacao/galho2.png")
+        imagem_galho_dupla1 = Image.open(IMAGES_DIR / "tela_pontuacao/galho2.png")
         imagem_galho_dupla1 = imagem_galho_dupla1.resize((65, 65))
         self.imagem_galho_dupla1 = ImageTk.PhotoImage(imagem_galho_dupla1)
 
-        imagem_galho_dupla2 = Image.open("images/tela_pontuacao/galho1.png")
+        imagem_galho_dupla2 = Image.open(IMAGES_DIR / "tela_pontuacao/galho1.png")
         imagem_galho_dupla2 = imagem_galho_dupla2.resize((65, 65))
         self.imagem_galho_dupla2 = ImageTk.PhotoImage(imagem_galho_dupla2)
 

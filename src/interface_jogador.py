@@ -1,5 +1,7 @@
 from tkinter import *
 
+from images import IMAGES_DIR
+
 from dog.dog_interface import DogPlayerInterface
 from dog.dog_actor import DogActor
 
@@ -26,7 +28,7 @@ class InterfaceJogador(DogPlayerInterface):
         self.tela_conexao_falhou = TelaConexaoFalhou()
         self.tela_jogadores_insuficientes = TelaJogadoresInsuficientes()
         self.tela_recebimento_partida = TelaRecebimentoPartida()
-
+        
         self.configurar_tela_inicial()
 
         self.janela_principal.mainloop()
