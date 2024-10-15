@@ -3,6 +3,12 @@ from PIL import Image, ImageTk
 
 from images import IMAGES_DIR
 
+from tela_conectado import TelaConectado
+from tela_conexao_dog import TelaConexaoDOG
+from tela_conexao_falhou import TelaConexaoFalhou
+from tela_jogadores_insuficientes import TelaJogadoresInsuficientes
+from tela_recebimento_partida import TelaRecebimentoPartida
+
 
 class TelaInicial:
 
@@ -10,6 +16,11 @@ class TelaInicial:
         self.janela_principal = janela_principal
         self.canvas = canvas
         self.interface_jogador = interface_jogador
+        self.tela_conexao_dog = TelaConexaoDOG(interface_jogador)
+        self.tela_conectado = TelaConectado()
+        self.tela_conexao_falhou = TelaConexaoFalhou()
+        self.tela_jogadores_insuficientes = TelaJogadoresInsuficientes()
+        self.tela_recebimento_partida = TelaRecebimentoPartida()
 
     def configurar_tela(self):
         largura = 1200
