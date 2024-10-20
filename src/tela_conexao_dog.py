@@ -1,6 +1,7 @@
 from tkinter import *
 from PIL import Image, ImageTk
 
+import time
 import os
 
 from images import IMAGES_DIR
@@ -50,7 +51,12 @@ class TelaConexaoDOG(TelaSecundaria):
         self.canvas.tag_bind(self.botao, "<Leave>",  self.saida_botao)
     
     def fechar_tela(self):
-        self.nome_jogador = "Jogador Default"
+        horario_atual = time.gmtime()
+        hora = horario_atual.tm_hour - 3
+        minuto = horario_atual.tm_min
+        segundo = horario_atual.tm_sec
+
+        self.nome_jogador = f"Jogador{hora}{minuto}{segundo}"
 
         self.tela.grab_release()
         self.tela.withdraw()
