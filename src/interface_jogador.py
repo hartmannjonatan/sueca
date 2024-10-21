@@ -13,9 +13,9 @@ class InterfaceJogador(DogPlayerInterface):
         self.janela_principal = Tk()
         self.canvas = Canvas(self.janela_principal, width=1200, height=700)
 
-        self.tela_inicial = TelaInicial(self.janela_principal, self.canvas, self)
-        self.tela_jogo = TelaJogo(self.janela_principal, self.canvas)
-        self.dog_server_interface = DogActor()
+        self._tela_inicial = TelaInicial(self.janela_principal, self.canvas, self)
+        self._tela_jogo = TelaJogo(self.janela_principal, self.canvas)
+        self._dog_server_interface = DogActor()
         
         self.configurar_tela_inicial()
 
@@ -50,6 +50,18 @@ class InterfaceJogador(DogPlayerInterface):
         mensagem = start_status.get_message()
         self.analisar_mensagem_dog(mensagem)
 
+    @property
+    def tela_inicial(self):
+        return self._tela_inicial
+    
+    @property
+    def tela_jogo(self):
+        return self._tela_jogo
+    
+    @property
+    def dog_server_interface(self):
+        return self._dog_server_interface
+    
     
 
 
