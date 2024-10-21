@@ -12,7 +12,7 @@ from tela_secundaria import TelaSecundaria
 class TelaConexaoDOG(TelaSecundaria):
     def __init__(self, interface_jogador):
         super().__init__()
-        self.interface_jogador = interface_jogador
+        self._interface_jogador = interface_jogador
     
     def configurar_tela(self):
         self.tela.title("Conectar ao DOG Server")
@@ -99,3 +99,7 @@ class TelaConexaoDOG(TelaSecundaria):
             self.mensagem_dog = self.interface_jogador.dog_server_interface.initialize(self.nome_jogador, self.interface_jogador)
         except:
             self.mensagem_dog = "Não conectado a Dog Server"
+        
+    @property
+    def interface_jogador(self):
+        return self._interface_jogador

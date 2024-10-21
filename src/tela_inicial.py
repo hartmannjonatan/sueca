@@ -15,12 +15,12 @@ class TelaInicial:
     def __init__(self, janela_principal, canvas, interface_jogador):
         self.janela_principal = janela_principal
         self.canvas = canvas
-        self.interface_jogador = interface_jogador
-        self.tela_conexao_dog = TelaConexaoDOG(interface_jogador)
-        self.tela_conectado = TelaConectado()
-        self.tela_conexao_falhou = TelaConexaoFalhou()
-        self.tela_jogadores_insuficientes = TelaJogadoresInsuficientes()
-        self.tela_recebimento_partida = TelaRecebimentoPartida()
+        self._interface_jogador = interface_jogador
+        self._tela_conexao_dog = TelaConexaoDOG(interface_jogador)
+        self._tela_conectado = TelaConectado()
+        self._tela_conexao_falhou = TelaConexaoFalhou()
+        self._tela_jogadores_insuficientes = TelaJogadoresInsuficientes()
+        self._tela_recebimento_partida = TelaRecebimentoPartida()
 
     def configurar_tela(self):
         largura = 1200
@@ -68,5 +68,29 @@ class TelaInicial:
     def saida_botao(self, event):
         self.canvas.itemconfig(self.botao_jogar, image=self.imagem_botao)
         self.canvas.config(cursor="")
+    
+    @property
+    def interface_jogador(self):
+        return self._interface_jogador
+    
+    @property
+    def tela_conexao_dog(self):
+        return self._tela_conexao_dog
+    
+    @property
+    def tela_conectado(self):
+        return self._tela_conectado
+    
+    @property
+    def tela_conexao_falhou(self):
+        return self._tela_conexao_falhou
+    
+    @property
+    def tela_jogadores_insuficientes(self):
+        return self._tela_jogadores_insuficientes
+    
+    @property
+    def tela_recebimento_partida(self):
+        return self._tela_recebimento_partida
 
     

@@ -14,8 +14,8 @@ class TelaJogo:
         self.janela_principal = janela_principal
         self.canvas = canvas
 
-        self.tela_instrucao = TelaInstrucao()
-        self.tela_pontuacao = TelaPontuacao()
+        self._tela_instrucao = TelaInstrucao()
+        self._tela_pontuacao = TelaPontuacao()
     
     def configurar_tela(self):
         self.canvas.delete("all")
@@ -227,3 +227,11 @@ class TelaJogo:
     
     def saida_carta(self, event):
         self.canvas.config(cursor="")
+    
+    @property
+    def tela_instrucao(self):
+        return self._tela_instrucao
+    
+    @property
+    def tela_pontuacao(self):
+        return self._tela_pontuacao
