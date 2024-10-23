@@ -8,6 +8,7 @@ from tela_conexao_dog import TelaConexaoDOG
 from tela_conexao_falhou import TelaConexaoFalhou
 from tela_jogadores_insuficientes import TelaJogadoresInsuficientes
 from tela_recebimento_partida import TelaRecebimentoPartida
+from tela_abandono import TelaAbandono
 
 
 class TelaInicial:
@@ -21,6 +22,9 @@ class TelaInicial:
         self._tela_conexao_falhou = TelaConexaoFalhou()
         self._tela_jogadores_insuficientes = TelaJogadoresInsuficientes()
         self._tela_recebimento_partida = TelaRecebimentoPartida()
+        self.tela_abandono = TelaAbandono()
+
+        self.tela_abandono.abrir_tela()
 
     def configurar_tela(self):
         largura = 1200
@@ -92,5 +96,6 @@ class TelaInicial:
     @property
     def tela_recebimento_partida(self):
         return self._tela_recebimento_partida
+
 
     
