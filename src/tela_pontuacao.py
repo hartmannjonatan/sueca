@@ -12,6 +12,13 @@ class TelaPontuacao(TelaSecundaria):
     def __init__(self):
         super().__init__()
 
+        self._pontuacao_dupla1 = None
+        self._pontuacao_dupla2 = None
+        self._nome_jogador1 = None
+        self._nome_jogador2 = None
+        self._nome_jogador3 = None
+        self._nome_jogador4 = None
+
     def configurar_tela(self):
         self.tela.title("Pontuação")
         self.tela.resizable(False, False)
@@ -57,5 +64,56 @@ class TelaPontuacao(TelaSecundaria):
 
         self.canvas.create_image(270, 270, anchor="center", image=self.imagem_galho_dupla1)    
         self.canvas.create_image(480, 270, anchor="center", image=self.imagem_galho_dupla2)
+
+    @property
+    def pontuacao_dupla1(self):
+        return self._pontuacao_dupla1
+    
+    @pontuacao_dupla1.setter
+    def pontuacao_dupla1(self, pontuacao):
+        self._pontuacao_dupla1 = pontuacao
+
+    @property
+    def pontuacao_dupla2(self):
+        return self._pontuacao_dupla2
+    
+    @pontuacao_dupla2.setter
+    def pontuacao_dupla2(self, pontuacao):
+        self._pontuacao_dupla2 = pontuacao
+
+    @property
+    def nome_jogador1(self):
+        return self._nome_jogador1
+    
+    @nome_jogador1.setter
+    def nome_jogador1(self, nome):
+        self._nome_jogador1 = nome
+
+    @property
+    def nome_jogador2(self):
+        return self._nome_jogador2
+    
+    @nome_jogador2.setter
+    def nome_jogador2(self, nome):
+        self._nome_jogador2 = nome
+
+    @property
+    def nome_jogador3(self):
+        return self._nome_jogador3
+    
+    @nome_jogador3.setter
+    def nome_jogador3(self, nome):
+        self._nome_jogador3 = nome
+
+    @property
+    def nome_jogador4(self):
+        return self._nome_jogador4
+    
+    @nome_jogador4.setter
+    def nome_jogador4(self, nome):
+        self._nome_jogador4 = nome
+
+
+
 
 

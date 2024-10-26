@@ -8,8 +8,14 @@ from images import IMAGES_DIR
 
 class TelaVencedor(TelaSecundaria):
 
-    def __init__(self):
+    def __init__(self, interface_jogador):
         super().__init__()
+
+        self._interface_jogador = interface_jogador
+        self._nome_vencedor_1 = None
+        self._nome_vencedor_2 = None
+
+        self._botao_reiniciar_partida = None
 
     def configurar_tela(self):
         self.tela.title("Aviso")
@@ -59,3 +65,31 @@ class TelaVencedor(TelaSecundaria):
     def saida_botao(self, event):
         self.canvas.itemconfig(self.botao_reiniciar_partida, image=self.imagem_botao)
         self.canvas.config(cursor="")
+
+    @property
+    def interface_jogador(self):
+        return self._interface_jogador
+
+    @property
+    def nome_vencedor1(self):
+        return self._nome_vencedor_1
+
+    @nome_vencedor1.setter
+    def nome_vencedor1(self, nome):
+        self._nome_vencedor_1 = nome
+
+    @property
+    def nome_vencedor2(self):
+        return self._nome_vencedor_2
+
+    @nome_vencedor2.setter
+    def nome_vencedor2(self, nome):
+        self._nome_vencedor_2 = nome
+    
+    @property
+    def botao_reiniciar_partida(self):
+        return self._botao_reiniciar_partida
+
+    @botao_reiniciar_partida.setter
+    def botao_reiniciar_partida(self, botao):
+        self._botao_reiniciar_partida = botao

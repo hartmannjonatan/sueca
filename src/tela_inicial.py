@@ -13,14 +13,16 @@ from tela_recebimento_partida import TelaRecebimentoPartida
 class TelaInicial:
 
     def __init__(self, janela_principal, canvas, interface_jogador):
-        self.janela_principal = janela_principal
-        self.canvas = canvas
+        self._janela_principal = janela_principal
+        self._canvas = canvas
         self._interface_jogador = interface_jogador
         self._tela_conexao_dog = TelaConexaoDOG(interface_jogador)
         self._tela_conectado = TelaConectado()
         self._tela_conexao_falhou = TelaConexaoFalhou()
         self._tela_jogadores_insuficientes = TelaJogadoresInsuficientes()
         self._tela_recebimento_partida = TelaRecebimentoPartida()
+
+        self._botao_jogar = None
 
     def configurar_tela(self):
         largura = 1200
@@ -70,6 +72,14 @@ class TelaInicial:
         self.canvas.config(cursor="")
     
     @property
+    def janela_principal(self):
+        return self._janela_principal
+    
+    @property
+    def canvas(self):
+        return self._canvas
+
+    @property
     def interface_jogador(self):
         return self._interface_jogador
     
@@ -92,6 +102,14 @@ class TelaInicial:
     @property
     def tela_recebimento_partida(self):
         return self._tela_recebimento_partida
+    
+    @property
+    def botao_jogar(self):
+        return self._botao_jogar
+    
+    @botao_jogar.setter
+    def botao_jogar(self, botao_jogar):
+        self._botao_jogar = botao_jogar
 
 
     

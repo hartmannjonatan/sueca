@@ -6,16 +6,28 @@ from images import IMAGES_DIR
 
 from tela_instrucao import TelaInstrucao
 from tela_pontuacao import TelaPontuacao
+from tela_vencedor import TelaVencedor
 
 
 class TelaJogo:
 
-    def __init__(self, janela_principal, canvas):
-        self.janela_principal = janela_principal
-        self.canvas = canvas
+    def __init__(self, janela_principal, canvas, interface_jogador):
+        self._janela_principal = janela_principal
+        self._canvas = canvas
+        self._interface_jogador = interface_jogador
 
         self._tela_instrucao = TelaInstrucao()
         self._tela_pontuacao = TelaPontuacao()
+        self._tela_vencedor = TelaVencedor(interface_jogador)
+
+        self._label_jogador_atual = None
+        self._label_jogador1 = None
+        self._label_jogador2 = None
+        self._label_jogador3 = None
+        self._label_jogador4 = None
+
+        self._cartas_vaza = None
+        self._cartas_jogador = None
     
     def configurar_tela(self):
         self.canvas.delete("all")
@@ -227,6 +239,18 @@ class TelaJogo:
     
     def saida_carta(self, event):
         self.canvas.config(cursor="")
+
+    @property
+    def janela_principal(self):
+        return self._janela_principal
+    
+    @property
+    def canvas(self):
+        return self._canvas
+    
+    @property
+    def interface_jogador(self):
+        return self._interface_jogador
     
     @property
     def tela_instrucao(self):
@@ -235,3 +259,64 @@ class TelaJogo:
     @property
     def tela_pontuacao(self):
         return self._tela_pontuacao
+    
+    @property
+    def tela_vencedor(self):
+        return self._tela_vencedor
+    
+    @property
+    def label_jogador_atual(self):
+        return self._label_jogador_atual
+    
+    @label_jogador_atual.setter
+    def label_jogador_atual(self, nova_label):
+        self._label_jogador_atual = nova_label
+
+    @property 
+    def label_jogador1(self):
+        return self._label_jogador1
+    
+    @label_jogador1.setter
+    def label_jogador1(self, nova_label):
+        self._label_jogador1 = nova_label
+    
+    @property 
+    def label_jogador2(self):
+        return self._label_jogador2
+    
+    @label_jogador2.setter
+    def label_jogador2(self, nova_label):
+        self._label_jogador2 = nova_label
+    
+    @property 
+    def label_jogador3(self):
+        return self._label_jogador3
+    
+    @label_jogador3.setter
+    def label_jogador3(self, nova_label):
+        self._label_jogador3 = nova_label
+    
+    @property 
+    def label_jogador4(self):
+        return self._label_jogador4
+    
+    @label_jogador4.setter
+    def label_jogador4(self, nova_label):
+        self._label_jogador4 = nova_label
+
+    @property
+    def cartas_vaza(self):
+        return self._cartas_vaza
+    
+    @cartas_vaza.setter
+    def cartas_vaza(self, cartas):
+        self._cartas_vaza = cartas
+
+    @property
+    def cartas_jogador(self):
+        return self._cartas_jogador
+    
+    @cartas_jogador.setter
+    def cartas_jogador(self, cartas):
+        self._cartas_jogador = cartas
+
