@@ -15,6 +15,8 @@ class TelaConexaoDOG(TelaSecundaria):
         self._interface_jogador = interface_jogador
         self._nome_jogador = None
         self._mensagem_dog = None
+
+        self._input_nome = Entry(self.tela, font=("Arial", 12))
     
     def configurar_tela(self):
         self.tela.title("Conectar ao DOG Server")
@@ -38,7 +40,6 @@ class TelaConexaoDOG(TelaSecundaria):
         imagem_botao = imagem_botao.resize((105, 44))
         self.imagem_botao = ImageTk.PhotoImage(imagem_botao)
 
-        self._input_nome = Entry(self.tela, font=("Arial", 12))
         self.input_nome.place(x=200, y=70, width=300, height=35, anchor="center")
 
         self.input_nome.insert(0, "Digite seu nome...")
@@ -57,7 +58,7 @@ class TelaConexaoDOG(TelaSecundaria):
 
         self.tela.grab_release()
         self.tela.withdraw()
-    
+
         self.conectar_ao_dog()
         self.interface_jogador.analisar_mensagem_dog(self.mensagem_dog)
     
