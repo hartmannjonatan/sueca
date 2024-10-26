@@ -50,11 +50,11 @@ class TelaInicial:
         self.botao_jogar = self.canvas.create_image(600, 450, anchor="center", image=self.imagem_botao)
         self.canvas.itemconfig(self.botao_jogar, state="disabled")
 
-        self.canvas.tag_bind(self.botao_jogar, "<Button-1>", self.acao_botao)
+        self.canvas.tag_bind(self.botao_jogar, "<Button-1>", self.acao_botao_iniciar_partida)
         self.canvas.tag_bind(self.botao_jogar, "<Enter>",   self.on_hover_botao)
         self.canvas.tag_bind(self.botao_jogar, "<Leave>",  self.saida_botao)
     
-    def acao_botao(self, event):
+    def acao_botao_iniciar_partida(self, event):
         self.interface_jogador.iniciar_partida()
 
     def on_hover_botao(self, event):

@@ -46,7 +46,7 @@ class TelaConexaoDOG(TelaSecundaria):
         self.canvas.create_image(0, 0, anchor="nw", image=self.imagem_fundo)
         self.botao = self.canvas.create_image(200, 150, anchor="center", image=self.imagem_botao)
 
-        self.canvas.tag_bind(self.botao, "<Button-1>", self.acao_botao)
+        self.canvas.tag_bind(self.botao, "<Button-1>", self.acao_botao_conectar)
         self.canvas.tag_bind(self.botao, "<Enter>",   self.on_hover_botao)
         self.canvas.tag_bind(self.botao, "<Leave>",  self.saida_botao)
     
@@ -68,7 +68,7 @@ class TelaConexaoDOG(TelaSecundaria):
         if self.input_nome.get() == 'Digite seu nome...':
             self.input_nome.delete(0, "end")
         
-    def acao_botao(self, event):
+    def acao_botao_conectar(self, event):
         self.nome_jogador = self.input_nome.get()
 
         self.tela.grab_release()

@@ -16,6 +16,7 @@ class InterfaceJogador(DogPlayerInterface):
         self._tela_inicial = TelaInicial(self.janela_principal, self.canvas, self)
         self._tela_jogo = TelaJogo(self.janela_principal, self.canvas)
         self._dog_server_interface = DogActor()
+        #self._jogo = Jogo()
         
         self.configurar_tela_inicial()
 
@@ -29,7 +30,7 @@ class InterfaceJogador(DogPlayerInterface):
     def desbloquear_botao_iniciar(self):
         self.tela_inicial.canvas.itemconfig(self.tela_inicial.botao_jogar, state="normal")
     
-    def analisar_mensagem_dog(self, mensagem):
+    def analisar_mensagem_dog(self, mensagem, jogadores=None, id_jogador_local=None):
         if mensagem == "Conectado a Dog Server":
             self.tela_inicial.tela_conectado.abrir_tela()
             self.desbloquear_botao_iniciar()
@@ -39,17 +40,21 @@ class InterfaceJogador(DogPlayerInterface):
             self.tela_inicial.tela_jogadores_insuficientes.abrir_tela()
         elif mensagem == "Partida iniciada":
             self.tela_inicial.tela_recebimento_partida.abrir_tela()
-            # instanciar Jogo aqui
+            #self.jogo.inicializar_jogadores_duplas_e_mesas(jogadores, id_jogador_local)
             self.tela_jogo.configurar_tela()
 
     def iniciar_partida(self):
-        start_status = self.dog_server_interface.start_match(2)
+        start_status = self.dog_server_interface.start_match(3)
         mensagem = start_status.get_message()
-        self.analisar_mensagem_dog(mensagem)
+        jogadores = start_status.get_players()
+        id_jogador_local = start_status.get_local_id()
+        self.analisar_mensagem_dog(mensagem, jogadores, id_jogador_local)
     
     def receive_start(self, start_status):
         mensagem = start_status.get_message()
-        self.analisar_mensagem_dog(mensagem)
+        jogadores = start_status.get_players()
+        id_jogador_local = start_status.get_local_id()
+        self.analisar_mensagem_dog(mensagem, jogadores, id_jogador_local)
 
     @property
     def tela_inicial(self):
