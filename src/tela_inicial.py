@@ -93,4 +93,5 @@ class TelaInicial:
     def tela_recebimento_partida(self):
         return self._tela_recebimento_partida
 
+
     

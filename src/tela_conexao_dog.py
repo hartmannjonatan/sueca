@@ -44,11 +44,11 @@ class TelaConexaoDOG(TelaSecundaria):
 
         self.canvas.pack(fill="both", expand=True)
         self.canvas.create_image(0, 0, anchor="nw", image=self.imagem_fundo)
-        self.botao = self.canvas.create_image(200, 150, anchor="center", image=self.imagem_botao)
+        self.botao_conectar = self.canvas.create_image(200, 150, anchor="center", image=self.imagem_botao)
 
-        self.canvas.tag_bind(self.botao, "<Button-1>", self.acao_botao_conectar)
-        self.canvas.tag_bind(self.botao, "<Enter>",   self.on_hover_botao)
-        self.canvas.tag_bind(self.botao, "<Leave>",  self.saida_botao)
+        self.canvas.tag_bind(self.botao_conectar, "<Button-1>", self.acao_botao_conectar)
+        self.canvas.tag_bind(self.botao_conectar, "<Enter>",   self.on_hover_botao)
+        self.canvas.tag_bind(self.botao_conectar, "<Leave>",  self.saida_botao)
     
     def fechar_tela(self):
         horario_atual = time.gmtime()
@@ -83,11 +83,11 @@ class TelaConexaoDOG(TelaSecundaria):
         imagem_botao_grande = imagem_botao_grande.resize((125, 50))
         self.imagem_botao_grande = ImageTk.PhotoImage(imagem_botao_grande)
 
-        self.canvas.itemconfig(self.botao, image=self.imagem_botao_grande)
+        self.canvas.itemconfig(self.botao_conectar, image=self.imagem_botao_grande)
         self.canvas.config(cursor="hand2")
     
     def saida_botao(self, event):
-        self.canvas.itemconfig(self.botao, image=self.imagem_botao)
+        self.canvas.itemconfig(self.botao_conectar, image=self.imagem_botao)
         self.canvas.config(cursor="")
  
     def conectar_ao_dog(self):
