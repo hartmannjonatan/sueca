@@ -53,16 +53,11 @@ class TelaConexaoDOG(TelaSecundaria):
         self.canvas.tag_bind(self.botao_conectar, "<Leave>",  self.saida_botao)
     
     def fechar_tela(self):
-        horario_atual = time.gmtime()
-        hora = horario_atual.tm_hour - 3
-        minuto = horario_atual.tm_min
-        segundo = horario_atual.tm_sec
-
-        self.nome_jogador = f"Jogador{hora}{minuto}{segundo}"
+        self.nome_jogador = self.gerar_nome_jogador() 
 
         self.tela.grab_release()
         self.tela.withdraw()
-
+    
         self.conectar_ao_dog()
         self.interface_jogador.analisar_mensagem_dog(self.mensagem_dog)
     
@@ -73,13 +68,15 @@ class TelaConexaoDOG(TelaSecundaria):
     def acao_botao_conectar(self, event):
         self.nome_jogador = self.input_nome.get()
 
+        if self.nome_jogador == "Digite seu nome..." or self.nome_jogador == "":
+            self.nome_jogador = self.gerar_nome_jogador()
+
         self.tela.grab_release()
         self.tela.withdraw()
 
         self.conectar_ao_dog()
         self.interface_jogador.analisar_mensagem_dog(self.mensagem_dog)
 
-    
     def on_hover_botao(self, event):
         imagem_botao_grande = Image.open(IMAGES_DIR / "tela_conexao_dog/botao_conectar.png")
         imagem_botao_grande = imagem_botao_grande.resize((125, 50))
@@ -101,6 +98,14 @@ class TelaConexaoDOG(TelaSecundaria):
             self.mensagem_dog = self.interface_jogador.dog_server_interface.initialize(self.nome_jogador, self.interface_jogador)
         except:
             self.mensagem_dog = "Não conectado a Dog Server"
+        
+    def gerar_nome_jogador(self):
+        horario_atual = time.gmtime()
+        hora = horario_atual.tm_hour - 3
+        minuto = horario_atual.tm_min
+        segundo = horario_atual.tm_sec
+
+        return f"Jogador{hora}{minuto}{segundo}"
         
     @property
     def interface_jogador(self):
