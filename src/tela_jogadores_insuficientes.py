@@ -8,6 +8,7 @@ class TelaJogadoresInsuficientes(TelaSecundaria):
 
     def __init__(self):
         super().__init__()
+        self.configurar_tela
     
     def configurar_tela(self):
         self.tela.title("Aviso")

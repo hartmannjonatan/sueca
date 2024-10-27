@@ -16,6 +16,7 @@ class TelaVencedor(TelaSecundaria):
         self._nome_vencedor_2 = None
 
         self._botao_reiniciar_partida = None
+        self.configurar_tela()
 
     def configurar_tela(self):
         self.tela.title("Aviso")

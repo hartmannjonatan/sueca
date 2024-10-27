@@ -18,6 +18,7 @@ class TelaPontuacao(TelaSecundaria):
         self._nome_jogador2 = None
         self._nome_jogador3 = None
         self._nome_jogador4 = None
+        self.configurar_tela()
 
     def configurar_tela(self):
         self.tela.title("Pontuação")

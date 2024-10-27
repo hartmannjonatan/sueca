@@ -15,8 +15,8 @@ class TelaConexaoDOG(TelaSecundaria):
         self._interface_jogador = interface_jogador
         self._nome_jogador = None
         self._mensagem_dog = None
-
         self._input_nome = Entry(self.tela, font=("Arial", 12))
+        self.configurar_tela()
     
     def configurar_tela(self):
         self.tela.title("Conectar ao DOG Server")
