@@ -24,7 +24,7 @@ class InterfaceJogador(DogPlayerInterface):
 
     def configurar_tela_inicial(self):
         self.tela_inicial.configurar_tela()
-        self.tela_inicial.tela_conexao_dog.abrir_tela()
+        self.tela_inicial.abrir_tela_conexao_dog()
         self.janela_principal.focus_force()
     
     def desbloquear_botao_iniciar(self):
@@ -32,14 +32,14 @@ class InterfaceJogador(DogPlayerInterface):
     
     def analisar_mensagem_dog(self, mensagem, jogadores=None, id_jogador_local=None):
         if mensagem == "Conectado a Dog Server":
-            self.tela_inicial.tela_conectado.abrir_tela()
+            self.tela_inicial.abrir_tela_conectado()
             self.desbloquear_botao_iniciar()
         elif mensagem == "Não conectado a Dog Server":
-            self.tela_inicial.tela_conexao_falhou.abrir_tela()
+            self.tela_inicial.abrir_tela_conexao_falhou()
         elif mensagem == "Jogadores insuficientes":
-            self.tela_inicial.tela_jogadores_insuficientes.abrir_tela()
+            self.tela_inicial.abrir_tela_jogadores_insuficientes()
         elif mensagem == "Partida iniciada":
-            self.tela_inicial.tela_recebimento_partida.abrir_tela()
+            self.tela_inicial.abrir_tela_recebimento_partida()
             #self.jogo.inicializar_jogadores_duplas_e_mesas(jogadores, id_jogador_local)
             self.tela_jogo.configurar_tela()
 
@@ -55,7 +55,7 @@ class InterfaceJogador(DogPlayerInterface):
         jogadores = start_status.get_players()
         id_jogador_local = start_status.get_local_id()
         self.analisar_mensagem_dog(mensagem, jogadores, id_jogador_local)
-
+    
     @property
     def janela_principal(self):
         return self._janela_principal

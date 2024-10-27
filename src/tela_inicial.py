@@ -8,6 +8,7 @@ from tela_conexao_dog import TelaConexaoDOG
 from tela_conexao_falhou import TelaConexaoFalhou
 from tela_jogadores_insuficientes import TelaJogadoresInsuficientes
 from tela_recebimento_partida import TelaRecebimentoPartida
+from tela_abandono import TelaAbandono
 
 
 class TelaInicial:
@@ -21,6 +22,7 @@ class TelaInicial:
         self._tela_conexao_falhou = TelaConexaoFalhou()
         self._tela_jogadores_insuficientes = TelaJogadoresInsuficientes()
         self._tela_recebimento_partida = TelaRecebimentoPartida()
+        self._tela_abandono = TelaAbandono()
 
         self._botao_jogar = None
 
@@ -71,6 +73,21 @@ class TelaInicial:
         self.canvas.itemconfig(self.botao_jogar, image=self.imagem_botao)
         self.canvas.config(cursor="")
     
+    def abrir_tela_conexao_dog(self):
+        self.tela_conexao_dog.abrir_tela()
+    
+    def abrir_tela_conectado(self):
+        self.tela_conectado.abrir_tela()
+    
+    def abrir_tela_conexao_falhou(self):
+        self.tela_conexao_falhou.abrir_tela()
+    
+    def abrir_tela_jogadores_insuficientes(self):
+        self.tela_jogadores_insuficientes.abrir_tela()
+    
+    def abrir_tela_recebimento_partida(self):
+        self.tela_recebimento_partida.abrir_tela()
+    
     @property
     def janela_principal(self):
         return self._janela_principal
@@ -104,12 +121,17 @@ class TelaInicial:
         return self._tela_recebimento_partida
     
     @property
+    def tela_abandono(self):
+        return self._tela_abandono
+
+    @property
     def botao_jogar(self):
         return self._botao_jogar
     
     @botao_jogar.setter
     def botao_jogar(self, botao_jogar):
         self._botao_jogar = botao_jogar
+
 
 
     

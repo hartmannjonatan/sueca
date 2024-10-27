@@ -10,7 +10,6 @@ class TelaSecundaria(ABC):
         self._canvas = Canvas(self.tela)
         
         self.tela.withdraw()
-        #self.configurar_tela()
 
         self.tela.protocol("WM_DELETE_WINDOW", self.fechar_tela)
 
