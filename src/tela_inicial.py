@@ -24,7 +24,7 @@ class TelaInicial:
         self._tela_recebimento_partida = TelaRecebimentoPartida()
         self._tela_abandono = TelaAbandono()
 
-        self._botao_jogar = None
+        self._botao_iniciar_partida = None
 
     def configurar_tela(self):
         largura = 1200
@@ -47,30 +47,30 @@ class TelaInicial:
         y = (self.janela_principal.winfo_screenheight() // 2) - (altura // 2) - 10
         self.janela_principal.geometry(f"{largura}x{altura}+{x}+{y}")
 
-        imagem_botao = Image.open(IMAGES_DIR / "tela_inicial/botao_jogar.png")
+        imagem_botao = Image.open(IMAGES_DIR / "tela_inicial/botao_iniciar_partida.png")
         imagem_botao = imagem_botao.resize((200, 80), Image.LANCZOS)
         self.imagem_botao = ImageTk.PhotoImage(imagem_botao)
 
-        self.botao_jogar = self.canvas.create_image(600, 450, anchor="center", image=self.imagem_botao)
-        self.canvas.itemconfig(self.botao_jogar, state="disabled")
+        self.botao_iniciar_partida = self.canvas.create_image(600, 450, anchor="center", image=self.imagem_botao)
+        self.canvas.itemconfig(self.botao_iniciar_partida, state="disabled")
 
-        self.canvas.tag_bind(self.botao_jogar, "<Button-1>", self.acao_botao_iniciar_partida)
-        self.canvas.tag_bind(self.botao_jogar, "<Enter>",   self.on_hover_botao)
-        self.canvas.tag_bind(self.botao_jogar, "<Leave>",  self.saida_botao)
+        self.canvas.tag_bind(self.botao_iniciar_partida, "<Button-1>", self.acao_botao_iniciar_partida)
+        self.canvas.tag_bind(self.botao_iniciar_partida, "<Enter>",   self.on_hover_botao)
+        self.canvas.tag_bind(self.botao_iniciar_partida, "<Leave>",  self.saida_botao)
     
     def acao_botao_iniciar_partida(self, event):
         self.interface_jogador.iniciar_partida()
 
     def on_hover_botao(self, event):
-        imagem_botao = Image.open(IMAGES_DIR / "tela_inicial/botao_jogar.png")
+        imagem_botao = Image.open(IMAGES_DIR / "tela_inicial/botao_iniciar_partida.png")
         imagem_botao = imagem_botao.resize((210, 85), Image.LANCZOS)
         self.imagem_botao_grande = ImageTk.PhotoImage(imagem_botao)
 
-        self.canvas.itemconfig(self.botao_jogar, image=self.imagem_botao_grande)
+        self.canvas.itemconfig(self.botao_iniciar_partida, image=self.imagem_botao_grande)
         self.canvas.config(cursor="hand2")
 
     def saida_botao(self, event):
-        self.canvas.itemconfig(self.botao_jogar, image=self.imagem_botao)
+        self.canvas.itemconfig(self.botao_iniciar_partida, image=self.imagem_botao)
         self.canvas.config(cursor="")
     
     def abrir_tela_conexao_dog(self):
@@ -125,12 +125,12 @@ class TelaInicial:
         return self._tela_abandono
 
     @property
-    def botao_jogar(self):
-        return self._botao_jogar
+    def botao_iniciar_partida(self):
+        return self._botao_iniciar_partida
     
-    @botao_jogar.setter
-    def botao_jogar(self, botao_jogar):
-        self._botao_jogar = botao_jogar
+    @botao_iniciar_partida.setter
+    def botao_iniciar_partida(self, botao_iniciar_partida):
+        self._botao_iniciar_partida = botao_iniciar_partida
 
 
 

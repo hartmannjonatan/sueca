@@ -28,7 +28,7 @@ class InterfaceJogador(DogPlayerInterface):
         self.janela_principal.focus_force()
     
     def desbloquear_botao_iniciar(self):
-        self.tela_inicial.canvas.itemconfig(self.tela_inicial.botao_jogar, state="normal")
+        self.tela_inicial.canvas.itemconfig(self.tela_inicial.botao_iniciar_partida, state="normal")
     
     def analisar_mensagem_dog(self, mensagem, jogadores=None, id_jogador_local=None):
         if mensagem == "Conectado a Dog Server":
