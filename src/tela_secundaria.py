@@ -6,11 +6,10 @@ import tkinter as tk
 class TelaSecundaria(ABC):
 
     def __init__(self):
-        self.tela = tk.Toplevel()
-        self.canvas = Canvas(self.tela)
+        self._tela = tk.Toplevel()
+        self._canvas = Canvas(self.tela)
         
         self.tela.withdraw()
-        self.configurar_tela()
 
         self.tela.protocol("WM_DELETE_WINDOW", self.fechar_tela)
 
@@ -23,4 +22,12 @@ class TelaSecundaria(ABC):
     
     def fechar_tela(self):
         self.tela.withdraw()
+
+    @property
+    def tela(self):
+        return self._tela
+    
+    @property
+    def canvas(self):
+        return self._canvas
     

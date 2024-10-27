@@ -1,6 +1,6 @@
 from tela_secundaria import TelaSecundaria
-from PIL import Image, ImageTk
 
+from PIL import Image, ImageTk
 from images import IMAGES_DIR
 
 
@@ -8,6 +8,7 @@ class TelaConectado(TelaSecundaria):
 
     def __init__(self):
         super().__init__()
+        self.configurar_tela()
     
     def configurar_tela(self):
         self.tela.title("Aviso")

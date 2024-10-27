@@ -7,6 +7,10 @@ from tela_secundaria import TelaSecundaria
 
 
 class TelaInstrucao(TelaSecundaria):
+
+    def __init__(self):
+        super().__init__()
+        self.configurar_tela()
         
     def configurar_tela(self):
         self.tela.title("Instruções de Jogo")
