@@ -44,7 +44,7 @@ class InterfaceJogador(DogPlayerInterface):
             self.tela_jogo.configurar_tela()
 
     def iniciar_partida(self):
-        start_status = self.dog_server_interface.start_match(2)
+        start_status = self.dog_server_interface.start_match(4)
         mensagem = start_status.get_message()
         jogadores = start_status.get_players()
         id_jogador_local = start_status.get_local_id()
