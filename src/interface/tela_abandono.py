@@ -1,15 +1,15 @@
-from tela_secundaria import TelaSecundaria
-from PIL import Image, ImageTk
+from .tela_secundaria import TelaSecundaria
 
+from PIL import Image, ImageTk
 from images import IMAGES_DIR
 
 
-class TelaRecebimentoPartida(TelaSecundaria):
+class TelaAbandono(TelaSecundaria):
 
     def __init__(self):
         super().__init__()
         self.configurar_tela()
-    
+
     def configurar_tela(self):
         self.tela.title("Aviso")
         self.tela.resizable(False, False)
@@ -20,7 +20,7 @@ class TelaRecebimentoPartida(TelaSecundaria):
         y = (self.tela.winfo_screenheight() // 2) - (200 // 2) - 10
         self.tela.geometry(f"400x200+{x}+{y}")
 
-        imagem_fundo = Image.open(IMAGES_DIR / "tela_recebimento_partida/imagem_fundo.png")
+        imagem_fundo = Image.open(IMAGES_DIR / "tela_abandono/imagem_fundo.png")
         imagem_fundo = imagem_fundo.resize((400, 200))
         self.imagem_fundo = ImageTk.PhotoImage(imagem_fundo)
         

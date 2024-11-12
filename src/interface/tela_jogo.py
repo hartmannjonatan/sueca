@@ -4,9 +4,9 @@ from PIL import Image, ImageTk
 
 from images import IMAGES_DIR
 
-from tela_instrucao import TelaInstrucao
-from tela_pontuacao import TelaPontuacao
-from tela_vencedor import TelaVencedor
+from .tela_instrucao import TelaInstrucao
+from .tela_pontuacao import TelaPontuacao
+from .tela_vencedor import TelaVencedor
 
 
 class TelaJogo:

@@ -3,12 +3,12 @@ from PIL import Image, ImageTk
 
 from images import IMAGES_DIR
 
-from tela_conectado import TelaConectado
-from tela_conexao_dog import TelaConexaoDOG
-from tela_conexao_falhou import TelaConexaoFalhou
-from tela_jogadores_insuficientes import TelaJogadoresInsuficientes
-from tela_recebimento_partida import TelaRecebimentoPartida
-from tela_abandono import TelaAbandono
+from .tela_conectado import TelaConectado
+from .tela_conexao_dog import TelaConexaoDOG
+from .tela_conexao_falhou import TelaConexaoFalhou
+from .tela_jogadores_insuficientes import TelaJogadoresInsuficientes
+from .tela_recebimento_partida import TelaRecebimentoPartida
+from .tela_abandono import TelaAbandono
 
 
 class TelaInicial:

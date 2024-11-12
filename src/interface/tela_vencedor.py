@@ -1,6 +1,6 @@
 from tkinter import *
 
-from tela_secundaria import TelaSecundaria
+from .tela_secundaria import TelaSecundaria
 
 from PIL import Image, ImageTk
 from images import IMAGES_DIR

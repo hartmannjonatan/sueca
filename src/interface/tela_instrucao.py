@@ -3,7 +3,7 @@ from PIL import Image, ImageTk
 
 from images import IMAGES_DIR
 
-from tela_secundaria import TelaSecundaria
+from .tela_secundaria import TelaSecundaria
 
 
 class TelaInstrucao(TelaSecundaria):

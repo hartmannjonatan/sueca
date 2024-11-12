@@ -6,7 +6,7 @@ import os
 
 from images import IMAGES_DIR
 
-from tela_secundaria import TelaSecundaria
+from .tela_secundaria import TelaSecundaria
 
 
 class TelaConexaoDOG(TelaSecundaria):

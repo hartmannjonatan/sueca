@@ -3,8 +3,8 @@ from tkinter import *
 from dog.dog_interface import DogPlayerInterface
 from dog.dog_actor import DogActor
 
-from tela_inicial import TelaInicial
-from tela_jogo import TelaJogo
+from .tela_inicial import TelaInicial
+from .tela_jogo import TelaJogo
 
 
 class InterfaceJogador(DogPlayerInterface):
