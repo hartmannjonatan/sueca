@@ -1,7 +1,6 @@
-from dupla import Dupla
-from mesa import Mesa
-from jogador import Jogador
-from interface.interface_jogador import InterfaceJogador
+from .dupla import Dupla
+from .mesa import Mesa
+from .jogador import Jogador
 
 
 class Jogo:
@@ -11,7 +10,7 @@ class Jogo:
 		self._ordem_jogadores : list[Jogador] = None
 		self._status_jogo : str = None
 		self._proximo_jogador : Jogador = None
-		self._interface_jogador : InterfaceJogador = None
+		self._interface_jogador = None
 		self._jogador_local : Jogador = None
 		self._partida_encerrada : bool = False
 		self._rodada_encerrada : bool = False
@@ -72,7 +71,7 @@ class Jogo:
 		return self._proximo_jogador
 	
 	@property
-	def interface_jogador(self) -> InterfaceJogador:
+	def interface_jogador(self):
 		return self._interface_jogador
 	
 	@property

@@ -1,5 +1,5 @@
-from carta import Carta
-from naipe import Naipe 
+from .carta import Carta
+from .naipe import Naipe 
 
 
 class Jogador:

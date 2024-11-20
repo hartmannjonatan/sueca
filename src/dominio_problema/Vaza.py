@@ -1,7 +1,6 @@
-from carta import Carta
-from jogador import Jogador
-from naipe import Naipe
-from rodada import Rodada
+from .carta import Carta
+from .jogador import Jogador
+from .naipe import Naipe
 
 
 class Vaza:

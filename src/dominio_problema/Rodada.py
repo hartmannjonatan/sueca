@@ -1,7 +1,7 @@
-from vaza import Vaza
-from naipe import Naipe
-from jogador import Jogador
-from carta import Carta
+from .vaza import Vaza
+from .naipe import Naipe
+from .jogador import Jogador
+from .carta import Carta
 
 class Rodada:
 	def __init__(self):

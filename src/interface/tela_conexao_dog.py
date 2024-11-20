@@ -13,9 +13,9 @@ class TelaConexaoDOG(TelaSecundaria):
     def __init__(self, interface_jogador):
         super().__init__()
         self._interface_jogador = interface_jogador
-        self._nome_jogador = None
-        self._mensagem_dog = None
         self._input_nome = Entry(self.tela, font=("Arial", 12))
+        self._nome_jogador: str = None
+        self._mensagem_dog: str = None
         self.configurar_tela()
     
     def configurar_tela(self):
@@ -100,7 +100,7 @@ class TelaConexaoDOG(TelaSecundaria):
         except:
             self.mensagem_dog = "Não conectado a Dog Server"
         
-    def gerar_nome_jogador(self):
+    def gerar_nome_jogador(self) -> str:
         horario_atual = time.gmtime()
         hora = horario_atual.tm_hour - 3
         minuto = horario_atual.tm_min
@@ -113,11 +113,11 @@ class TelaConexaoDOG(TelaSecundaria):
         return self._interface_jogador
 
     @property
-    def input_nome(self):
+    def input_nome(self) -> Entry:
         return self._input_nome
 
     @property
-    def nome_jogador(self):
+    def nome_jogador(self) -> str:
         return self._nome_jogador
     
     @nome_jogador.setter
@@ -125,7 +125,7 @@ class TelaConexaoDOG(TelaSecundaria):
         self._nome_jogador = novo_nome
     
     @property
-    def mensagem_dog(self):
+    def mensagem_dog(self) -> str:
         return self._mensagem_dog
     
     @mensagem_dog.setter

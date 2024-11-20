@@ -5,6 +5,7 @@ from PIL import Image, ImageTk
 from images import IMAGES_DIR
 
 from .tela_secundaria import TelaSecundaria
+from dominio_problema.dupla import Dupla
 
 
 class TelaPontuacao(TelaSecundaria):
@@ -12,12 +13,12 @@ class TelaPontuacao(TelaSecundaria):
     def __init__(self):
         super().__init__()
 
-        self._pontuacao_dupla1 = None
-        self._pontuacao_dupla2 = None
-        self._nome_jogador1 = None
-        self._nome_jogador2 = None
-        self._nome_jogador3 = None
-        self._nome_jogador4 = None
+        self._pontuacao_dupla1: Label = None
+        self._pontuacao_dupla2: Label = None
+        self._nome_jogador1: Label = None
+        self._nome_jogador2: Label = None
+        self._nome_jogador3: Label = None
+        self._nome_jogador4: Label = None
         self.configurar_tela()
 
     def configurar_tela(self):
@@ -65,9 +66,12 @@ class TelaPontuacao(TelaSecundaria):
 
         self.canvas.create_image(270, 270, anchor="center", image=self.imagem_galho_dupla1)    
         self.canvas.create_image(480, 270, anchor="center", image=self.imagem_galho_dupla2)
+    
+    def atualizar_tela_pontuacao(self, dupla1: Dupla, dupla2: Dupla):
+        pass
 
     @property
-    def pontuacao_dupla1(self):
+    def pontuacao_dupla1(self) -> Label:
         return self._pontuacao_dupla1
     
     @pontuacao_dupla1.setter
@@ -75,7 +79,7 @@ class TelaPontuacao(TelaSecundaria):
         self._pontuacao_dupla1 = pontuacao
 
     @property
-    def pontuacao_dupla2(self):
+    def pontuacao_dupla2(self) -> Label:
         return self._pontuacao_dupla2
     
     @pontuacao_dupla2.setter
@@ -83,7 +87,7 @@ class TelaPontuacao(TelaSecundaria):
         self._pontuacao_dupla2 = pontuacao
 
     @property
-    def nome_jogador1(self):
+    def nome_jogador1(self) -> Label:
         return self._nome_jogador1
     
     @nome_jogador1.setter
@@ -91,7 +95,7 @@ class TelaPontuacao(TelaSecundaria):
         self._nome_jogador1 = nome
 
     @property
-    def nome_jogador2(self):
+    def nome_jogador2(self) -> Label:
         return self._nome_jogador2
     
     @nome_jogador2.setter
@@ -99,7 +103,7 @@ class TelaPontuacao(TelaSecundaria):
         self._nome_jogador2 = nome
 
     @property
-    def nome_jogador3(self):
+    def nome_jogador3(self) -> Label:
         return self._nome_jogador3
     
     @nome_jogador3.setter
@@ -107,7 +111,7 @@ class TelaPontuacao(TelaSecundaria):
         self._nome_jogador3 = nome
 
     @property
-    def nome_jogador4(self):
+    def nome_jogador4(self) -> Label:
         return self._nome_jogador4
     
     @nome_jogador4.setter

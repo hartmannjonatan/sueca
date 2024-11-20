@@ -1,5 +1,5 @@
-from jogador import Jogador
-from carta import Carta
+from .jogador import Jogador
+from .carta import Carta
 
 
 class Baralho:

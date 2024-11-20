@@ -1,5 +1,5 @@
-from jogador import Jogador
-from pontuacao import Pontuacao
+from .jogador import Jogador
+from .pontuacao import Pontuacao
 
 
 class Dupla:

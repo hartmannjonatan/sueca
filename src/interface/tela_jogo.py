@@ -8,28 +8,35 @@ from .tela_instrucao import TelaInstrucao
 from .tela_pontuacao import TelaPontuacao
 from .tela_vencedor import TelaVencedor
 
+from dominio_problema.carta import Carta
+from dominio_problema.jogador import Jogador
+from dominio_problema.naipe import Naipe
+
 
 class TelaJogo:
 
     def __init__(self, janela_principal, canvas, interface_jogador):
-        self._janela_principal = janela_principal
-        self._canvas = canvas
+        self._janela_principal: Tk  = janela_principal
+        self._canvas: Canvas = canvas
         self._interface_jogador = interface_jogador
 
         self._tela_instrucao = TelaInstrucao()
         self._tela_pontuacao = TelaPontuacao()
         self._tela_vencedor = TelaVencedor(interface_jogador)
 
-        self._label_jogador_atual = None
-        self._label_jogador1 = None
-        self._label_jogador2 = None
-        self._label_jogador3 = None
-        self._label_jogador4 = None
+        self._label_jogador_atual: Label = None
+        self._label_jogador1: Label = None
+        self._label_jogador2: Label = None
+        self._label_jogador3: Label = None
+        self._label_jogador4: Label = None
 
-        self._cartas_vaza = None
-        self._cartas_jogador = None
+        self._cartas_vaza: list[Carta, int] = None
+        self._cartas_jogador: list[Carta, int] = None
+
+        self._imagens_cartas: dict[str, PhotoImage] = None
+        self._slot_jogadores: dict[str, tuple] = None
     
-    def configurar_tela(self):
+    def configurar_tela(self, ordem_jogadores: list[Jogador] = None, jogador_local: Jogador = None):
         self.canvas.delete("all")
 
         self.configurar_background()
@@ -191,15 +198,15 @@ class TelaJogo:
         self.canvas.tag_bind(self.botao_pontuacao, "<Enter>", self.on_hover_botao_pontuacao)
         self.canvas.tag_bind(self.botao_pontuacao, "<Leave>", self.saida_botao_pontuacao)
 
-        imagem_botao_regras = Image.open(IMAGES_DIR / "tela_jogo/botoes/botao_regras.png")
-        imagem_botao_regras = imagem_botao_regras.resize((50, 50), Image.LANCZOS)
-        self.img_botao_regras = ImageTk.PhotoImage(imagem_botao_regras)
+        imagem_botao_instrucao = Image.open(IMAGES_DIR / "tela_jogo/botoes/botao_instrucao.png")
+        imagem_botao_instrucao = imagem_botao_instrucao.resize((50, 50), Image.LANCZOS)
+        self.img_botao_instrucao = ImageTk.PhotoImage(imagem_botao_instrucao)
 
-        self.botao_regras = self.canvas.create_image(1160, 40, image=self.img_botao_regras)
+        self.botao_instrucao = self.canvas.create_image(1160, 40, image=self.img_botao_instrucao)
 
-        self.canvas.tag_bind(self.botao_regras, "<Button-1>", self.click_botao_regras)
-        self.canvas.tag_bind(self.botao_regras, "<Enter>", self.on_hover_botao_regras)
-        self.canvas.tag_bind(self.botao_regras, "<Leave>", self.saida_botao_regras)
+        self.canvas.tag_bind(self.botao_instrucao, "<Button-1>", self.click_botao_instrucao)
+        self.canvas.tag_bind(self.botao_instrucao, "<Enter>", self.on_hover_botao_instrucao)
+        self.canvas.tag_bind(self.botao_instrucao, "<Leave>", self.saida_botao_instrucao)
 
     def on_hover_botao_pontuacao(self, event):
         imagem_botao_pontuacao = Image.open(IMAGES_DIR / "tela_jogo/botoes/botao_pontuacao.png")
@@ -216,19 +223,19 @@ class TelaJogo:
     def click_botao_pontuacao(self, event):
         self.tela_pontuacao.abrir_tela()
 
-    def on_hover_botao_regras(self, event):
-        imagem_botao_regras = Image.open(IMAGES_DIR / "tela_jogo/botoes/botao_regras.png")
-        imagem_botao_regras = imagem_botao_regras.resize((60, 60), Image.LANCZOS)
-        self.img_botao_regras_grande = ImageTk.PhotoImage(imagem_botao_regras)
+    def on_hover_botao_instrucao(self, event):
+        imagem_botao_instrucao = Image.open(IMAGES_DIR / "tela_jogo/botoes/botao_instrucao.png")
+        imagem_botao_instrucao = imagem_botao_instrucao.resize((60, 60), Image.LANCZOS)
+        self.img_botao_instrucao_grande = ImageTk.PhotoImage(imagem_botao_instrucao)
 
-        self.canvas.itemconfig(self.botao_regras, image=self.img_botao_regras_grande)
+        self.canvas.itemconfig(self.botao_instrucao, image=self.img_botao_instrucao_grande)
         self.canvas.config(cursor="hand2")
 
-    def saida_botao_regras(self, event):
-        self.canvas.itemconfig(self.botao_regras, image=self.img_botao_regras)
+    def saida_botao_instrucao(self, event):
+        self.canvas.itemconfig(self.botao_instrucao, image=self.img_botao_instrucao)
         self.canvas.config(cursor="")
 
-    def click_botao_regras(self, event):
+    def click_botao_instrucao(self, event):
         self.tela_instrucao.abrir_tela()
 
     def mostrar_aviso(self, event):
@@ -240,12 +247,31 @@ class TelaJogo:
     def saida_carta(self, event):
         self.canvas.config(cursor="")
 
+    def revelar_trunfo(self, trunfo: Naipe):
+        pass
+
+    def atualizar_tela_pontuacao(self):
+        pass
+
+    def resetar_informacoes_tela_jogo(self):
+        pass
+
+    def clicar_carta(self, indice: int):
+        pass
+
+    def inicializar_imagens_cartas(self):
+        pass
+
+    def on_hover_carta_bloqueada(self):
+        pass
+
+
     @property
-    def janela_principal(self):
+    def janela_principal(self) -> Tk:
         return self._janela_principal
     
     @property
-    def canvas(self):
+    def canvas(self) -> Canvas:
         return self._canvas
     
     @property
@@ -253,19 +279,19 @@ class TelaJogo:
         return self._interface_jogador
     
     @property
-    def tela_instrucao(self):
+    def tela_instrucao(self) -> TelaInstrucao:
         return self._tela_instrucao
     
     @property
-    def tela_pontuacao(self):
+    def tela_pontuacao(self) -> TelaPontuacao:
         return self._tela_pontuacao
     
     @property
-    def tela_vencedor(self):
+    def tela_vencedor(self) -> TelaVencedor:
         return self._tela_vencedor
     
     @property
-    def label_jogador_atual(self):
+    def label_jogador_atual(self) -> Label:
         return self._label_jogador_atual
     
     @label_jogador_atual.setter
@@ -273,7 +299,7 @@ class TelaJogo:
         self._label_jogador_atual = nova_label
 
     @property 
-    def label_jogador1(self):
+    def label_jogador1(self) -> Label:
         return self._label_jogador1
     
     @label_jogador1.setter
@@ -281,7 +307,7 @@ class TelaJogo:
         self._label_jogador1 = nova_label
     
     @property 
-    def label_jogador2(self):
+    def label_jogador2(self) -> Label:
         return self._label_jogador2
     
     @label_jogador2.setter
@@ -289,7 +315,7 @@ class TelaJogo:
         self._label_jogador2 = nova_label
     
     @property 
-    def label_jogador3(self):
+    def label_jogador3(self) -> Label:
         return self._label_jogador3
     
     @label_jogador3.setter
@@ -297,7 +323,7 @@ class TelaJogo:
         self._label_jogador3 = nova_label
     
     @property 
-    def label_jogador4(self):
+    def label_jogador4(self) -> Label:
         return self._label_jogador4
     
     @label_jogador4.setter
@@ -305,7 +331,7 @@ class TelaJogo:
         self._label_jogador4 = nova_label
 
     @property
-    def cartas_vaza(self):
+    def cartas_vaza(self) -> list[Carta, int]:
         return self._cartas_vaza
     
     @cartas_vaza.setter
@@ -313,10 +339,18 @@ class TelaJogo:
         self._cartas_vaza = cartas
 
     @property
-    def cartas_jogador(self):
+    def cartas_jogador(self) -> list[Carta, int]:
         return self._cartas_jogador
     
     @cartas_jogador.setter
     def cartas_jogador(self, cartas):
         self._cartas_jogador = cartas
+
+    @property
+    def imagens_cartas(self) -> dict[str, PhotoImage]:
+        return self._imagens_cartas
+    
+    @property
+    def slot_jogadores(self) -> dict[str, tuple]:
+        pass 
 

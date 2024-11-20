@@ -24,10 +24,10 @@ class TelaSecundaria(ABC):
         self.tela.withdraw()
 
     @property
-    def tela(self):
+    def tela(self) -> Toplevel:
         return self._tela
     
     @property
-    def canvas(self):
+    def canvas(self) -> Canvas:
         return self._canvas
     

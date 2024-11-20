@@ -1,8 +1,8 @@
-from baralho import Baralho
-from rodada import Rodada
-from naipe import Naipe
-from carta import Carta
-from jogador import Jogador
+from .baralho import Baralho
+from .rodada import Rodada
+from .naipe import Naipe
+from .carta import Carta
+from .jogador import Jogador
 
 
 class Mesa:

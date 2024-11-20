@@ -14,8 +14,8 @@ from .tela_abandono import TelaAbandono
 class TelaInicial:
 
     def __init__(self, janela_principal, canvas, interface_jogador):
-        self._janela_principal = janela_principal
-        self._canvas = canvas
+        self._janela_principal: Tk = janela_principal
+        self._canvas: Canvas = canvas
         self._interface_jogador = interface_jogador
         self._tela_conexao_dog = TelaConexaoDOG(interface_jogador)
         self._tela_conectado = TelaConectado()
@@ -24,7 +24,7 @@ class TelaInicial:
         self._tela_recebimento_partida = TelaRecebimentoPartida()
         self._tela_abandono = TelaAbandono()
 
-        self._botao_iniciar_partida = None
+        self._botao_iniciar_partida: int = None
 
     def configurar_tela(self):
         largura = 1200
@@ -89,11 +89,11 @@ class TelaInicial:
         self.tela_recebimento_partida.abrir_tela()
     
     @property
-    def janela_principal(self):
+    def janela_principal(self) -> Tk:
         return self._janela_principal
     
     @property
-    def canvas(self):
+    def canvas(self) -> Canvas:
         return self._canvas
 
     @property
@@ -101,27 +101,27 @@ class TelaInicial:
         return self._interface_jogador
     
     @property
-    def tela_conexao_dog(self):
+    def tela_conexao_dog(self) -> TelaConexaoDOG:
         return self._tela_conexao_dog
     
     @property
-    def tela_conectado(self):
+    def tela_conectado(self) -> TelaConectado:
         return self._tela_conectado
     
     @property
-    def tela_conexao_falhou(self):
+    def tela_conexao_falhou(self) -> TelaConexaoFalhou:
         return self._tela_conexao_falhou
     
     @property
-    def tela_jogadores_insuficientes(self):
+    def tela_jogadores_insuficientes(self) -> TelaJogadoresInsuficientes:
         return self._tela_jogadores_insuficientes
     
     @property
-    def tela_recebimento_partida(self):
+    def tela_recebimento_partida(self) -> TelaRecebimentoPartida:
         return self._tela_recebimento_partida
     
     @property
-    def tela_abandono(self):
+    def tela_abandono(self) -> TelaAbandono:
         return self._tela_abandono
 
     @property

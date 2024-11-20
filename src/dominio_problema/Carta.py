@@ -1,4 +1,4 @@
-from naipe import Naipe
+from .naipe import Naipe
 
 
 class Carta:

@@ -1,9 +1,10 @@
 from tkinter import *
 
-from .tela_secundaria import TelaSecundaria
-
 from PIL import Image, ImageTk
 from images import IMAGES_DIR
+
+from .tela_secundaria import TelaSecundaria
+from dominio_problema.dupla import Dupla
 
 
 class TelaVencedor(TelaSecundaria):
@@ -12,10 +13,10 @@ class TelaVencedor(TelaSecundaria):
         super().__init__()
 
         self._interface_jogador = interface_jogador
-        self._nome_vencedor_1 = None
-        self._nome_vencedor_2 = None
+        self._nome_vencedor_1: Label = None
+        self._nome_vencedor_2: Label = None
 
-        self._botao_reiniciar_partida = None
+        self._botao_reiniciar_partida: int = None
         self.configurar_tela()
 
     def configurar_tela(self):
@@ -47,12 +48,11 @@ class TelaVencedor(TelaSecundaria):
         self.canvas.create_image(0, 0, anchor="nw", image=self.imagem_fundo)
         self.botao_reiniciar_partida = self.canvas.create_image(300, 300, anchor="center", image=self.imagem_botao)
 
-        self.canvas.tag_bind(self.botao_reiniciar_partida, "<Button-1>", self.acao_botao)
+        self.canvas.tag_bind(self.botao_reiniciar_partida, "<Button-1>", self.click_botao_reiniciar_partida)
         self.canvas.tag_bind(self.botao_reiniciar_partida, "<Enter>",   self.on_hover_botao)
         self.canvas.tag_bind(self.botao_reiniciar_partida, "<Leave>",  self.saida_botao)
 
-
-    def acao_botao(self, event):
+    def click_botao_reiniciar_partida(self, event):
         pass
 
     def on_hover_botao(self, event):
@@ -66,6 +66,9 @@ class TelaVencedor(TelaSecundaria):
     def saida_botao(self, event):
         self.canvas.itemconfig(self.botao_reiniciar_partida, image=self.imagem_botao)
         self.canvas.config(cursor="")
+    
+    def atualizar(self, dupla_vencedora: list[Dupla]):
+        pass
 
     @property
     def interface_jogador(self):
