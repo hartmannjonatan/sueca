@@ -1,46 +1,30 @@
-#!/usr/bin/python
-# -*- coding: UTF-8 -*-
-import Dupla
-import Mesa
-import Jogador
-import InterfaceJogador
-from typing import List
+from dupla import Dupla
+from mesa import Mesa
+from jogador import Jogador
+from interface.interface_jogador import InterfaceJogador
 
-class Jogo(object):
+
+class Jogo:
 	def __init__(self):
-		self._duplas : Dupla* = None
+		self._duplas : list[Dupla] = None
 		self._mesa : Mesa = None
-		self._ordem_jogadores : Jogador* = None
+		self._ordem_jogadores : list[Jogador] = None
 		self._status_jogo : str = None
 		self._proximo_jogador : Jogador = None
 		self._interface_jogador : InterfaceJogador = None
 		self._jogador_local : Jogador = None
-		self._partida_encerrada : long = false
-		self._rodada_encerrada : long = false
-		self._vaza_encerrada : long = false
-		self._.4 : Jogador = None
-		self._unnamed_Mesa_21 : Mesa = None
-		"""# @AssociationKind Composition"""
-		self._unnamed_Dupla_22 : Dupla = None
-		"""# @AssociationKind Composition"""
-		self._unnamed_InterfaceJogador_23 : InterfaceJogador = None
+		self._partida_encerrada : bool = False
+		self._rodada_encerrada : bool = False
+		self._vaza_encerrada : bool = False
+	
 
-	def jogador_local(self) -> Jogador:
+	def receber_jogada(self, jogada : dict):
 		pass
 
-	def duplas(self) -> Dupla*:
+	def nova_rodada(self, cartas : dict = None):
 		pass
 
-	def interface_jogador(self) -> InterfaceJogador:
-		pass
-
-	def receber_jogada(self, jogada : Dict):
-		pass
-
-	def nova_rodada(self, cartas : Dict = None):
-		pass
-
-	def habilitar_proximo_jogador(self, vencedor : Jogador___None):
+	def habilitar_proximo_jogador(self, vencedor : Jogador | None):
 		pass
 
 	def atualizar_tela_jogo(self):
@@ -52,21 +36,59 @@ class Jogo(object):
 	def atualizar_galhos(self):
 		pass
 
-	def avaliar_dupla_vencedora(self) -> Dupla_____None:
+	def avaliar_dupla_vencedora(self) -> list[Dupla] | None:
 		pass
 
 	def jogar_carta(self, indice_carta : int):
 		pass
 
-	def inicializar_jogadores_duplas_e_mesa(self, **jogadores : str**, id_jogador_local : str):
+	def inicializar_jogadores_duplas_e_mesa(self, jogadores : list[list[str]], id_jogador_local : str):
 		pass
 
-	def definir_jogadores(self, jogadores : string____, id_jogador_local : str):
-		pass
-
-	def ordem_jogadores(self) -> Jogador*:
+	def definir_jogadores(self, jogadores : list[list[str]], id_jogador_local : str):
 		pass
 
 	def reiniciar_partida(self):
 		pass
+
+	@property
+	def duplas(self) -> list[Dupla]:
+		return self._duplas
+	
+	@property
+	def mesa(self) -> Mesa:
+		return self._mesa
+
+	@property
+	def ordem_jogadores(self) -> list[Jogador]:
+		return self._ordem_jogadores
+	
+	@property
+	def status_jogo(self) -> str:
+		return self._status_jogo
+	
+	@property
+	def proximo_jogador(self) -> Jogador:
+		return self._proximo_jogador
+	
+	@property
+	def interface_jogador(self) -> InterfaceJogador:
+		return self._interface_jogador
+	
+	@property
+	def jogador_local(self) -> Jogador:
+		return self._jogador_local
+
+	@property
+	def partida_encerrada(self) -> bool:
+		return self._partida_encerrada
+	
+	@property
+	def rodada_encerrada(self) -> bool:
+		return self._rodada_encerrada
+	
+	@property
+	def vaza_encerrada(self) -> bool:
+		return self._vaza_encerrada
+
 

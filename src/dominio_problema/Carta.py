@@ -1,19 +1,29 @@
-#!/usr/bin/python
-# -*- coding: UTF-8 -*-
-import Naipe
-import Jogador
-import Baralho
-from typing import List
+from naipe import Naipe
 
-class Carta(object):
+
+class Carta:
 	def __init__(self):
 		self._numero : str = None
 		self._naipe : Naipe = None
 		self._valor : int = None
 		self._nome : str = None
-		self._unnamed_Jogador_ : Jogador = None
-		self._unnamed_Baralho_ : Baralho = None
-		self._unnamed_Naipe_ : Naipe = None
-		self._unnamed_Vaza_ = []
-		"""# @AssociationMultiplicity 0..4"""
+
+	@property
+	def numero(self) -> str:
+		return self._numero
+	
+	@property
+	def naipe(self) -> Naipe:
+		return self._naipe
+	
+	@property
+	def valor(self) -> int:
+		return self._valor
+	
+	@property
+	def nome(self) -> str:
+		return self._nome
+	
+
+
 

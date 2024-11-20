@@ -1,13 +1,17 @@
-#!/usr/bin/python
-# -*- coding: UTF-8 -*-
-import Carta
-import Jogador
-import Naipe
-import Rodada
-from typing import List
+from carta import Carta
+from jogador import Jogador
+from naipe import Naipe
+from rodada import Rodada
 
-class Vaza(object):
-	def vaza_finalizada(self) -> long:
+
+class Vaza:
+	def __init__(self):
+		self._cartas_jogadas : list[Carta] = None
+		self._primeiro_jogador : Jogador = None
+		self._naipe_obrigatorio : Naipe = None
+		self._jogadores : list[Jogador] = None
+
+	def vaza_finalizada(self) -> bool:
 		pass
 
 	def definir_vencedor(self, trunfo : Naipe) -> Jogador:
@@ -19,17 +23,26 @@ class Vaza(object):
 	def jogar_carta(self, carta : Carta, jogador : Jogador):
 		pass
 
-	def naipe_vaza(self) -> Naipe___None:
+	def naipe_vaza(self) -> Naipe | None:
 		pass
 
 	def add_carta(self, carta : Carta, jogador : Jogador):
 		pass
 
-	def __init__(self):
-		self._cartas_jogadas : Carta* = None
-		self._primeiro_jogador : Jogador = None
-		self._naipe_obrigatorio : Naipe = None
-		self._jogadores : Jogador* = None
-		self. : Rodada = None
-		self._unnamed_Carta_ : Carta = None
+	@property
+	def cartas_jogadas(self) -> list[Carta]:
+		return self._cartas_jogadas
+	
+	@property
+	def primeiro_jogador(self) -> Jogador:
+		return self._primeiro_jogador
+	
+	@property
+	def naipe_obrigatorio(self) -> Naipe:
+		return self._naipe_obrigatorio
+	
+	@property
+	def jogadores(self) -> list[Jogador]:
+		return self._jogadores
+
 

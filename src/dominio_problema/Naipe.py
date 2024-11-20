@@ -1,9 +1,9 @@
-#!/usr/bin/python
-# -*- coding: UTF-8 -*-
-import Carta
-from typing import List
+from enum import Enum
 
-class Naipe(object):
-	def __init__(self):
-		self._unnamed_Carta_ : Carta = None
+
+class Naipe(Enum):
+	Espadas = 1
+	Copas = 2
+	Ouros = 3
+	Paus = 4
 

@@ -1,43 +1,42 @@
-#!/usr/bin/python
-# -*- coding: UTF-8 -*-
-import Baralho
-import Rodada
-import Jogo
-import Jogador
-import Naipe
-import Carta
-from typing import List
+from baralho import Baralho
+from rodada import Rodada
+from naipe import Naipe
+from carta import Carta
+from jogador import Jogador
 
-class Mesa(object):
+
+class Mesa:
+	def __init__(self):
+		self._baralho : Baralho = None
+		self._rodadas : list[Rodada] = None
+	
 	def nova_rodada(self):
 		pass
 
-	def novo_baralho(self) -> Tuple_Carta____Naipe_:
+	def novo_baralho(self) -> tuple[list[Carta], Naipe]:
 		pass
 
-	def novas_cartas(self, cartas : Dict, *jogadores : Jogador*, naipe_trunfo : Naipe):
+	def novas_cartas(self, cartas : dict, jogadores : list[Jogador], naipe_trunfo : Naipe):
 		pass
 
 	def nova_vaza(self):
 		pass
 
-	def avaliar_jogada(self) -> Dict:
+	def avaliar_jogada(self) -> dict:
 		pass
 
 	def jogar_carta(self, carta : Carta, jogador : Jogador):
 		pass
 
-	def naipe_vaza(self) -> Naipe___None:
+	def naipe_vaza(self) -> Naipe | None:
 		pass
 
-	def __init__(self):
-		self._baralho : Baralho = None
-		self._rodadas : Rodada* = None
-		self._unnamed_Jogo_ : Jogo = None
-		self._unnamed_Baralho_ : Baralho = None
-		"""# @AssociationMultiplicity 1
-		# @AssociationKind Composition"""
-		self._unnamed_Rodada_ = []
-		"""# @AssociationMultiplicity 1..*
-		# @AssociationKind Aggregation"""
+
+	@property
+	def baralho(self) -> Baralho:
+		return self._baralho
+	
+	@property
+	def rodada(self) -> list[Rodada]:
+		return self._rodada
 
