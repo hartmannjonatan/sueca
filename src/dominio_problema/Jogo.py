@@ -14,8 +14,7 @@ class Jogo:
 		self._jogador_local : Jogador = None
 		self._partida_encerrada : bool = False
 		self._rodada_encerrada : bool = False
-		self._vaza_encerrada : bool = False
-	
+		self._vaza_encerrada : bool = False	
 
 	def receber_jogada(self, jogada : dict):
 		pass
@@ -42,10 +41,26 @@ class Jogo:
 		pass
 
 	def inicializar_jogadores_duplas_e_mesa(self, jogadores : list[list[str]], id_jogador_local : str):
-		pass
+		self.definir_jogadores(jogadores, id_jogador_local)
+
+		self.duplas[0] = Dupla(self.ordem_jogadores[0], self.ordem_jogadores[1])
+		self.duplas[1] = Dupla(self.ordem_jogadores[1], self.ordem_jogadores[3])
+
+		self.mesa = Mesa()
 
 	def definir_jogadores(self, jogadores : list[list[str]], id_jogador_local : str):
-		pass
+		self._ordem_jogadores = [None, None, None, None]
+
+		for i in range(0, 2):
+			nome = jogadores[i][0]
+			id_jogador = jogadores[i][1]
+			ordem = jogadores[i][2]
+			jogador = Jogador(nome)
+			self.ordem_jogadores[int(ordem)-1] = jogador
+
+			if id_jogador == id_jogador_local:
+				self.jogador_local = jogador
+				jogador.isLocal = True
 
 	def reiniciar_partida(self):
 		pass
@@ -77,6 +92,10 @@ class Jogo:
 	@property
 	def jogador_local(self) -> Jogador:
 		return self._jogador_local
+	
+	@jogador_local.setter
+	def jogador_local(self, jogador_local):
+		self._jogador_local = jogador_local
 
 	@property
 	def partida_encerrada(self) -> bool:

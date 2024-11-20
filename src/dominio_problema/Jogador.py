@@ -3,8 +3,8 @@ from .naipe import Naipe
 
 
 class Jogador:
-	def __init__(self):
-		self._nome : str = None
+	def __init__(self, nome):
+		self._nome : str = nome
 		self._cartas : Carta = None
 		self._meu_turno : bool = None
 		self._isLocal : bool = None
@@ -60,6 +60,10 @@ class Jogador:
 	@property
 	def isLocal(self) -> bool:
 		return self._isLocal
+	
+	@isLocal.setter
+	def isLocal(self, isLocal):
+		self._isLocal = isLocal
 	
 	@property
 	def vencedor(self) -> bool:

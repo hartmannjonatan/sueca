@@ -33,8 +33,11 @@ class TelaJogo:
         self._cartas_vaza: list[Carta, int] = None
         self._cartas_jogador: list[Carta, int] = None
 
-        self._imagens_cartas: dict[str, PhotoImage] = None
-        self._slot_jogadores: dict[str, tuple] = None
+        self._imagens_cartas: dict[str, PhotoImage] = dict()
+        self._slot_jogadores: dict[str, tuple] = dict()
+
+        self.inicializar_imagens_cartas()
+
     
     def configurar_tela(self, ordem_jogadores: list[Jogador] = None, jogador_local: Jogador = None):
         self.canvas.delete("all")
@@ -62,13 +65,8 @@ class TelaJogo:
         imagem_slot_cartas = imagem_slot_cartas.resize((1100, 153), Image.LANCZOS)
         self.imagem_slot_cartas = ImageTk.PhotoImage(imagem_slot_cartas)
 
-        imagem_carta1 = Image.open(IMAGES_DIR / "tela_jogo/cartas/a_paus.png")
-        imagem_carta1 = imagem_carta1.resize((82, 115), Image.LANCZOS)
-        self.imagem_carta1 = ImageTk.PhotoImage(imagem_carta1)
-
-        imagem_carta2 = Image.open(IMAGES_DIR / "tela_jogo/cartas/a_espadas.png")
-        imagem_carta2 = imagem_carta2.resize((82, 115), Image.LANCZOS)
-        self.imagem_carta2 = ImageTk.PhotoImage(imagem_carta2)
+        self.imagem_carta1 = self.imagens_cartas["a_paus"]
+        self.imagem_carta2 = self.imagens_cartas["2_copas"]
 
         nome_jogador1 = Image.open(IMAGES_DIR / "tela_jogo/playertag.png")
         nome_jogador1 = nome_jogador1.resize((180, 35), Image.LANCZOS)
@@ -151,7 +149,7 @@ class TelaJogo:
         slot_carta_jogador1 = slot_carta_jogador1.resize((96, 125), Image.LANCZOS)
         self.slot_carta_jogador1 = ImageTk.PhotoImage(slot_carta_jogador1)
 
-        carta_jogador1 = Image.open(IMAGES_DIR / "tela_jogo/cartas/a_copas.png")
+        carta_jogador1 = Image.open(IMAGES_DIR / "tela_jogo/cartas/k_copas.png")
         carta_jogador1 = carta_jogador1.resize((82, 115), Image.LANCZOS)
         self.carta_jogador1 = ImageTk.PhotoImage(carta_jogador1)
 
@@ -159,7 +157,7 @@ class TelaJogo:
         slot_carta_jogador2 = slot_carta_jogador1.resize((96, 125), Image.LANCZOS)
         self.slot_carta_jogador2 = ImageTk.PhotoImage(slot_carta_jogador2)
 
-        carta_jogador2 = Image.open(IMAGES_DIR / "tela_jogo/cartas/dama_copas.png")
+        carta_jogador2 = Image.open(IMAGES_DIR / "tela_jogo/cartas/q_copas.png")
         carta_jogador2 = carta_jogador2.resize((82, 115), Image.LANCZOS)
         self.carta_jogador2 = ImageTk.PhotoImage(carta_jogador2)
 
@@ -260,7 +258,15 @@ class TelaJogo:
         pass
 
     def inicializar_imagens_cartas(self):
-        pass
+        cartas = ["a", "2", "3", "4", "5", "6", "7", "j", "q", "k"]
+        naipes = [Naipe.paus.name, Naipe.espadas.name, Naipe.ouros.name, Naipe.copas.name]
+
+        for i in range(0, 10):
+            for j in range(0, 4):
+                key = f"{cartas[i]}_{naipes[j]}"
+                imagem = Image.open(IMAGES_DIR/ f"tela_jogo/cartas/{cartas[i]}_{naipes[j]}.png")
+                imagem = imagem.resize((82, 115), Image.LANCZOS)
+                self.imagens_cartas[key] = ImageTk.PhotoImage(imagem)
 
     def on_hover_carta_bloqueada(self):
         pass
