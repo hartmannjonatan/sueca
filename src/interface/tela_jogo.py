@@ -30,25 +30,34 @@ class TelaJogo:
         self._label_jogador3: Label = None
         self._label_jogador4: Label = None
 
-        self._cartas_vaza: list[Carta, int] = None
-        self._cartas_jogador: list[Carta, int] = None
-
+        self._cartas_vaza: list[Carta, int] = list()
+        self._cartas_jogador: list[Carta, int] = list()
         self._imagens_cartas: dict[str, PhotoImage] = dict()
         self._slot_jogadores: dict[str, tuple] = dict()
 
         self.inicializar_imagens_cartas()
-
     
     def configurar_tela(self, ordem_jogadores: list[Jogador] = None, jogador_local: Jogador = None):
         self.canvas.delete("all")
 
+        posicao_jogador_local = 0
+        for i in range(0, len(ordem_jogadores)):
+            if jogador_local == ordem_jogadores[i]:
+                posicao_jogador_local = i
+            
+        jogador1 = jogador_local
+        jogador2 = ordem_jogadores[(posicao_jogador_local + 1) % 4]
+        jogador3 = ordem_jogadores[(posicao_jogador_local + 2) % 4]
+        jogador4 = ordem_jogadores[(posicao_jogador_local + 3) % 4]
+
         self.configurar_background()
-        self.criar_area_jogador_1()
-        self.criar_area_jogador_2()
-        self.criar_area_jogador_3()
-        self.criar_area_jogador_4()
-        self.criar_area_de_jogo()
-        self.criar_frame_jogador_atual()
+        self.criar_area_jogador_1(jogador1)
+        self.criar_area_jogador_2(jogador2)
+        self.criar_area_jogador_3(jogador3)
+        self.criar_area_jogador_4(jogador4)
+
+        self.criar_area_de_jogo(jogador1, jogador2, jogador3, jogador4)
+        self.criar_frame_status()
         self.criar_botoes_menu()
     
     def configurar_background(self):
@@ -60,35 +69,23 @@ class TelaJogo:
         self.canvas.create_image(0, 0, anchor="nw", image=self.imagem_fundo_jogo)
         self.canvas.config(cursor="")
 
-    def criar_area_jogador_1(self):
+    def criar_area_jogador_1(self, jogador1: Jogador):
         imagem_slot_cartas = Image.open(IMAGES_DIR / "tela_jogo/cardsslot.png")
         imagem_slot_cartas = imagem_slot_cartas.resize((1100, 153), Image.LANCZOS)
         self.imagem_slot_cartas = ImageTk.PhotoImage(imagem_slot_cartas)
-
-        self.imagem_carta1 = self.imagens_cartas["a_paus"]
-        self.imagem_carta2 = self.imagens_cartas["2_copas"]
 
         nome_jogador1 = Image.open(IMAGES_DIR / "tela_jogo/playertag.png")
         nome_jogador1 = nome_jogador1.resize((180, 35), Image.LANCZOS)
         self.nome_jogador1 = ImageTk.PhotoImage(nome_jogador1)
 
         self.canvas.create_image(600, 600, anchor="center", image=self.imagem_slot_cartas)
-        self.carta1 = self.canvas.create_image(180, 605, anchor="center", image=self.imagem_carta1)
-        self.carta2 = self.canvas.create_image(271, 605, anchor="center", image=self.imagem_carta2)
         self.canvas.create_image(135, 500, anchor="nw", image=self.nome_jogador1)
 
-        self.canvas.tag_bind(self.carta1, "<Button-1>", self.mostrar_aviso)
-        self.canvas.tag_bind(self.carta1, "<Enter>", self.on_hover_carta)
-        self.canvas.tag_bind(self.carta1, "<Leave>", self.saida_carta)
-
-        self.canvas.tag_bind(self.carta2, "<Button-1>", self.mostrar_aviso)
-        self.canvas.tag_bind(self.carta2, "<Enter>", self.on_hover_carta)
-        self.canvas.tag_bind(self.carta2, "<Leave>", self.saida_carta)
-
-        self.label_jogador1 = Label(self.janela_principal, text="Rodrigo", font=("Arial", 14), bg="#F2B035")
+        nome_jogador = jogador1.nome
+        self.label_jogador1 = Label(self.janela_principal, text=nome_jogador, font=("Arial", 14), bg="#F2B035")
         self.label_jogador1.place(anchor="nw", x=140, y=505)
     
-    def criar_area_jogador_2(self):
+    def criar_area_jogador_2(self, jogador2: Jogador):
         bolo_cartas = Image.open(IMAGES_DIR / "tela_jogo/cardsstack.png")
         bolo_cartas = bolo_cartas.resize((167 , 115), Image.LANCZOS)
         bolo_cartas = bolo_cartas.rotate(90, expand=True)
@@ -101,10 +98,11 @@ class TelaJogo:
         self.canvas.create_image(1100, 350, anchor="center", image=self.bolo_cartas_jogador_2)
         self.canvas.create_image(1190, 228, anchor="ne", image=self.nome_jogador2)
 
-        self.label_jogador2 = Label(self.janela_principal, text="Jonathan", font=("Arial", 14), bg="#F2B035")
+        nome_jogador = jogador2.nome
+        self.label_jogador2 = Label(self.janela_principal, text=nome_jogador, font=("Arial", 14), bg="#F2B035")
         self.label_jogador2.place(anchor="nw", x=1015, y=233)
     
-    def criar_area_jogador_3(self):
+    def criar_area_jogador_3(self, jogador3: Jogador):
         bolo_cartas = Image.open(IMAGES_DIR / "tela_jogo/cardsstack.png")
         bolo_cartas = bolo_cartas.resize((167 , 115), Image.LANCZOS)
         self.bolo_cartas_jogador_3 = ImageTk.PhotoImage(bolo_cartas)
@@ -116,10 +114,11 @@ class TelaJogo:
         self.canvas.create_image(600, 100, anchor="center", image=self.bolo_cartas_jogador_3)
         self.canvas.create_image(600, 185, anchor="center", image=self.nome_jogador3)
 
-        self.label_jogador2 = Label(self.janela_principal, text="Henrique", font=("Arial", 14), bg="#F2B035")
+        nome_jogador = jogador3.nome
+        self.label_jogador2 = Label(self.janela_principal, text=nome_jogador, font=("Arial", 14), bg="#F2B035")
         self.label_jogador2.place(anchor="nw", x=515, y=173)
     
-    def criar_area_jogador_4(self):
+    def criar_area_jogador_4(self, jogador4: Jogador):
         bolo_cartas = Image.open(IMAGES_DIR / "tela_jogo/cardsstack.png")
         bolo_cartas = bolo_cartas.resize((167 , 115), Image.LANCZOS)
         bolo_cartas = bolo_cartas.rotate(90, expand=True)
@@ -132,10 +131,11 @@ class TelaJogo:
         self.canvas.create_image(100, 350, anchor="center", image=self.bolo_cartas_jogador_4)
         self.canvas.create_image(10, 228, anchor="nw", image=self.nome_jogador4)
 
-        self.label_jogador2 = Label(self.janela_principal, text="Ricardo", font=("Arial", 14), bg="#F2B035")
+        nome_jogador = jogador4.nome
+        self.label_jogador2 = Label(self.janela_principal, text=nome_jogador, font=("Arial", 14), bg="#F2B035")
         self.label_jogador2.place(anchor="nw", x=15, y=233)
 
-    def criar_frame_jogador_atual(self):
+    def criar_frame_status(self):
         frame_jogador_atual = Image.open(IMAGES_DIR / "tela_jogo/actualplayer.png")
         frame_jogador_atual = frame_jogador_atual.resize((350, 40), Image.LANCZOS)
         self.frame_jogador_atual = ImageTk.PhotoImage(frame_jogador_atual)
@@ -144,7 +144,7 @@ class TelaJogo:
         self.label_jogador_atual = Label(self.janela_principal, text="Aguarde, vez de Henrique...", font=("Arial", 14), bg="#f2f2f2")
         self.label_jogador_atual.place(anchor="nw", x=15, y=20)
         
-    def criar_area_de_jogo(self):
+    def criar_area_de_jogo(self, jogador1: Jogador, jogador2: Jogador, jogador3: Jogador, jogador4: Jogador):
         slot_carta_jogador1 = Image.open(IMAGES_DIR / "tela_jogo/singlecardslot.png")
         slot_carta_jogador1 = slot_carta_jogador1.resize((96, 125), Image.LANCZOS)
         self.slot_carta_jogador1 = ImageTk.PhotoImage(slot_carta_jogador1)
@@ -170,14 +170,16 @@ class TelaJogo:
         self.slot_carta_jogador4 = ImageTk.PhotoImage(slot_carta_jogador4)
 
         self.canvas.create_image(600, 465, anchor="center", image=self.slot_carta_jogador1)
-        self.canvas.create_image(597, 465, anchor="center", image=self.carta_jogador1)
+        self.slot_jogadores[jogador1.nome] = (597, 465)
 
         self.canvas.create_image(750, 350, anchor="center", image=self.slot_carta_jogador2)
-        self.canvas.create_image(747, 350, anchor="center", image=self.carta_jogador2)
+        self.slot_jogadores[jogador2.nome] = (747, 350)
 
         self.canvas.create_image(600, 275, anchor="center", image=self.slot_carta_jogador3)
+        self.slot_jogadores[jogador3.nome] = (597, 275)
 
         self.canvas.create_image(450, 350, anchor="center", image=self.slot_carta_jogador4)
+        self.slot_jogadores[jogador4.nome] = (447, 350)
     
     def criar_botoes_menu(self):
         imagem_botao_naipe_rodada = Image.open(IMAGES_DIR / "tela_jogo/botoes/botao_copas.png")

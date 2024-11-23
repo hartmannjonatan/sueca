@@ -24,7 +24,8 @@ class Rodada:
 		pass
 
 	def naipe_vaza(self) -> Naipe | None:
-		pass
+		vaza_atual = self.vazas[len(self.vazas)-1]
+		return vaza_atual.naipe_vaza()
 
 	@property
 	def vazas(self) -> list[Vaza]:

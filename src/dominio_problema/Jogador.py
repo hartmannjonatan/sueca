@@ -29,10 +29,10 @@ class Jogador:
 		pass
 
 	def habilitar_turno(self):
-		pass
+		self.meu_turno = True
 
 	def desabilitar_turno(self):
-		pass
+		self.meu_turno = False
 
 	def reiniciar(self):
 		pass
@@ -56,6 +56,10 @@ class Jogador:
 	@property
 	def meu_turno(self) -> bool:
 		return self._meu_turno
+	
+	@meu_turno.setter
+	def meu_turno(self, meu_turno):
+		self._meu_turno = meu_turno
 	
 	@property
 	def isLocal(self) -> bool:

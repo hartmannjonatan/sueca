@@ -8,10 +8,11 @@ from .jogador import Jogador
 class Mesa:
 	def __init__(self):
 		self._baralho : Baralho = None
-		self._rodadas : list[Rodada] = None
+		self._rodadas : list[Rodada] = list()
 	
 	def nova_rodada(self):
-		pass
+		nova_rodada = Rodada()
+		self.rodadas.append(nova_rodada)
 
 	def novo_baralho(self) -> tuple[list[Carta], Naipe]:
 		pass
@@ -29,7 +30,7 @@ class Mesa:
 		pass
 
 	def naipe_vaza(self) -> Naipe | None:
-		pass
+		self.rodadas[len(self.rodadas-1)].naipe_vaza()
 
 
 	@property

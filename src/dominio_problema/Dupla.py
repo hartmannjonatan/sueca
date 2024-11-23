@@ -8,7 +8,7 @@ class Dupla:
 		self._pontuacao : Pontuacao = Pontuacao()
 
 	def zerar_pontuacao_rodada(self):
-		pass
+		self.pontuacao.zerar_pontuacao_rodada()
 
 	def add_pontuacao(self, pontuacao : int):
 		pass

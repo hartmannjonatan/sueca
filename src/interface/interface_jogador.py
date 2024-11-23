@@ -45,7 +45,7 @@ class InterfaceJogador(DogPlayerInterface):
         self.tela_inicial.canvas.itemconfig(self.tela_inicial.botao_iniciar_partida, state="normal")
     
     def iniciar_partida(self):
-        start_status = self.dog_server_interface.start_match(2)
+        start_status = self.dog_server_interface.start_match(4)
         mensagem = start_status.get_message()
         jogadores = start_status.get_players()
         id_jogador_local = start_status.get_local_id()
@@ -65,7 +65,10 @@ class InterfaceJogador(DogPlayerInterface):
         elif mensagem == "Partida iniciada":
             self.tela_inicial.abrir_tela_recebimento_partida()
             self.jogo.inicializar_jogadores_duplas_e_mesa(jogadores, id_jogador_local)
-            self.tela_jogo.configurar_tela()
+
+            jogador_local = self.jogo.jogador_local
+            ordem_jogadores = self.jogo.ordem_jogadores
+            self.tela_jogo.configurar_tela(ordem_jogadores, jogador_local)
         
     def revelar_trunfo(self, trunfo: Naipe):
         pass

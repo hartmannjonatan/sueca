@@ -23,7 +23,7 @@ class Vaza:
 		pass
 
 	def naipe_vaza(self) -> Naipe | None:
-		pass
+		return self.naipe_obrigatorio
 
 	def add_carta(self, carta : Carta, jogador : Jogador):
 		pass
