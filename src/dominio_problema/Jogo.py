@@ -26,6 +26,11 @@ class Jogo:
 
 		self.habilitar_proximo_jogador(self.proximo_jogador)
 
+		meu_turno = self.jogador_local.meu_turno
+
+		if meu_turno:
+			cartas_novo_baralho, naipe_trunfo = self.mesa.novo_baralho()
+
 	def habilitar_proximo_jogador(self, vencedor : Jogador | None):
 		for jogador in self.ordem_jogadores:
 			jogador.desabilitar_turno()
@@ -44,6 +49,7 @@ class Jogo:
 			naipe = self.mesa.naipe_vaza()
 			cartas_validas = self.proximo_jogador.cartas_validas(naipe)
 			self.interface_jogador.habilitar_cartas(cartas_validas)
+
 
 	def atualizar_tela_jogo(self):
 		pass

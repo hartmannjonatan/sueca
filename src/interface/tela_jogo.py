@@ -259,6 +259,15 @@ class TelaJogo:
     def clicar_carta(self, indice: int):
         pass
 
+    def habilitar_cartas(self, cartas: list[Carta]):
+        quantidade_cartas = len(cartas)
+
+        for i in range(0, quantidade_cartas):
+            if cartas[i] != None:
+                self.canvas.tag_bind(self.cartas_jogador[i][1], "<Button-1>", lambda event: self.clicar_carta(i))
+                self.canvas.tag_bind(self.cartas_jogador[i][1], "<Enter>", self.on_hover_carta)
+                self.canvas.tag_bind(self.cartas_jogador[i][1], "<Leave>", self.saida_carta)
+
     def inicializar_imagens_cartas(self):
         cartas = ["a", "2", "3", "4", "5", "6", "7", "j", "q", "k"]
         naipes = [Naipe.paus.name, Naipe.espadas.name, Naipe.ouros.name, Naipe.copas.name]
@@ -272,7 +281,6 @@ class TelaJogo:
 
     def on_hover_carta_bloqueada(self):
         pass
-
 
     @property
     def janela_principal(self) -> Tk:

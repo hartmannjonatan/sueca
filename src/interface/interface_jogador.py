@@ -83,7 +83,7 @@ class InterfaceJogador(DogPlayerInterface):
         pass
 
     def habilitar_cartas(self, cartas: list[Carta]):
-        pass
+        self.tela_jogo.habilitar_cartas(cartas)
 
     def desabilitar_cartas(self):
         pass

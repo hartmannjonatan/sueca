@@ -2,7 +2,7 @@ from .naipe import Naipe
 
 
 class Carta:
-	def __init__(self):
+	def __init__(self, numero: str, naipe: Naipe):
 		self._numero : str = None
 		self._naipe : Naipe = None
 		self._valor : int = None
