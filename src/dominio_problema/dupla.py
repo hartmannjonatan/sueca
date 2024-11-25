@@ -11,10 +11,10 @@ class Dupla:
 		self.pontuacao.zerar_pontuacao_rodada()
 
 	def add_pontuacao(self, pontuacao : int):
-		pass
+		self.pontuacao.add_pontuacao(pontuacao)
 
 	def set_galhos(self, galhos : int):
-		pass
+		self.pontuacao.galhos = galhos
 
 	def reiniciar(self):
 		pass

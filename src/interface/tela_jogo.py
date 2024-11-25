@@ -115,8 +115,8 @@ class TelaJogo:
         self.canvas.create_image(600, 185, anchor="center", image=self.nome_jogador3)
 
         nome_jogador = jogador3.nome
-        self.label_jogador2 = Label(self.janela_principal, text=nome_jogador, font=("Arial", 14), bg="#F2B035")
-        self.label_jogador2.place(anchor="nw", x=515, y=173)
+        self.label_jogador3 = Label(self.janela_principal, text=nome_jogador, font=("Arial", 14), bg="#F2B035")
+        self.label_jogador3.place(anchor="nw", x=515, y=173)
     
     def criar_area_jogador_4(self, jogador4: Jogador):
         bolo_cartas = Image.open(IMAGES_DIR / "tela_jogo/cardsstack.png")
@@ -132,8 +132,8 @@ class TelaJogo:
         self.canvas.create_image(10, 228, anchor="nw", image=self.nome_jogador4)
 
         nome_jogador = jogador4.nome
-        self.label_jogador2 = Label(self.janela_principal, text=nome_jogador, font=("Arial", 14), bg="#F2B035")
-        self.label_jogador2.place(anchor="nw", x=15, y=233)
+        self.label_jogador4 = Label(self.janela_principal, text=nome_jogador, font=("Arial", 14), bg="#F2B035")
+        self.label_jogador4.place(anchor="nw", x=15, y=233)
 
     def criar_frame_status(self):
         frame_jogador_atual = Image.open(IMAGES_DIR / "tela_jogo/actualplayer.png")
@@ -221,6 +221,7 @@ class TelaJogo:
         self.canvas.config(cursor="")
 
     def click_botao_pontuacao(self, event):
+        self.atualizar_tela_pontuacao()
         self.tela_pontuacao.abrir_tela()
 
     def on_hover_botao_instrucao(self, event):
@@ -251,10 +252,25 @@ class TelaJogo:
         pass
 
     def atualizar_tela_pontuacao(self):
-        pass
+        jogo = self._interface_jogador.jogo
+        duplas = jogo.duplas
+        self.tela_pontuacao.atualizar_tela_pontuacao(duplas[0], duplas[1])
 
     def resetar_informacoes_tela_jogo(self):
-        pass
+        """
+        Reseta os elementos da tela para o estado padrão quando ocorre uma notificação de abandono.
+        """
+        self.label_jogador_atual.destroy()
+        self.label_jogador1.destroy()
+        self.label_jogador2.destroy()
+        self.label_jogador3.destroy()
+        self.label_jogador4.destroy()
+
+        self._cartas_vaza.clear()
+        self._cartas_jogador.clear()
+        self._slot_jogadores.clear()
+
+        self._canvas.delete("all")
 
     def clicar_carta(self, indice: int):
         pass
@@ -360,5 +376,5 @@ class TelaJogo:
     
     @property
     def slot_jogadores(self) -> dict[str, tuple]:
-        pass 
+        return self._slot_jogadores
 

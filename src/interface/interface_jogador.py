@@ -24,7 +24,7 @@ class InterfaceJogador(DogPlayerInterface):
         self._tela_inicial = TelaInicial(self.janela_principal, self.canvas, self)
         self._tela_jogo = TelaJogo(self.janela_principal, self.canvas, self)
         self._dog_server_interface = DogActor()
-        self._jogo = Jogo()
+        self._jogo = None
         
         self.configurar_tela_inicial()
 
@@ -36,10 +36,12 @@ class InterfaceJogador(DogPlayerInterface):
         self.janela_principal.focus_force()
     
     def configurar_tela_abandono(self):
-        pass
+        self.tela_inicial.configurar_tela()
+        self.tela_inicial.tela_abandono.abrir_tela()
+        self.desbloquear_botao_iniciar()
 
     def limpar_canva(self):
-        pass
+        self._canvas.delete("all")
     
     def desbloquear_botao_iniciar(self):
         self.tela_inicial.canvas.itemconfig(self.tela_inicial.botao_iniciar_partida, state="normal")
@@ -64,8 +66,8 @@ class InterfaceJogador(DogPlayerInterface):
             self.tela_inicial.abrir_tela_jogadores_insuficientes()
         elif mensagem == "Partida iniciada":
             self.tela_inicial.abrir_tela_recebimento_partida()
+            self._jogo = Jogo()
             self.jogo.inicializar_jogadores_duplas_e_mesa(jogadores, id_jogador_local)
-
             jogador_local = self.jogo.jogador_local
             ordem_jogadores = self.jogo.ordem_jogadores
             self.tela_jogo.configurar_tela(ordem_jogadores, jogador_local)
@@ -77,7 +79,7 @@ class InterfaceJogador(DogPlayerInterface):
         pass
 
     def remover_instancia_jogo(self):
-        pass
+        self._jogo = None
 
     def jogar_carta(self, indice_carta: int):
         pass
@@ -95,7 +97,10 @@ class InterfaceJogador(DogPlayerInterface):
         pass
 
     def receive_withdrawal_notification(self):
-        pass
+        self.remover_instancia_jogo()
+        self.tela_jogo.resetar_informacoes_tela_jogo()
+        self.limpar_canva()
+        self.configurar_tela_abandono()
 
     def receive_start(self, start_status: StartStatus):
         mensagem = start_status.get_message()
