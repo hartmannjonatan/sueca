@@ -23,7 +23,25 @@ class Jogador:
 		pass
 
 	def cartas_validas(self, naipe_vaza : Naipe | None) -> list[Carta]:
-		pass
+		cartas_validas = list()
+		quantidade_cartas = self.quantidade_cartas()
+
+		if naipe_vaza == None:
+			cartas_validas = self.cartas
+		else:
+			contador_cartas = 0
+
+			for i in range(0, quantidade_cartas):
+				if self.cartas[i].naipe == naipe_vaza:
+					cartas_validas.append(self.cartas[i])	
+					contador_cartas += 1
+				else:
+					cartas_validas.append(None)
+				
+			if contador_cartas == 0:
+				cartas_validas = self.cartas
+			
+		return cartas_validas
 
 	def novas_cartas(self, cartas : list[Carta]):
 		pass
@@ -39,7 +57,6 @@ class Jogador:
 
 	def definir_vencedor(self):
 		pass
-
 
 	@property
 	def nome(self) -> str:

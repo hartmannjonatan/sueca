@@ -15,7 +15,13 @@ class Mesa:
 		self.rodadas.append(nova_rodada)
 
 	def novo_baralho(self) -> tuple[list[Carta], Naipe]:
-		pass
+		self.baralho = Baralho()
+		self.baralho.novas_cartas()
+		cartas, naipe_trunfo = self.baralho.distribuir_cartas()
+		self.rodada(len(self.rodadas)-1).definir_trunfo()
+
+		return cartas, naipe_trunfo
+
 
 	def novas_cartas(self, cartas : dict, jogadores : list[Jogador], naipe_trunfo : Naipe):
 		pass
@@ -37,7 +43,15 @@ class Mesa:
 	def baralho(self) -> Baralho:
 		return self._baralho
 	
+	@baralho.setter
+	def baralho(self, baralho):
+		self._baralho = baralho
+	
 	@property
 	def rodada(self) -> list[Rodada]:
 		return self._rodada
+	
+	@rodada.setter
+	def rodada(self, rodada):
+		self._rodadas = rodada
 
