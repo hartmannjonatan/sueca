@@ -66,11 +66,13 @@ class InterfaceJogador(DogPlayerInterface):
             self.tela_inicial.abrir_tela_jogadores_insuficientes()
         elif mensagem == "Partida iniciada":
             self.tela_inicial.abrir_tela_recebimento_partida()
-            self._jogo = Jogo()
+            self.jogo = Jogo()
             self.jogo.inicializar_jogadores_duplas_e_mesa(jogadores, id_jogador_local)
             jogador_local = self.jogo.jogador_local
             ordem_jogadores = self.jogo.ordem_jogadores
             self.tela_jogo.configurar_tela(ordem_jogadores, jogador_local)
+
+            self.jogo.nova_rodada()
         
     def revelar_trunfo(self, trunfo: Naipe):
         pass
@@ -79,7 +81,7 @@ class InterfaceJogador(DogPlayerInterface):
         pass
 
     def remover_instancia_jogo(self):
-        self._jogo = None
+        self.jogo = None
 
     def jogar_carta(self, indice_carta: int):
         pass
@@ -132,6 +134,9 @@ class InterfaceJogador(DogPlayerInterface):
     def jogo(self) -> Jogo:
         return self._jogo
     
+    @jogo.setter
+    def jogo(self, jogo):
+        self._jogo = jogo
     
 
 

@@ -31,6 +31,9 @@ class Jogo:
 		if meu_turno:
 			cartas_novo_baralho, naipe_trunfo = self.mesa.novo_baralho()
 
+			for i in range(len(self.ordem_jogadores)):
+				self.ordem_jogadores[i].novas_cartas(cartas_novo_baralho[i])
+
 	def habilitar_proximo_jogador(self, vencedor : Jogador | None):
 		for jogador in self.ordem_jogadores:
 			jogador.desabilitar_turno()

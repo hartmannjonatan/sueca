@@ -2,6 +2,8 @@ from .jogador import Jogador
 from .carta import Carta
 from .naipe import Naipe
 
+import random
+
 class Baralho:
 	def __init__(self):
 		self._cartas : list[Carta] = list()
@@ -13,7 +15,25 @@ class Baralho:
 			self.cartas.append(Carta(carta, naipe))
 			
 	def distribuir_cartas(self) -> None:
-		pass
+		cartas_jogadores = list()
+		cartas_baralho = self.cartas
+
+		random.shuffle(cartas_baralho)
+		random.shuffle(cartas_baralho)
+		random.shuffle(cartas_baralho)
+	
+		naipe_trunfo = cartas_baralho[0].naipe
+
+		for i in range(4):
+			mao = list()
+			for i in range(10):
+				carta = cartas_baralho.pop()
+				mao.append(carta)
+			cartas_jogadores.append(mao)
+	
+		return cartas_jogadores, naipe_trunfo
+
+
 
 	def novas_cartas(self, cartas : dict, jogadores : list[Jogador]):
 		pass

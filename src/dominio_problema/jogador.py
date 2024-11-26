@@ -5,14 +5,14 @@ from .naipe import Naipe
 class Jogador:
 	def __init__(self, nome):
 		self._nome : str = nome
-		self._cartas : Carta = None
+		self._cartas : list[Carta] = list()
 		self._meu_turno : bool = None
 		self._isLocal : bool = None
 		self._vencedor : bool = None
 
 	def quantidade_cartas(self) -> int:
-		pass
-
+		return len(self.cartas)
+	
 	def add_carta(self, carta : Carta):
 		pass
 
