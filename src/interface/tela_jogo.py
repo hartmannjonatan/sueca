@@ -11,6 +11,7 @@ from .tela_vencedor import TelaVencedor
 from dominio_problema.carta import Carta
 from dominio_problema.jogador import Jogador
 from dominio_problema.naipe import Naipe
+from dominio_problema.vaza import Vaza
 
 
 class TelaJogo:
@@ -136,13 +137,13 @@ class TelaJogo:
         self.label_jogador4.place(anchor="nw", x=15, y=233)
 
     def criar_frame_status(self):
-        frame_jogador_atual = Image.open(IMAGES_DIR / "tela_jogo/actualplayer.png")
-        frame_jogador_atual = frame_jogador_atual.resize((350, 40), Image.LANCZOS)
-        self.frame_jogador_atual = ImageTk.PhotoImage(frame_jogador_atual)
+        frame_status = Image.open(IMAGES_DIR / "tela_jogo/actualplayer.png")
+        frame_status = frame_status.resize((350, 40), Image.LANCZOS)
+        self.frame_status = ImageTk.PhotoImage(frame_status)
 
-        self.canvas.create_image(10, 15, anchor="nw", image=self.frame_jogador_atual)
-        self.label_jogador_atual = Label(self.janela_principal, text="Aguarde, vez de Henrique...", font=("Arial", 14), bg="#f2f2f2")
-        self.label_jogador_atual.place(anchor="nw", x=15, y=20)
+        self.canvas.create_image(10, 15, anchor="nw", image=self.frame_status)
+        self.label_status = Label(self.janela_principal, text="Aguarde, vez de Henrique...", font=("Arial", 14), bg="#f2f2f2")
+        self.label_status.place(anchor="nw", x=15, y=20)
         
     def criar_area_de_jogo(self, jogador1: Jogador, jogador2: Jogador, jogador3: Jogador, jogador4: Jogador):
         slot_carta_jogador1 = Image.open(IMAGES_DIR / "tela_jogo/singlecardslot.png")
@@ -255,7 +256,51 @@ class TelaJogo:
         jogo = self._interface_jogador.jogo
         duplas = jogo.duplas
         self.tela_pontuacao.atualizar_tela_pontuacao(duplas[0], duplas[1])
+    
+    def atualizar_interface(self, status: str, vaza: Vaza, jogador_local: Jogador):
+        quantidade_cartas = len(self.carta_jogador)
 
+        for i in range(0, quantidade_cartas):
+            id_carta = self.cartas_jogador[i][1]
+            self.canvas.delete(id_carta)
+        
+        quantidade_cartas = len(jogador_local.cartas)
+        posicao_carta_x = 180
+
+        for i in range(0, quantidade_cartas):
+            carta = jogador_local.cartas[i]
+            self.cartas_jogador[i][0] = carta
+
+            imagem_carta = self.imagens_cartas[carta.nome]
+            id_carta = self.canvas.create_image(posicao_carta_x, 605, anchor="center", image=imagem_carta)
+
+            self.carta_jogador[i][1] = id_carta
+
+            posicao_carta_x += 91
+        
+            self.canvas.tag_bind(id_carta, "<Enter>", self.on_hover_carta_bloqueada)
+            self.canvas.tag_bind(id_carta, "<Leave>", self.saida_carta)
+
+        self.label_status.config(text=status)
+
+        quantidade_cartas = len(self.cartas_vaza)
+        for i in range(0, quantidade_cartas):
+            carta = self.cartas_vaza[i][0]
+            id_carta = self.cartas_vaza[i][0]
+            self.canvas.delete(id_carta)
+        
+        quantidade_cartas = len(vaza.cartas_jogadas)
+        for i in range(0, quantidade_cartas):
+            carta = vaza.cartas_jogadas[i]
+            self.cartas_vaza[i][0] = carta
+            
+            imagem_carta = self.imagens_cartas[carta.nome]
+            jogador = vaza.jogadores[i]
+            posicao = self.slot_jogadores[jogador.nome]
+            
+            id_carta = self.canvas.create_image(posicao[0], posicao[1], anchor="center", image=imagem_carta)
+            self.cartas_vaza[i][1] = id_carta
+            
     def resetar_informacoes_tela_jogo(self):
         """
         Reseta os elementos da tela para o estado padrão quando ocorre uma notificação de abandono.

@@ -3,6 +3,7 @@ from .rodada import Rodada
 from .naipe import Naipe
 from .carta import Carta
 from .jogador import Jogador
+from .vaza import Vaza
 
 
 class Mesa:
@@ -21,12 +22,12 @@ class Mesa:
 
 		return cartas, naipe_trunfo
 
-
 	def novas_cartas(self, cartas : dict, jogadores : list[Jogador], naipe_trunfo : Naipe):
-		pass
-
-	def nova_vaza(self):
-		pass
+		self.baralho.novas_cartas(cartas, jogadores)
+		self.rodadas[len(self.rodadas)-1].definir_trunfo(naipe_trunfo)
+			
+	def nova_vaza(self) -> Vaza:
+		return self.rodadas[len(self.rodadas-1)].nova_vaza()
 
 	def avaliar_jogada(self) -> dict:
 		pass

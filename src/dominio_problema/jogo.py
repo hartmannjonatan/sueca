@@ -1,6 +1,9 @@
 from .dupla import Dupla
 from .mesa import Mesa
 from .jogador import Jogador
+from .vaza import Vaza
+
+from pprint import pprint
 
 
 class Jogo:
@@ -31,8 +34,30 @@ class Jogo:
 		if meu_turno:
 			cartas_novo_baralho, naipe_trunfo = self.mesa.novo_baralho()
 
+			jogada = {
+				"tipo" : "nova rodada",
+				"cartas" : {
+					"jogador1" : [],
+					"jogador2" : [],
+					"jogador3" : [],
+					"jogador4" : [], 
+				},
+				"trunfo" : f"{naipe_trunfo.name}",
+				"match_status" : "next"
+			}
+
 			for i in range(len(self.ordem_jogadores)):
 				self.ordem_jogadores[i].novas_cartas(cartas_novo_baralho[i])
+				for carta in cartas_novo_baralho[i]:
+					jogada["cartas"][f"jogador{i+1}"].append({"carta": f"{carta.numero}", "naipe" : f"{carta.naipe.name}"})
+
+			self.interface_jogador.enviar_jogada(jogada)
+			
+		else:
+			self.mesa.novas_cartas(cartas, self.ordem_jogadores, naipe_trunfo)
+		
+		vaza = self.mesa.nova_vaza()
+		self.atualizar_tela_jogo(self.status_jogo, vaza, self.jogador_local)
 
 	def habilitar_proximo_jogador(self, vencedor : Jogador | None):
 		for jogador in self.ordem_jogadores:
@@ -53,9 +78,8 @@ class Jogo:
 			cartas_validas = self.proximo_jogador.cartas_validas(naipe)
 			self.interface_jogador.habilitar_cartas(cartas_validas)
 
-
-	def atualizar_tela_jogo(self):
-		pass
+	def atualizar_tela_jogo(self, status: str, vaza: Vaza, jogador_local: Jogador):
+		self.interface_jogador.atualizar_interface_jogo(status, vaza, jogador_local)
 
 	def avaliar_jogada(self):
 		pass
@@ -125,6 +149,10 @@ class Jogo:
 	@property
 	def status_jogo(self) -> str:
 		return self._status_jogo
+
+	@status_jogo.setter
+	def status_jogo(self, status_jogo):
+		self._status_jogo = status_jogo
 	
 	@property
 	def proximo_jogador(self) -> Jogador:

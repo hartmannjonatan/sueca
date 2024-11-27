@@ -44,7 +44,7 @@ class Jogador:
 		return cartas_validas
 
 	def novas_cartas(self, cartas : list[Carta]):
-		pass
+		self.cartas = cartas
 
 	def habilitar_turno(self):
 		self.meu_turno = True
@@ -69,6 +69,10 @@ class Jogador:
 	@property
 	def cartas(self) -> list[Carta]:
 		return self._cartas
+
+	@cartas.setter
+	def cartas(self, cartas):
+		self._cartas = cartas
 	
 	@property
 	def meu_turno(self) -> bool:

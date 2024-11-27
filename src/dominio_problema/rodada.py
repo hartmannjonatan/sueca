@@ -8,8 +8,10 @@ class Rodada:
 		self._vazas : list[Vaza] = None
 		self._trunfo : Naipe = None
 
-	def nova_vaza(self):
-		pass
+	def nova_vaza(self) -> Vaza:
+		vaza = Vaza()
+		self.vazas.append(vaza)
+		return vaza
 
 	def definir_trunfo(self, naipe_trunfo : Naipe):
 		pass
@@ -31,8 +33,16 @@ class Rodada:
 	def vazas(self) -> list[Vaza]:
 		return self._vazas
 	
+	@vazas.setter
+	def vazas(self, vazas):
+		self._vazas = vazas
+	
 	@property
 	def trunfo(self) -> Naipe:
 		return self._trunfo
+
+	@trunfo.setter
+	def trunfo(self, trunfo):
+		self._trunfo = trunfo
 
 

@@ -53,8 +53,8 @@ class InterfaceJogador(DogPlayerInterface):
         id_jogador_local = start_status.get_local_id()
         self.analisar_mensagem_dog(mensagem, jogadores, id_jogador_local)
     
-    def atualizar_interface_jogo(status: str, vaza: Vaza, jogador_local: Jogador):
-        pass
+    def atualizar_interface_jogo(self, status: str, vaza: Vaza, jogador_local: Jogador):
+        self.tela_jogo.atualizar_interface()
     
     def analisar_mensagem_dog(self, mensagem: str, jogadores: list[list[str]] = None, id_jogador_local: str = None):
         if mensagem == "Conectado a Dog Server":
@@ -93,7 +93,7 @@ class InterfaceJogador(DogPlayerInterface):
         pass
 
     def enviar_jogada(self, jogada: dict):
-        pass
+        self.dog_server_interface.send_move(dict)
 
     def receive_move(self, a_move: dict):
         pass
