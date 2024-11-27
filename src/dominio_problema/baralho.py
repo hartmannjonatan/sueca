@@ -26,7 +26,7 @@ class Baralho:
 
 		for i in range(4):
 			mao = list()
-			for i in range(10):
+			for j in range(10):
 				carta = cartas_baralho.pop()
 				mao.append(carta)
 			cartas_jogadores.append(mao)
@@ -35,8 +35,15 @@ class Baralho:
 
 
 
-	def novas_cartas(self, cartas : dict, jogadores : list[Jogador]):
-		pass
+	def novas_cartas(self, cartas : dict, jogadores : list[Jogador], naipe_trunfo: Naipe):
+		for id in cartas.keys():
+			for jogador in jogadores:
+				for carta in cartas[id]:
+					if jogador.id == id:
+						jogador.add_carta(Carta(carta["carta"], carta["naipe"]))
+					
+				jogador.ordenar_cartas(naipe_trunfo)
+				
 
 	@property
 	def cartas(self) -> list[Carta]:

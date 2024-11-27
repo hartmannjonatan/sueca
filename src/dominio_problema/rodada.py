@@ -14,7 +14,7 @@ class Rodada:
 		return vaza
 
 	def definir_trunfo(self, naipe_trunfo : Naipe):
-		pass
+		self.trunfo = naipe_trunfo
 
 	def avaliar_vaza(self) -> tuple[int, Jogador]:
 		pass

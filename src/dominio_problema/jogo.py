@@ -58,6 +58,7 @@ class Jogo:
 		
 		vaza = self.mesa.nova_vaza()
 		self.atualizar_tela_jogo(self.status_jogo, vaza, self.jogador_local)
+		self.habilitar_proximo_jogador(None)
 
 	def habilitar_proximo_jogador(self, vencedor : Jogador | None):
 		for jogador in self.ordem_jogadores:

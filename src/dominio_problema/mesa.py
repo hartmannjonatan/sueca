@@ -23,7 +23,7 @@ class Mesa:
 		return cartas, naipe_trunfo
 
 	def novas_cartas(self, cartas : dict, jogadores : list[Jogador], naipe_trunfo : Naipe):
-		self.baralho.novas_cartas(cartas, jogadores)
+		self.baralho.novas_cartas(cartas, jogadores, naipe_trunfo)
 		self.rodadas[len(self.rodadas)-1].definir_trunfo(naipe_trunfo)
 			
 	def nova_vaza(self) -> Vaza:

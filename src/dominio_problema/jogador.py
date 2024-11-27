@@ -14,13 +14,42 @@ class Jogador:
 		return len(self.cartas)
 	
 	def add_carta(self, carta : Carta):
-		pass
+		self.cartas.append(carta)
 
 	def remover_carta(self, carta : dict) -> Carta:
 		pass
 
 	def ordenar_cartas(self, naipe_trunfo : Naipe):
-		pass
+		ouros = list()
+		copas = list()
+		espadas = list()
+		paus = list()
+
+		for carta in self.cartas:
+			if carta.naipe == Naipe.ouros:
+				ouros.append(carta)
+			elif carta.naipe == Naipe.copas:
+				copas.append(carta)
+			elif carta.naipe == Naipe.espadas:
+				espadas.append(carta)
+			else:
+				paus.append(carta)
+		
+		trunfo = list()
+		self.cartas = list()
+
+		for cartas_naipe in [paus, copas, espadas, ouros]:
+			ordem_cartas = ["a", "2", "3", "4", "5", "6", "7", "j", "q", "k"]
+			cartas_naipe = sorted(cartas_naipe, key=lambda carta: ordem_cartas.index(carta.numero))
+
+			if len(cartas_naipe) > 0:
+				if cartas_naipe[0].naipe == naipe_trunfo:
+					trunfo = cartas_naipe
+					continue
+				else:
+					self.cartas += cartas_naipe
+				
+		self.cartas += trunfo
 
 	def cartas_validas(self, naipe_vaza : Naipe | None) -> list[Carta]:
 		cartas_validas = list()
