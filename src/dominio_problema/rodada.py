@@ -5,7 +5,7 @@ from .carta import Carta
 
 class Rodada:
 	def __init__(self):
-		self._vazas : list[Vaza] = None
+		self._vazas : list[Vaza] = []
 		self._trunfo : Naipe = None
 
 	def nova_vaza(self) -> Vaza:

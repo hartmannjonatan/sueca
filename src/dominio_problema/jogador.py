@@ -3,12 +3,13 @@ from .naipe import Naipe
 
 
 class Jogador:
-	def __init__(self, nome):
+	def __init__(self, nome, id):
 		self._nome : str = nome
 		self._cartas : list[Carta] = list()
 		self._meu_turno : bool = None
 		self._isLocal : bool = None
 		self._vencedor : bool = None
+		self._id : int = id
 
 	def quantidade_cartas(self) -> int:
 		return len(self.cartas)
@@ -34,6 +35,11 @@ class Jogador:
 				espadas.append(carta)
 			else:
 				paus.append(carta)
+
+		print(ouros)
+		print(copas)
+		print(paus)
+		print(espadas)
 		
 		trunfo = list()
 		self.cartas = list()
@@ -122,4 +128,12 @@ class Jogador:
 	@property
 	def vencedor(self) -> bool:
 		return self._vencedor
+	
+	@property
+	def id(self) -> int:
+		return self._id
+	
+	@id.setter
+	def id(self, id):
+		self._id = id
 

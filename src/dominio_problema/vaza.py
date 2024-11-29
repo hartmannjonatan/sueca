@@ -5,7 +5,7 @@ from .naipe import Naipe
 
 class Vaza:
 	def __init__(self):
-		self._cartas_jogadas : list[Carta] = None
+		self._cartas_jogadas : list[Carta] = []
 		self._primeiro_jogador : Jogador = None
 		self._naipe_obrigatorio : Naipe = None
 		self._jogadores : list[Jogador] = None

@@ -66,7 +66,7 @@ class InterfaceJogador(DogPlayerInterface):
             self.tela_inicial.abrir_tela_jogadores_insuficientes()
         elif mensagem == "Partida iniciada":
             self.tela_inicial.abrir_tela_recebimento_partida()
-            self.jogo = Jogo()
+            self.jogo = Jogo(self)
             self.jogo.inicializar_jogadores_duplas_e_mesa(jogadores, id_jogador_local)
             jogador_local = self.jogo.jogador_local
             ordem_jogadores = self.jogo.ordem_jogadores
@@ -75,7 +75,7 @@ class InterfaceJogador(DogPlayerInterface):
             self.jogo.nova_rodada()
         
     def revelar_trunfo(self, trunfo: Naipe):
-        pass
+        self.tela_jogo.revelar_trunfo(trunfo)
 
     def atualizar_tela_vencedor(self, dupla_vencedora: list[Dupla]):
         pass
@@ -96,7 +96,12 @@ class InterfaceJogador(DogPlayerInterface):
         self.dog_server_interface.send_move(jogada)
 
     def receive_move(self, a_move: dict):
-        pass
+        if a_move["tipo"] == "nova rodada":
+            self.jogo.receber_nova_rodada(a_move["cartas"], Naipe[a_move["trunfo"]])
+        elif a_move['tipo'] == "jogada":
+            pass
+        else:
+            raise Exception("Erro de jogada recebida inesperada!")
 
     def receive_withdrawal_notification(self):
         self.remover_instancia_jogo()

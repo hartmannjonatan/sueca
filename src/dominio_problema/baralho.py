@@ -33,16 +33,13 @@ class Baralho:
 	
 		return cartas_jogadores, naipe_trunfo
 
-
-
 	def novas_cartas(self, cartas : dict, jogadores : list[Jogador], naipe_trunfo: Naipe):
 		for id in cartas.keys():
 			for jogador in jogadores:
-				for carta in cartas[id]:
-					if jogador.id == id:
-						jogador.add_carta(Carta(carta["carta"], carta["naipe"]))
-					
-				jogador.ordenar_cartas(naipe_trunfo)
+				if jogador.id == id:
+					for carta in cartas[id]:
+						jogador.add_carta(Carta(carta["carta"], Naipe[carta["naipe"]]))
+					jogador.ordenar_cartas(naipe_trunfo)
 				
 
 	@property

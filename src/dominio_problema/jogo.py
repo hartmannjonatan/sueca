@@ -1,3 +1,4 @@
+from dominio_problema.naipe import Naipe
 from .dupla import Dupla
 from .mesa import Mesa
 from .jogador import Jogador
@@ -7,13 +8,13 @@ from pprint import pprint
 
 
 class Jogo:
-	def __init__(self):
+	def __init__(self, interface_jogador):
 		self._duplas : list[Dupla] = None
 		self._mesa : Mesa = None
 		self._ordem_jogadores : list[Jogador] = None
 		self._status_jogo : str = None
 		self._proximo_jogador : Jogador = None
-		self._interface_jogador = None
+		self._interface_jogador = interface_jogador
 		self._jogador_local : Jogador = None
 		self._partida_encerrada : bool = False
 		self._rodada_encerrada : bool = False
@@ -22,7 +23,7 @@ class Jogo:
 	def receber_jogada(self, jogada : dict):
 		pass
 
-	def nova_rodada(self, cartas : dict = None):
+	def nova_rodada(self):
 		self.mesa.nova_rodada()
 		self.duplas[0].zerar_pontuacao_rodada()
 		self.duplas[1].zerar_pontuacao_rodada()
@@ -37,10 +38,6 @@ class Jogo:
 			jogada = {
 				"tipo" : "nova rodada",
 				"cartas" : {
-					"jogador1" : [],
-					"jogador2" : [],
-					"jogador3" : [],
-					"jogador4" : [], 
 				},
 				"trunfo" : f"{naipe_trunfo.name}",
 				"match_status" : "next"
@@ -48,16 +45,29 @@ class Jogo:
 
 			for i in range(len(self.ordem_jogadores)):
 				self.ordem_jogadores[i].novas_cartas(cartas_novo_baralho[i])
+				self.ordem_jogadores[i].ordenar_cartas(naipe_trunfo)
+				jogada["cartas"][self.ordem_jogadores[i].id] = []
 				for carta in cartas_novo_baralho[i]:
-					jogada["cartas"][f"jogador{i+1}"].append({"carta": f"{carta.numero}", "naipe" : f"{carta.naipe.name}"})
+					jogada["cartas"][self.ordem_jogadores[i].id].append({"carta": f"{carta.numero}", "naipe" : f"{carta.naipe.name}"})
 
 			self.interface_jogador.enviar_jogada(jogada)
+			vaza = self.mesa.nova_vaza()
+			self.status_jogo = "Nova rodadada iniciada!"
+			self.atualizar_tela_jogo(self.status_jogo, vaza, self.jogador_local)
+			self.interface_jogador.revelar_trunfo(naipe_trunfo)
+			self.habilitar_proximo_jogador(None)
 			
 		else:
-			self.mesa.novas_cartas(cartas, self.ordem_jogadores, naipe_trunfo)
-		
-		vaza = self.mesa.nova_vaza()
-		self.atualizar_tela_jogo(self.status_jogo, vaza, self.jogador_local)
+			vaza = self.mesa.nova_vaza()
+			self.status_jogo = "Aguardando distribuição de cartas..."
+			self.atualizar_tela_jogo(self.status_jogo, vaza, self.jogador_local)
+			#self.mesa.novas_cartas(cartas, self.ordem_jogadores, naipe_trunfo)
+
+	def receber_nova_rodada(self, cartas : dict, naipe_trunfo: Naipe):
+		self.mesa.novas_cartas(cartas, self.ordem_jogadores, naipe_trunfo)
+		self.status_jogo = "Nova rodadada iniciada!"
+		self.atualizar_tela_jogo(self.status_jogo, self.mesa.rodadas[-1].vazas[-1], self.jogador_local)
+		self.interface_jogador.revelar_trunfo(naipe_trunfo)
 		self.habilitar_proximo_jogador(None)
 
 	def habilitar_proximo_jogador(self, vencedor : Jogador | None):
@@ -113,7 +123,7 @@ class Jogo:
 			nome = jogadores[i][0]
 			id_jogador = jogadores[i][1]
 			ordem = jogadores[i][2]
-			jogador = Jogador(nome)
+			jogador = Jogador(nome, id_jogador)
 			self.ordem_jogadores[int(ordem)-1] = jogador
 
 			if id_jogador == id_jogador_local:

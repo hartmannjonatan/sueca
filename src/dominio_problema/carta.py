@@ -6,7 +6,7 @@ class Carta:
 		self._numero : str = numero
 		self._naipe : Naipe = naipe
 		self._valor : int = None
-		self._nome : str = f"{numero}_{naipe}"
+		self._nome : str = f"{numero}_{naipe.name}"
 
 	@property
 	def numero(self) -> str:

@@ -31,8 +31,8 @@ class TelaJogo:
         self._label_jogador3: Label = None
         self._label_jogador4: Label = None
 
-        self._cartas_vaza: list[Carta, int] = list()
-        self._cartas_jogador: list[Carta, int] = list()
+        self._cartas_vaza: list[Carta, int] = [[None, None]]*4
+        self._cartas_jogador: list[Carta, int] = [[None, None]]*10
         self._imagens_cartas: dict[str, PhotoImage] = dict()
         self._slot_jogadores: dict[str, tuple] = dict()
 
@@ -250,7 +250,12 @@ class TelaJogo:
         self.canvas.config(cursor="")
 
     def revelar_trunfo(self, trunfo: Naipe):
-        pass
+        messagebox.showinfo(f"NAIPE TRUNFO REVELADA", f"A naipe trunfo desta rodada é: {trunfo.name}")
+        imagem_botao_naipe_rodada = Image.open(IMAGES_DIR / f"tela_jogo/botoes/botao_{trunfo.name}.png")
+        imagem_botao_naipe_rodada = imagem_botao_naipe_rodada.resize((50, 50), Image.LANCZOS)
+        self.img_botao_naipe_rodada = ImageTk.PhotoImage(imagem_botao_naipe_rodada)
+        self.botao_naipe_rodada = self.canvas.create_image(1040, 40, image=self.img_botao_naipe_rodada)
+
 
     def atualizar_tela_pontuacao(self):
         jogo = self._interface_jogador.jogo
@@ -258,7 +263,7 @@ class TelaJogo:
         self.tela_pontuacao.atualizar_tela_pontuacao(duplas[0], duplas[1])
     
     def atualizar_interface(self, status: str, vaza: Vaza, jogador_local: Jogador):
-        quantidade_cartas = len(self.carta_jogador)
+        quantidade_cartas = len(self.cartas_jogador)
 
         for i in range(0, quantidade_cartas):
             id_carta = self.cartas_jogador[i][1]
@@ -274,7 +279,7 @@ class TelaJogo:
             imagem_carta = self.imagens_cartas[carta.nome]
             id_carta = self.canvas.create_image(posicao_carta_x, 605, anchor="center", image=imagem_carta)
 
-            self.carta_jogador[i][1] = id_carta
+            self.cartas_jogador[i][1] = id_carta
 
             posicao_carta_x += 91
         
