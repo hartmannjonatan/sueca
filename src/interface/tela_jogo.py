@@ -31,8 +31,8 @@ class TelaJogo:
         self._label_jogador3: Label = None
         self._label_jogador4: Label = None
 
-        self._cartas_vaza: list[Carta, int] = [[None, None]]*4
-        self._cartas_jogador: list[Carta, int] = [[None, None]]*10
+        self._cartas_vaza: list[Carta, int] = [[None, None], [None, None], [None, None], [None, None]]
+        self._cartas_jogador: list[Carta, int] = [[None, None], [None, None], [None, None], [None, None], [None, None], [None, None], [None, None], [None, None], [None, None], [None, None]]
         self._imagens_cartas: dict[str, PhotoImage] = dict()
         self._slot_jogadores: dict[str, tuple] = dict()
 
@@ -261,6 +261,9 @@ class TelaJogo:
         jogo = self._interface_jogador.jogo
         duplas = jogo.duplas
         self.tela_pontuacao.atualizar_tela_pontuacao(duplas[0], duplas[1])
+
+    def atualizar_status(self, status: str):
+        self.label_status.config(text=status)
     
     def atualizar_interface(self, status: str, vaza: Vaza, jogador_local: Jogador):
         quantidade_cartas = len(self.cartas_jogador)
@@ -286,7 +289,7 @@ class TelaJogo:
             self.canvas.tag_bind(id_carta, "<Enter>", self.on_hover_carta_bloqueada)
             self.canvas.tag_bind(id_carta, "<Leave>", self.saida_carta)
 
-        self.label_status.config(text=status)
+        self.atualizar_status(status)
 
         quantidade_cartas = len(self.cartas_vaza)
         for i in range(0, quantidade_cartas):
@@ -330,7 +333,7 @@ class TelaJogo:
 
         for i in range(0, quantidade_cartas):
             if cartas[i] != None:
-                self.canvas.tag_bind(self.cartas_jogador[i][1], "<Button-1>", lambda event: self.clicar_carta(i))
+                self.canvas.tag_bind(self.cartas_jogador[i][1], "<Button-1>", lambda event, i=i: self.clicar_carta(i))
                 self.canvas.tag_bind(self.cartas_jogador[i][1], "<Enter>", self.on_hover_carta)
                 self.canvas.tag_bind(self.cartas_jogador[i][1], "<Leave>", self.saida_carta)
 
@@ -345,8 +348,8 @@ class TelaJogo:
                 imagem = imagem.resize((82, 115), Image.LANCZOS)
                 self.imagens_cartas[key] = ImageTk.PhotoImage(imagem)
 
-    def on_hover_carta_bloqueada(self):
-        pass
+    def on_hover_carta_bloqueada(self, event: any):
+        self.canvas.config(cursor="circle")
 
     @property
     def janela_principal(self) -> Tk:

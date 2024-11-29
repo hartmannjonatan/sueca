@@ -52,10 +52,11 @@ class Jogo:
 
 			self.interface_jogador.enviar_jogada(jogada)
 			vaza = self.mesa.nova_vaza()
-			self.status_jogo = "Nova rodadada iniciada!"
+			self.status_jogo = f"Nova rodadada iniciada!"
 			self.atualizar_tela_jogo(self.status_jogo, vaza, self.jogador_local)
 			self.interface_jogador.revelar_trunfo(naipe_trunfo)
 			self.habilitar_proximo_jogador(None)
+			self.interface_jogador.atualizar_status_tela_jogo(f"Sua vez de jogar!")
 			
 		else:
 			vaza = self.mesa.nova_vaza()
@@ -65,10 +66,11 @@ class Jogo:
 
 	def receber_nova_rodada(self, cartas : dict, naipe_trunfo: Naipe):
 		self.mesa.novas_cartas(cartas, self.ordem_jogadores, naipe_trunfo)
-		self.status_jogo = "Nova rodadada iniciada!"
+		self.status_jogo = f"Nova rodadada iniciada!"
 		self.atualizar_tela_jogo(self.status_jogo, self.mesa.rodadas[-1].vazas[-1], self.jogador_local)
 		self.interface_jogador.revelar_trunfo(naipe_trunfo)
 		self.habilitar_proximo_jogador(None)
+		self.interface_jogador.atualizar_status_tela_jogo(f"Vez de {self.proximo_jogador.nome}")
 
 	def habilitar_proximo_jogador(self, vencedor : Jogador | None):
 		for jogador in self.ordem_jogadores:
@@ -82,12 +84,14 @@ class Jogo:
 			self.proximo_jogador = vencedor
 
 		self.proximo_jogador.habilitar_turno()
-		quantidade_cartas = self.proximo_jogador.quantidade_cartas()
 
-		if quantidade_cartas > 0:
-			naipe = self.mesa.naipe_vaza()
-			cartas_validas = self.proximo_jogador.cartas_validas(naipe)
-			self.interface_jogador.habilitar_cartas(cartas_validas)
+		if self.proximo_jogador.id == self.jogador_local.id:
+			quantidade_cartas = self.proximo_jogador.quantidade_cartas()
+
+			if quantidade_cartas > 0:
+				naipe = self.mesa.naipe_vaza()
+				cartas_validas = self.proximo_jogador.cartas_validas(naipe)
+				self.interface_jogador.habilitar_cartas(cartas_validas)
 
 	def atualizar_tela_jogo(self, status: str, vaza: Vaza, jogador_local: Jogador):
 		self.interface_jogador.atualizar_interface_jogo(status, vaza, jogador_local)

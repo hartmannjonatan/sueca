@@ -55,6 +55,9 @@ class InterfaceJogador(DogPlayerInterface):
     
     def atualizar_interface_jogo(self, status: str, vaza: Vaza, jogador_local: Jogador):
         self.tela_jogo.atualizar_interface(status, vaza, jogador_local)
+
+    def atualizar_status_tela_jogo(self, status: str):
+        self.tela_jogo.atualizar_status(status)
     
     def analisar_mensagem_dog(self, mensagem: str, jogadores: list[list[str]] = None, id_jogador_local: str = None):
         if mensagem == "Conectado a Dog Server":

@@ -35,11 +35,6 @@ class Jogador:
 				espadas.append(carta)
 			else:
 				paus.append(carta)
-
-		print(ouros)
-		print(copas)
-		print(paus)
-		print(espadas)
 		
 		trunfo = list()
 		self.cartas = list()
