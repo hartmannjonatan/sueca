@@ -21,7 +21,6 @@ class Vaza:
 
 		for i in range(4):
 			carta = self.cartas_jogadas[i]
-			print(carta.nome, carta.valor)
 			if carta.naipe == self.naipe_obrigatorio:
 				if carta.valor > cartaVencedoraNaipeVaza.valor:
 					cartaVencedoraNaipeVaza = carta
@@ -48,7 +47,6 @@ class Vaza:
 			self._primeiro_jogador = jogador
 
 		if self.naipe_obrigatorio is None:
-			print("aqui")
 			self._naipe_obrigatorio = carta.naipe
 
 		self.add_carta(carta, jogador)

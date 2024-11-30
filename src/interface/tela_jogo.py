@@ -26,7 +26,7 @@ class TelaJogo:
         self._tela_pontuacao = TelaPontuacao()
         self._tela_vencedor = TelaVencedor(interface_jogador)
 
-        self._label_jogador_atual: Label = None
+        self.label_status: Label = None
         self._label_jogador1: Label = None
         self._label_jogador2: Label = None
         self._label_jogador3: Label = None
@@ -295,7 +295,7 @@ class TelaJogo:
         quantidade_cartas = len(self.cartas_vaza)
         for i in range(0, quantidade_cartas):
             carta = self.cartas_vaza[i][0]
-            id_carta = self.cartas_vaza[i][0]
+            id_carta = self.cartas_vaza[i][1]
             self.canvas.delete(id_carta)
         
         quantidade_cartas = len(vaza.cartas_jogadas)
@@ -318,7 +318,7 @@ class TelaJogo:
         """
         Reseta os elementos da tela para o estado padrão quando ocorre uma notificação de abandono.
         """
-        self.label_jogador_atual.destroy()
+        self.label_status.destroy()
         self.label_jogador1.destroy()
         self.label_jogador2.destroy()
         self.label_jogador3.destroy()

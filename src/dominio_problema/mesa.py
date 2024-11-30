@@ -1,3 +1,4 @@
+from time import sleep
 from .baralho import Baralho
 from .rodada import Rodada
 from .naipe import Naipe
@@ -55,8 +56,10 @@ class Mesa:
 			self.jogo.rodada_encerrada = False
 			jogada["status_partida"] = "não encerrada"
 			self.jogo.partida_encerrada = False
-			self.jogo.atualizar_tela_jogo("Carta jogada. Vez de próximo jogador!", self.rodadas[-1].vazas[-1], self.jogo.jogador_local)
+			self.jogo.atualizar_tela_jogo(None, self.rodadas[-1].vazas[-1], self.jogo.jogador_local)
 			self.jogo.habilitar_proximo_jogador(None)
+			self.jogo.status_jogo = "Sua vez de jogar!" if self.jogo.jogador_local.meu_turno else f"Vez do jogador {self.jogo.proximo_jogador.nome}"
+			self.jogo.interface_jogador.atualizar_status_tela_jogo(self.jogo.status_jogo)
 		else:
 			jogada["status_vaza"] = "encerrada"
 			self.jogo.vaza_encerrada = True
@@ -76,23 +79,33 @@ class Mesa:
 				for dupla in self.jogo.duplas:
 					jogada["galhos_duplas"][dupla.jogadores[0].nome] = dupla.pontuacao.galhos
 
+				self.jogo.status_jogo = "Rodada finalizada! Pontuações atualizadas."
+				self.jogo.interface_jogador.atualizar_status_tela_jogo(self.jogo.status_jogo) # NOVO ADICIONAR NO DIAGRAMA
+				sleep(5) # NOVO ADICIONAR NO DIAGRAMA
+
 				vencedora = self.jogo.avaliar_dupla_vencedora()
 				if vencedora != None:
 					jogada["status_partida"] = "encerrada"
 					self.jogo.partida_encerrada = True
-					self.jogo.atualizar_tela_jogo("Carta jogada. A partida foi encerrada!", self.rodadas[-1].vazas[-1], self.jogo.jogador_local)
+					self.jogo.status_jogo = "A partida foi encerrada!"
+					self.jogo.atualizar_tela_jogo(self.jogo.status_jogo, self.rodadas[-1].vazas[-1], self.jogo.jogador_local)
 					self.jogo.interface_jogador.atualizar_tela_vencedor(vencedora)
 				else:
 					jogada["status_partida"] = "não encerrada"
 					self.jogo.partida_encerrada = False
-					self.jogo.atualizar_tela_jogo("Carta jogada. Nova rodada iniciada!", self.rodadas[-1].vazas[-1], self.jogo.jogador_local)
-					self.jogo.habilitar_proximo_jogador(vencedor)
+					self.jogo.status_jogo = "Uma nova rodada será iniciada!"
+					self.jogo.atualizar_tela_jogo(self.jogo.status_jogo, self.rodadas[-1].vazas[-1], self.jogo.jogador_local)
+					#self.jogo.habilitar_proximo_jogador(vencedor) # MODIFICADO vv
+					self.jogo.proximo_jogador = vencedor # MODIFICADO (NOVO)
 			else:
 				jogada["status_rodada"] = "não encerrada"
 				self.jogo.rodada_encerrada = False
 				nova_vaza = self.nova_vaza()
-				self.jogo.atualizar_tela_jogo("Carta jogada. Nova vaza iniciada!", nova_vaza, self.jogo.jogador_local)
+				self.jogo.status_jogo = "Nova vaza iniciada!"
+				self.jogo.atualizar_tela_jogo(self.jogo.status_jogo, nova_vaza, self.jogo.jogador_local)
 				self.jogo.habilitar_proximo_jogador(vencedor)
+				self.status_jogo = "Sua vez de jogar!" if self.jogo.jogador_local.meu_turno else f"Vez do jogador {self.jogo.proximo_jogador.nome}"
+				self.jogo.interface_jogador.atualizar_status_tela_jogo(self.jogo.status_jogo)
 		
 		jogada["proximo_jogador"] = self.jogo.proximo_jogador.nome
 
