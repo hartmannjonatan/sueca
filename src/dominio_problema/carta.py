@@ -5,7 +5,13 @@ class Carta:
 	def __init__(self, numero: str, naipe: Naipe):
 		self._numero : str = numero
 		self._naipe : Naipe = naipe
-		self._valor : int = None
+		match self._numero:
+			case "a": self._valor = 11
+			case "7": self._valor = 10
+			case "k": self._valor = 4
+			case "j": self._valor = 3
+			case "q": self._valor = 2
+			case _: self._valor = 0
 		self._nome : str = f"{numero}_{naipe.name}"
 
 	@property

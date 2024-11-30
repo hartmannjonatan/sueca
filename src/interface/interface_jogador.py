@@ -81,19 +81,16 @@ class InterfaceJogador(DogPlayerInterface):
         self.tela_jogo.revelar_trunfo(trunfo)
 
     def atualizar_tela_vencedor(self, dupla_vencedora: list[Dupla]):
-        pass
+        self.tela_jogo.atualizar_tela_vencedor(dupla_vencedora)
 
     def remover_instancia_jogo(self):
         self.jogo = None
 
     def jogar_carta(self, indice_carta: int):
-        pass
+        self.jogo.jogar_carta(indice_carta)
 
     def habilitar_cartas(self, cartas: list[Carta]):
         self.tela_jogo.habilitar_cartas(cartas)
-
-    def desabilitar_cartas(self):
-        pass
 
     def enviar_jogada(self, jogada: dict):
         self.dog_server_interface.send_move(jogada)
@@ -102,7 +99,7 @@ class InterfaceJogador(DogPlayerInterface):
         if a_move["tipo"] == "nova rodada":
             self.jogo.receber_nova_rodada(a_move["cartas"], Naipe[a_move["trunfo"]])
         elif a_move['tipo'] == "jogada":
-            pass
+            self.jogo.receber_jogada(a_move)
         else:
             raise Exception("Erro de jogada recebida inesperada!")
 

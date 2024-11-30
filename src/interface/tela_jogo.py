@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 from PIL import Image, ImageTk
 
+from dominio_problema.dupla import Dupla
 from images import IMAGES_DIR
 
 from .tela_instrucao import TelaInstrucao
@@ -308,6 +309,10 @@ class TelaJogo:
             
             id_carta = self.canvas.create_image(posicao[0], posicao[1], anchor="center", image=imagem_carta)
             self.cartas_vaza[i][1] = id_carta
+
+    def atualizar_tela_vencedor(self, dupla_vencedora: list[Dupla]):
+        self.tela_vencedor.atualizar(dupla_vencedora)
+        self.tela_vencedor.abrir_tela()
             
     def resetar_informacoes_tela_jogo(self):
         """
@@ -326,7 +331,7 @@ class TelaJogo:
         self._canvas.delete("all")
 
     def clicar_carta(self, indice: int):
-        pass
+        self.interface_jogador.jogar_carta(indice)
 
     def habilitar_cartas(self, cartas: list[Carta]):
         quantidade_cartas = len(cartas)

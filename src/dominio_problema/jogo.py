@@ -21,7 +21,48 @@ class Jogo:
 		self._vaza_encerrada : bool = False	
 
 	def receber_jogada(self, jogada : dict):
-		pass
+		carta_jogada = self.proximo_jogador.remover_carta(jogada["carta_jogada"])
+		self.mesa.jogar_carta(carta_jogada, self.proximo_jogador)
+
+		vencedor_vaza: Jogador = None
+		for jogador in self.ordem_jogadores:
+			vencedor_vaza = jogador if jogada["vencedor_vaza"] == jogador.nome else None
+		
+		if jogada["status_vaza"] == "encerrada":
+			self.vaza_encerrada = True
+			for dupla in self.duplas:
+				pontuacao = jogada["pontuacao_duplas"].get(dupla.jogadores[0].nome)
+				pontuacao = jogada["pontuacao_duplas"].get(dupla.jogadores[1].nome) if pontuacao is None else pontuacao
+				print(pontuacao)
+				dupla.add_pontuacao(pontuacao)
+			
+			if jogada["status_rodada"] == "encerrada":
+				self.rodada_encerrada = True
+				for dupla in self.duplas:
+					galhos = jogada["galhos_duplas"].get(dupla.jogadores[0].nome) or jogada["galhos_duplas"].get(dupla.jogadores[1].nome)
+					dupla.set_galhos(galhos)
+
+				if jogada["status_partida"] == "encerrada":
+					self.partida_encerrada = True
+					self.status_jogo = "Carta jogada. A partida foi encerrada!"
+					vencedora = self.avaliar_dupla_vencedora()
+					self.atualizar_tela_jogo(self.status_jogo, self.mesa.rodadas[-1].vazas[-1], self.jogador_local)
+					self.interface_jogador.atualizar_tela_vencedor(vencedora)
+			else:
+				self.rodada_encerrada = False
+				self.partida_encerrada = False
+				self.status_jogo = "Carta jogada. Uma nova vaza será iniciada."
+				nova_vaza = self.mesa.nova_vaza()
+				self.atualizar_tela_jogo(self.status_jogo, nova_vaza, self.jogador_local)
+				self.habilitar_proximo_jogador(vencedor_vaza)
+		else:
+			self.vaza_encerrada = False
+			self.status_jogo = f"Carta jogada. Vez de {jogada["proximo_jogador"]}"
+			self.atualizar_tela_jogo(self.status_jogo, self.mesa.rodadas[-1].vazas[-1], self.jogador_local)
+			self.habilitar_proximo_jogador(None)
+
+		if jogada["status_rodada"] == "encerrada" and jogada["status_partida"] == "não encerrada":
+			self.nova_rodada()
 
 	def nova_rodada(self):
 		self.mesa.nova_rodada()
@@ -56,13 +97,13 @@ class Jogo:
 			self.atualizar_tela_jogo(self.status_jogo, vaza, self.jogador_local)
 			self.interface_jogador.revelar_trunfo(naipe_trunfo)
 			self.habilitar_proximo_jogador(None)
-			self.interface_jogador.atualizar_status_tela_jogo(f"Sua vez de jogar!")
+			self.status_jogo = "Sua vez de jogar!" if self.jogador_local.meu_turno else f"Vez do jogador {self.proximo_jogador.nome}"
+			self.interface_jogador.atualizar_status_tela_jogo(self.status_jogo)
 			
 		else:
 			vaza = self.mesa.nova_vaza()
 			self.status_jogo = "Aguardando distribuição de cartas..."
 			self.atualizar_tela_jogo(self.status_jogo, vaza, self.jogador_local)
-			#self.mesa.novas_cartas(cartas, self.ordem_jogadores, naipe_trunfo)
 
 	def receber_nova_rodada(self, cartas : dict, naipe_trunfo: Naipe):
 		self.mesa.novas_cartas(cartas, self.ordem_jogadores, naipe_trunfo)
@@ -80,9 +121,11 @@ class Jogo:
 			for i in range(len(self.ordem_jogadores)):
 				if self.proximo_jogador == self.ordem_jogadores[i]:
 					self.proximo_jogador = self.ordem_jogadores[(i+1) % 4]
+					break
 		else:
 			self.proximo_jogador = vencedor
 
+		print("JOGADOR QUE SERÁ HABILITADO:", self.proximo_jogador.nome)
 		self.proximo_jogador.habilitar_turno()
 
 		if self.proximo_jogador.id == self.jogador_local.id:
@@ -97,16 +140,43 @@ class Jogo:
 		self.interface_jogador.atualizar_interface_jogo(status, vaza, jogador_local)
 
 	def avaliar_jogada(self):
-		pass
+		jogada = self.mesa.avaliar_jogada()
+		pprint(jogada)
+		self.interface_jogador.enviar_jogada(jogada)
+		if self.rodada_encerrada and not self.partida_encerrada:
+			self.nova_rodada()
 
 	def atualizar_galhos(self):
-		pass
+		for i in range(2):
+			pontuacao = self.duplas[i].pontuacao.pontos
+			galhos = 0
+			if pontuacao >=60 and pontuacao < 90:
+				galhos = 1
+			if pontuacao >= 90 and pontuacao < 120:
+				galhos = 2
+			if pontuacao >= 120:
+				galhos = 4
+			self.duplas[i].pontuacao.galhos += galhos
 
 	def avaliar_dupla_vencedora(self) -> list[Dupla] | None:
-		pass
+		vencedora = None
+		if self.duplas[0].pontuacao.galhos >= 4 or self.duplas[1].pontuacao.galhos >= 4:
+			vencedora = []
+			if self.duplas[0].pontuacao.galhos >= 4:
+				vencedora.append(self.duplas[0])
+				self.duplas[0].jogadores[0].definir_vencedor()
+				self.duplas[0].jogadores[1].definir_vencedor()
+			if self.duplas[1].pontuacao.galhos >= 4:
+				vencedora.append(self.duplas[1])
+				self.duplas[1].jogadores[0].definir_vencedor()
+				self.duplas[1].jogadores[1].definir_vencedor()
+		return vencedora
 
 	def jogar_carta(self, indice_carta : int):
-		pass
+		if self.jogador_local.meu_turno:
+			carta = self.jogador_local.jogar_carta(indice_carta)
+			self.mesa.jogar_carta(carta, self.jogador_local)
+			self.avaliar_jogada()
 
 	def inicializar_jogadores_duplas_e_mesa(self, jogadores : list[list[str]], id_jogador_local : str):
 		self.definir_jogadores(jogadores, id_jogador_local)
@@ -118,7 +188,7 @@ class Jogo:
 		self.duplas.append(dupla2)
 
 		self.proximo_jogador = self.ordem_jogadores[0]
-		self.mesa = Mesa()
+		self.mesa = Mesa(self)
 
 	def definir_jogadores(self, jogadores : list[list[str]], id_jogador_local : str):
 		self.ordem_jogadores = [None, None, None, None]
@@ -135,6 +205,8 @@ class Jogo:
 				jogador.isLocal = True
 
 	def reiniciar_partida(self):
+		self.partida_encerrada = False
+		# implementar o restante, manter a atribuição desse status (usado no diagrama de máquina de estados)
 		pass
 
 	@property
@@ -193,12 +265,24 @@ class Jogo:
 	def partida_encerrada(self) -> bool:
 		return self._partida_encerrada
 	
+	@partida_encerrada.setter
+	def partida_encerrada(self, partida_encerrada):
+		self._partida_encerrada = partida_encerrada
+	
 	@property
 	def rodada_encerrada(self) -> bool:
 		return self._rodada_encerrada
 	
+	@rodada_encerrada.setter
+	def rodada_encerrada(self, rodada_encerrada):
+		self._rodada_encerrada = rodada_encerrada
+	
 	@property
 	def vaza_encerrada(self) -> bool:
 		return self._vaza_encerrada
+	
+	@vaza_encerrada.setter
+	def vaza_encerrada(self, vaza_encerrada):
+		self._vaza_encerrada = vaza_encerrada
 
 

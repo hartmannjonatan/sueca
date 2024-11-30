@@ -18,7 +18,13 @@ class Jogador:
 		self.cartas.append(carta)
 
 	def remover_carta(self, carta : dict) -> Carta:
-		pass
+		for c in self.cartas:
+			if c.naipe.name == carta["naipe"] and c.numero == carta["carta"]:
+				self.cartas.remove(c)
+				return c
+	
+	def jogar_carta(self, indice: int) -> Carta:
+		return self.cartas.pop(indice)
 
 	def ordenar_cartas(self, naipe_trunfo : Naipe):
 		ouros = list()
@@ -86,7 +92,7 @@ class Jogador:
 		pass
 
 	def definir_vencedor(self):
-		pass
+		self.vencedor = True
 
 	@property
 	def nome(self) -> str:

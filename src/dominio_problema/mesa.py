@@ -5,13 +5,14 @@ from .carta import Carta
 from .jogador import Jogador
 from .vaza import Vaza
 
-
 class Mesa:
-	def __init__(self):
+	def __init__(self, jogo):
 		self._baralho : Baralho = None
 		self._rodadas : list[Rodada] = list()
+		self._jogo = jogo
 	
 	def nova_rodada(self):
+		self.jogo.rodada_encerrada = False
 		nova_rodada = Rodada()
 		self.rodadas.append(nova_rodada)
 
@@ -29,16 +30,80 @@ class Mesa:
 		self.rodadas[len(self.rodadas)-1].definir_trunfo(naipe_trunfo)
 			
 	def nova_vaza(self) -> Vaza:
+		self.jogo.vaza_encerrada = False
 		return self.rodadas[len(self.rodadas)-1].nova_vaza()
 
 	def avaliar_jogada(self) -> dict:
-		pass
+		pontuacao, vencedor = self.rodadas[-1].avaliar_vaza()
+		jogada = {
+			"match_status": "next",
+			"tipo": "jogada",
+			"carta_jogada": {"carta": self.rodadas[-1].vazas[-1].cartas_jogadas[-1].numero, "naipe": self.rodadas[-1].vazas[-1].cartas_jogadas[-1].naipe.name},
+			"status_vaza": None,
+			"vencedor_vaza": None,
+			"status_rodada": None,
+			"status_partida": None,
+			"proximo_jogador": None,
+			"pontuacao_duplas": {},
+			"galhos_duplas": {}
+		}
+
+		if vencedor == None:
+			jogada["status_vaza"] = "não encerrada"
+			self.jogo.vaza_encerrada = False
+			jogada["status_rodada"] = "não encerrada"
+			self.jogo.rodada_encerrada = False
+			jogada["status_partida"] = "não encerrada"
+			self.jogo.partida_encerrada = False
+			self.jogo.atualizar_tela_jogo("Carta jogada. Vez de próximo jogador!", self.rodadas[-1].vazas[-1], self.jogo.jogador_local)
+			self.jogo.habilitar_proximo_jogador(None)
+		else:
+			jogada["status_vaza"] = "encerrada"
+			self.jogo.vaza_encerrada = True
+			jogada["vencedor_vaza"] = vencedor.nome
+
+			for dupla in self.jogo.duplas:
+				jogada["pontuacao_duplas"][dupla.jogadores[0].nome] = 0
+				if vencedor in dupla.jogadores:
+					dupla.add_pontuacao(pontuacao)
+					jogada["pontuacao_duplas"][dupla.jogadores[0].nome] = pontuacao
+
+			rodada_finalizada = self.rodadas[-1].rodada_finalizada()
+			if rodada_finalizada:
+				self.jogo.atualizar_galhos()
+				jogada["status_rodada"] = "encerrada"
+				self.jogo.rodada_encerrada = True
+				for dupla in self.jogo.duplas:
+					jogada["galhos_duplas"][dupla.jogadores[0].nome] = dupla.pontuacao.galhos
+
+				vencedora = self.jogo.avaliar_dupla_vencedora()
+				if vencedora != None:
+					jogada["status_partida"] = "encerrada"
+					self.jogo.partida_encerrada = True
+					self.jogo.atualizar_tela_jogo("Carta jogada. A partida foi encerrada!", self.rodadas[-1].vazas[-1], self.jogo.jogador_local)
+					self.jogo.interface_jogador.atualizar_tela_vencedor(vencedora)
+				else:
+					jogada["status_partida"] = "não encerrada"
+					self.jogo.partida_encerrada = False
+					self.jogo.atualizar_tela_jogo("Carta jogada. Nova rodada iniciada!", self.rodadas[-1].vazas[-1], self.jogo.jogador_local)
+					self.jogo.habilitar_proximo_jogador(vencedor)
+			else:
+				jogada["status_rodada"] = "não encerrada"
+				self.jogo.rodada_encerrada = False
+				nova_vaza = self.nova_vaza()
+				self.jogo.atualizar_tela_jogo("Carta jogada. Nova vaza iniciada!", nova_vaza, self.jogo.jogador_local)
+				self.jogo.habilitar_proximo_jogador(vencedor)
+		
+		jogada["proximo_jogador"] = self.jogo.proximo_jogador.nome
+
+		return jogada
+
 
 	def jogar_carta(self, carta : Carta, jogador : Jogador):
-		pass
+		self.rodadas[-1].jogar_carta(carta, jogador)
 
 	def naipe_vaza(self) -> Naipe | None:
-		self.rodadas[len(self.rodadas)-1].naipe_vaza()
+		return self.rodadas[-1].naipe_vaza()
 
 
 	@property
@@ -56,4 +121,12 @@ class Mesa:
 	@rodadas.setter
 	def rodadas(self, rodada):
 		self._rodadas = rodada
+
+	@property
+	def jogo(self):
+		return self._jogo
+	
+	@jogo.setter
+	def jogo(self, jogo):
+		self._jogo = jogo
 

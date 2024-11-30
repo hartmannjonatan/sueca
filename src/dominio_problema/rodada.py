@@ -17,16 +17,22 @@ class Rodada:
 		self.trunfo = naipe_trunfo
 
 	def avaliar_vaza(self) -> tuple[int, Jogador]:
-		pass
+		vaza_finalizada = self.vazas[-1].vaza_finalizada()
+		vencedor = None
+		pontuacao = 0
+		if vaza_finalizada:
+			vencedor = self.vazas[-1].definir_vencedor(self.trunfo)
+			pontuacao = self.vazas[-1].somar_pontuacao()
+		return pontuacao, vencedor
 
 	def rodada_finalizada(self) -> bool:
-		pass
+		return len(self.vazas) == 10
 
 	def jogar_carta(self, carta : Carta, jogador : Jogador):
-		pass
+		self.vazas[-1].jogar_carta(carta, jogador)
 
 	def naipe_vaza(self) -> Naipe | None:
-		vaza_atual = self.vazas[len(self.vazas)-1]
+		vaza_atual = self.vazas[-1]
 		return vaza_atual.naipe_vaza()
 
 	@property
