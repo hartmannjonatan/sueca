@@ -4,6 +4,7 @@ from .naipe import Naipe
 
 class Jogador:
 	def __init__(self, nome, id):
+		print("meu id: ", id)
 		self._nome : str = nome
 		self._cartas : list[Carta] = list()
 		self._meu_turno : bool = None
@@ -130,6 +131,10 @@ class Jogador:
 	@property
 	def vencedor(self) -> bool:
 		return self._vencedor
+	
+	@vencedor.setter
+	def vencedor(self, vencedor):
+		self._vencedor = vencedor
 	
 	@property
 	def id(self) -> int:

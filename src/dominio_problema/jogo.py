@@ -38,14 +38,16 @@ class Jogo:
 				pontuacao = jogada["pontuacao_duplas"].get(dupla.jogadores[0].nome)
 				pontuacao = jogada["pontuacao_duplas"].get(dupla.jogadores[1].nome) if pontuacao is None else pontuacao
 				dupla.add_pontuacao(pontuacao)
-			
+
 			if jogada["status_rodada"] == "encerrada":
 				self.rodada_encerrada = True
 				for dupla in self.duplas:
-					galhos = jogada["galhos_duplas"].get(dupla.jogadores[0].nome) or jogada["galhos_duplas"].get(dupla.jogadores[1].nome)
+					galhos = jogada["galhos_duplas"].get(dupla.jogadores[0].nome)
+					if galhos is None:
+						galhos = jogada["galhos_duplas"].get(dupla.jogadores[1].nome)
 					dupla.set_galhos(galhos)
 				
-				self.status_jogo = "Rodada Encerrada. Pontuações atualizadas!"
+				self.status_jogo = "Rodada Encerrada. Galhos atualizados!"
 				self.interface_jogador.atualizar_status_tela_jogo(self.status_jogo) # NOVO ADICIONAR NO DIAGRAMA
 				sleep(5) # NOVO ADICIONAR NO DIAGRAMA
 
@@ -58,8 +60,9 @@ class Jogo:
 			else:
 				self.rodada_encerrada = False
 				self.partida_encerrada = False
-				self.status_jogo = "Uma nova vaza será iniciada."
-				self.interface_jogador.atualizar_status_tela_jogo(self.status_jogo) # NOVO ADICIONAR NO DIAGRAMA
+				self.status_jogo = "Vaza finalizada! Pontuações atualizadas."
+				self.atualizar_tela_jogo(self.status_jogo, self.mesa.rodadas[-1].vazas[-1], self.jogador_local) # NOVO ADICIONAR NO DIAGRAMA
+				sleep(5) # NOVO ADICIONAR NO DIAGRAMA
 				nova_vaza = self.mesa.nova_vaza()
 				self.atualizar_tela_jogo(self.status_jogo, nova_vaza, self.jogador_local)
 				print(f"(remoto) vencedor da vaza recebido: {vencedor_vaza.nome}")
@@ -75,7 +78,9 @@ class Jogo:
 
 		if jogada["status_rodada"] == "encerrada" and jogada["status_partida"] == "não encerrada":
 			for jogador in self.ordem_jogadores:
-				self.proximo_jogador = jogador if jogada["proximo_jogador"] == jogador.nome else None
+				if jogada["proximo_jogador"] == jogador.nome:
+					self.proximo_jogador = jogador 
+					break
 			self.nova_rodada()
 
 	def nova_rodada(self):
@@ -193,8 +198,6 @@ class Jogo:
 		if self.jogador_local.meu_turno:
 			carta = self.jogador_local.jogar_carta(indice_carta)
 			self.mesa.jogar_carta(carta, self.jogador_local)
-			self.status_jogo = "Carta jogada!"
-			self.atualizar_tela_jogo(self.status_jogo, self.mesa.rodadas[-1].vazas[-1], self.jogador_local) # NOVO (VERIFICAR DIAGRAMA)
 			self.avaliar_jogada()
 			print(f"(local) JOGADOR {self.jogador_local.nome} JOGOU A CARTA {carta.nome}")
 

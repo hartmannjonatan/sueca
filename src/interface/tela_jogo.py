@@ -310,6 +310,8 @@ class TelaJogo:
             id_carta = self.canvas.create_image(posicao[0], posicao[1], anchor="center", image=imagem_carta)
             self.cartas_vaza[i][1] = id_carta
 
+        self.canvas.update() # NOVO ATUALIZAR NO DIAGRAMA
+
     def atualizar_tela_vencedor(self, dupla_vencedora: list[Dupla]):
         self.tela_vencedor.atualizar(dupla_vencedora)
         self.tela_vencedor.abrir_tela()

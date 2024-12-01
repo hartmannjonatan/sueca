@@ -79,7 +79,7 @@ class Mesa:
 				for dupla in self.jogo.duplas:
 					jogada["galhos_duplas"][dupla.jogadores[0].nome] = dupla.pontuacao.galhos
 
-				self.jogo.status_jogo = "Rodada finalizada! Pontuações atualizadas."
+				self.jogo.status_jogo = "Rodada finalizada! Galhos atualizados."
 				self.jogo.interface_jogador.atualizar_status_tela_jogo(self.jogo.status_jogo) # NOVO ADICIONAR NO DIAGRAMA
 				sleep(5) # NOVO ADICIONAR NO DIAGRAMA
 
@@ -100,11 +100,14 @@ class Mesa:
 			else:
 				jogada["status_rodada"] = "não encerrada"
 				self.jogo.rodada_encerrada = False
+				self.jogo.status_jogo = "Vaza finalizada! Pontuações atualizadas."
+				self.jogo.atualizar_tela_jogo(self.jogo.status_jogo, self.rodadas[-1].vazas[-1], self.jogo.jogador_local) # NOVO ADICIONAR NO DIAGRAMA
+				sleep(5) # NOVO ADICIONAR NO DIAGRAMA
 				nova_vaza = self.nova_vaza()
 				self.jogo.status_jogo = "Nova vaza iniciada!"
 				self.jogo.atualizar_tela_jogo(self.jogo.status_jogo, nova_vaza, self.jogo.jogador_local)
 				self.jogo.habilitar_proximo_jogador(vencedor)
-				self.status_jogo = "Sua vez de jogar!" if self.jogo.jogador_local.meu_turno else f"Vez do jogador {self.jogo.proximo_jogador.nome}"
+				self.jogo.status_jogo = "Sua vez de jogar!" if self.jogo.jogador_local.meu_turno else f"Vez do jogador {self.jogo.proximo_jogador.nome}"
 				self.jogo.interface_jogador.atualizar_status_tela_jogo(self.jogo.status_jogo)
 		
 		jogada["proximo_jogador"] = self.jogo.proximo_jogador.nome
