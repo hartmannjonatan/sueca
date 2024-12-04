@@ -22,7 +22,7 @@ class Jogo:
 		self._vaza_encerrada : bool = False	
 
 	def receber_jogada(self, jogada : dict):
-		print(f"(remoto) JOGADOR {self.proximo_jogador.nome} JOGOU A CARTA {jogada['carta_jogada']["carta"]}_{jogada['carta_jogada']["naipe"]}")
+		print(f"(remoto) JOGADOR {self.proximo_jogador.nome} JOGOU A CARTA {jogada['carta_jogada']['carta']}_{jogada['carta_jogada']['naipe']}")
 		carta_jogada = self.proximo_jogador.remover_carta(jogada["carta_jogada"])
 		self.mesa.jogar_carta(carta_jogada, self.proximo_jogador)
 
@@ -67,12 +67,12 @@ class Jogo:
 				self.atualizar_tela_jogo(self.status_jogo, nova_vaza, self.jogador_local)
 				print(f"(remoto) vencedor da vaza recebido: {vencedor_vaza.nome}")
 				self.habilitar_proximo_jogador(vencedor_vaza)
-				self.status_jogo = f"Vez de {jogada["proximo_jogador"]}" if jogada["proximo_jogador"] != self.jogador_local.nome else "Sua vez de jogar!"
+				self.status_jogo = f"Vez de {jogada['proximo_jogador']}" if jogada['proximo_jogador'] != self.jogador_local.nome else "Sua vez de jogar!"
 				self.interface_jogador.atualizar_status_tela_jogo(self.status_jogo)
 				print("\n-> NOVA VAZA <- \n")
 		else:
 			self.vaza_encerrada = False
-			self.status_jogo = f"Vez de {jogada["proximo_jogador"]}" if jogada["proximo_jogador"] != self.jogador_local.nome else "Sua vez de jogar!"
+			self.status_jogo = f"Vez de {jogada['proximo_jogador']}" if jogada['proximo_jogador'] != self.jogador_local.nome else "Sua vez de jogar!"
 			self.atualizar_tela_jogo(self.status_jogo, self.mesa.rodadas[-1].vazas[-1], self.jogador_local)
 			self.habilitar_proximo_jogador(None)
 
