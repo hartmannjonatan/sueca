@@ -230,8 +230,12 @@ class Jogo:
 
 	def reiniciar_partida(self):
 		self.partida_encerrada = False
-		# implementar o restante, manter a atribuição desse status (usado no diagrama de máquina de estados)
-		pass
+		for dupla in self.duplas:
+			dupla.zerar_pontuacao_rodada()
+			dupla.set_galhos(0)
+			for jogador in dupla.jogadores:
+				jogador.vencedor = False
+				
 
 	@property
 	def duplas(self) -> list[Dupla]:

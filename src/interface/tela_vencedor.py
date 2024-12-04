@@ -51,7 +51,11 @@ class TelaVencedor(TelaSecundaria):
         self.canvas.tag_bind(self.botao_reiniciar_partida, "<Leave>",  self.saida_botao)
 
     def click_botao_reiniciar_partida(self, event):
-        pass
+        jogo = self.interface_jogador.jogo
+        jogo.reiniciar_partida()
+        self.tela_jogo.configurar_tela(jogo.ordem_jogadores, jogo.jogador_local)
+        jogo.nova_rodada()
+
 
     def on_hover_botao(self, event):
         imagem_botao_grande = Image.open(IMAGES_DIR / "tela_vencedor/botao_reiniciar_partida.png")
