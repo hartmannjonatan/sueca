@@ -239,6 +239,7 @@ class TelaJogo:
         self.canvas.config(cursor="")
 
     def click_botao_instrucao(self, event):
+        self.interface_jogador.jogo.duplas[0].set_galhos(4)
         self.tela_instrucao.abrir_tela()
 
     def mostrar_aviso(self, event):
@@ -251,7 +252,7 @@ class TelaJogo:
         self.canvas.config(cursor="")
 
     def revelar_trunfo(self, trunfo: Naipe):
-        messagebox.showinfo(f"NAIPE TRUNFO REVELADA", f"A naipe trunfo desta rodada é: {trunfo.name}")
+        #messagebox.showinfo(f"NAIPE TRUNFO REVELADA", f"A naipe trunfo desta rodada é: {trunfo.name}")
         imagem_botao_naipe_rodada = Image.open(IMAGES_DIR / f"tela_jogo/botoes/botao_{trunfo.name}.png")
         imagem_botao_naipe_rodada = imagem_botao_naipe_rodada.resize((50, 50), Image.LANCZOS)
         self.img_botao_naipe_rodada = ImageTk.PhotoImage(imagem_botao_naipe_rodada)

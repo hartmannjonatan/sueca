@@ -52,9 +52,12 @@ class TelaVencedor(TelaSecundaria):
 
     def click_botao_reiniciar_partida(self, event):
         jogo = self.interface_jogador.jogo
+        jogada = {
+            "tipo" : "reiniciar",
+            "match_status": "next"
+        }
+        self.interface_jogador.enviar_jogada(jogada)
         jogo.reiniciar_partida()
-        self.tela_jogo.configurar_tela(jogo.ordem_jogadores, jogo.jogador_local)
-        jogo.nova_rodada()
 
 
     def on_hover_botao(self, event):

@@ -96,10 +96,13 @@ class InterfaceJogador(DogPlayerInterface):
         self.dog_server_interface.send_move(jogada)
 
     def receive_move(self, a_move: dict):
-        if a_move["tipo"] == "nova rodada":
+        if a_move['tipo'] == "nova rodada":
             self.jogo.receber_nova_rodada(a_move["cartas"], Naipe[a_move["trunfo"]])
         elif a_move['tipo'] == "jogada":
             self.jogo.receber_jogada(a_move)
+        elif a_move['tipo'] == "reiniciar":
+            print("RECEBI NOTIFICAÇÃO DE REINICIAR PARTIDA !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+            self.jogo.reiniciar_partida()
         else:
             raise Exception("Erro de jogada recebida inesperada!")
 
