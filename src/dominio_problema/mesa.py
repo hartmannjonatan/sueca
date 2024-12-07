@@ -72,6 +72,7 @@ class Mesa:
 					jogada["pontuacao_duplas"][dupla.jogadores[0].nome] = pontuacao
 
 			rodada_finalizada = self.rodadas[-1].rodada_finalizada()
+
 			if rodada_finalizada:
 				self.jogo.atualizar_galhos()
 				jogada["status_rodada"] = "encerrada"
@@ -80,8 +81,8 @@ class Mesa:
 					jogada["galhos_duplas"][dupla.jogadores[0].nome] = dupla.pontuacao.galhos
 
 				self.jogo.status_jogo = "Rodada finalizada! Galhos atualizados."
-				self.jogo.interface_jogador.atualizar_status_tela_jogo(self.jogo.status_jogo) # NOVO ADICIONAR NO DIAGRAMA
-				sleep(3) # NOVO ADICIONAR NO DIAGRAMA
+				self.jogo.interface_jogador.atualizar_status_tela_jogo(self.jogo.status_jogo)
+				sleep(3) 
 
 				vencedora = self.jogo.avaliar_dupla_vencedora()
 				if vencedora != None:
@@ -95,14 +96,13 @@ class Mesa:
 					self.jogo.partida_encerrada = False
 					self.jogo.status_jogo = "Uma nova rodada será iniciada!"
 					self.jogo.atualizar_tela_jogo(self.jogo.status_jogo, self.rodadas[-1].vazas[-1], self.jogo.jogador_local)
-					#self.jogo.habilitar_proximo_jogador(vencedor) # MODIFICADO vv
-					self.jogo.proximo_jogador = vencedor # MODIFICADO (NOVO)
+					self.jogo.proximo_jogador = vencedor 
 			else:
 				jogada["status_rodada"] = "nao encerrada"
 				self.jogo.rodada_encerrada = False
 				self.jogo.status_jogo = "Vaza finalizada! Pontuações atualizadas."
 				self.jogo.atualizar_tela_jogo(self.jogo.status_jogo, self.rodadas[-1].vazas[-1], self.jogo.jogador_local) # NOVO ADICIONAR NO DIAGRAMA
-				sleep(3) # NOVO ADICIONAR NO DIAGRAMA
+				sleep(3) 
 				nova_vaza = self.nova_vaza()
 				self.jogo.status_jogo = "Nova vaza iniciada!"
 				self.jogo.atualizar_tela_jogo(self.jogo.status_jogo, nova_vaza, self.jogo.jogador_local)

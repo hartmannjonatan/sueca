@@ -30,6 +30,7 @@ class Vaza:
 					if cartaVencedoraTrunfo == None or carta.valor > cartaVencedoraTrunfo.valor:
 						cartaVencedoraTrunfo = carta
 						vencedorCartaTrunfo = self.jogadores[i]
+						
 		if vencedorCartaTrunfo == None:
 			return vencedorCartaVaza
 		else:

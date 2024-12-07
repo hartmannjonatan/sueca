@@ -257,7 +257,6 @@ class TelaJogo:
         self.img_botao_naipe_rodada = ImageTk.PhotoImage(imagem_botao_naipe_rodada)
         self.botao_naipe_rodada = self.canvas.create_image(1040, 40, image=self.img_botao_naipe_rodada)
 
-
     def atualizar_tela_pontuacao(self):
         jogo = self._interface_jogador.jogo
         duplas = jogo.duplas
@@ -310,7 +309,7 @@ class TelaJogo:
             id_carta = self.canvas.create_image(posicao[0], posicao[1], anchor="center", image=imagem_carta)
             self.cartas_vaza[i][1] = id_carta
 
-        self.canvas.update() # NOVO ATUALIZAR NO DIAGRAMA
+        self.canvas.update()
 
     def atualizar_tela_vencedor(self, dupla_vencedora: list[Dupla]):
         self.tela_vencedor.atualizar(dupla_vencedora)
@@ -450,5 +449,3 @@ class TelaJogo:
     @property
     def slot_jogadores(self) -> dict[str, tuple]:
         return self._slot_jogadores
-
-"{}"

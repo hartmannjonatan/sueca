@@ -45,8 +45,8 @@ class Jogo:
 					dupla.set_galhos(galhos)
 				
 				self.status_jogo = "Rodada Encerrada. Galhos atualizados!"
-				self.atualizar_tela_jogo(self.status_jogo, self.mesa.rodadas[-1].vazas[-1], self.jogador_local) # NOVO ADICIONAR NO DIAGRAMA
-				sleep(3) # NOVO ADICIONAR NO DIAGRAMA
+				self.atualizar_tela_jogo(self.status_jogo, self.mesa.rodadas[-1].vazas[-1], self.jogador_local) 
+				sleep(3)
 
 				if jogada["status_partida"] == "encerrada":
 					self.partida_encerrada = True
@@ -147,7 +147,7 @@ class Jogo:
 
 			if quantidade_cartas > 0:
 				naipe = self.mesa.naipe_vaza()
-				cartas_validas = self.proximo_jogador.cartas_validas(naipe)
+				cartas_validas = self.proximo_jogador.cartaas_validas(naipe)
 				self.interface_jogador.habilitar_cartas(cartas_validas)
 
 	def atualizar_tela_jogo(self, status: str, vaza: Vaza, jogador_local: Jogador):
@@ -229,7 +229,6 @@ class Jogo:
 			self.interface_jogador.tela_jogo.configurar_tela(self.ordem_jogadores, self.jogador_local)
 			self.interface_jogador.tela_jogo.tela_vencedor.fechar_tela()
 			self.nova_rodada()
-				
 
 	@property
 	def duplas(self) -> list[Dupla]:
