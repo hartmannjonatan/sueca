@@ -78,9 +78,6 @@ class TelaVencedor(TelaSecundaria):
             self.texto.config(text="")
         else:
             self.vencedores_label.config(text=f"{dupla_vencedora[0].jogadores[0].nome} e {dupla_vencedora[0].jogadores[1].nome}")
-    
-    def fechar_tela(self):
-        self.tela.destroy()
 
     @property
     def interface_jogador(self):

@@ -226,6 +226,7 @@ class Jogo:
 				jogador.vencedor = False
 		self.mesa.reiniciar()
 		self.interface_jogador.tela_jogo.configurar_tela(self.ordem_jogadores, self.jogador_local)
+		self.interface_jogador.tela_jogo.tela_vencedor.fechar_tela()
 		self.nova_rodada()
 				
 
