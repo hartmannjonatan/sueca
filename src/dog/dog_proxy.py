@@ -110,6 +110,8 @@ class DogProxy:
     def match_status(self):
         url = self.url + "match/"
         post_data = {"player_id": self.player_id, "game_id": self.game_id}
+        if (post_data["player_id"] == {} or post_data["game_id"] == {}):
+            print("ALGUM DOS DOIS ESTÁ VAZIO")
         resp = requests.post(url, data=post_data)
         resp_json = resp.text
         try:

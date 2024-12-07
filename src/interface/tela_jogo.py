@@ -139,7 +139,7 @@ class TelaJogo:
 
     def criar_frame_status(self):
         frame_status = Image.open(IMAGES_DIR / "tela_jogo/actualplayer.png")
-        frame_status = frame_status.resize((350, 40), Image.LANCZOS)
+        frame_status = frame_status.resize((365, 40), Image.LANCZOS)
         self.frame_status = ImageTk.PhotoImage(frame_status)
 
         self.canvas.create_image(10, 15, anchor="nw", image=self.frame_status)
@@ -239,6 +239,7 @@ class TelaJogo:
         self.canvas.config(cursor="")
 
     def click_botao_instrucao(self, event):
+        self.interface_jogador.jogo.duplas[0].set_galhos(4)
         self.tela_instrucao.abrir_tela()
 
     def mostrar_aviso(self, event):
@@ -451,3 +452,4 @@ class TelaJogo:
     def slot_jogadores(self) -> dict[str, tuple]:
         return self._slot_jogadores
 
+"{}"
