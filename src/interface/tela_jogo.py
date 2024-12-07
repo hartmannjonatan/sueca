@@ -40,10 +40,7 @@ class TelaJogo:
         self.inicializar_imagens_cartas()
     
     def configurar_tela(self, ordem_jogadores: list[Jogador] = None, jogador_local: Jogador = None):
-        self.canvas.delete("all")
-
-        self._cartas_vaza = [[None, None], [None, None], [None, None], [None, None]]
-        self._cartas_jogador = [[None, None], [None, None], [None, None], [None, None], [None, None], [None, None], [None, None], [None, None], [None, None], [None, None]]
+        self.resetar_informacoes_tela_jogo()
 
         posicao_jogador_local = 0
         for i in range(0, len(ordem_jogadores)):
@@ -324,14 +321,19 @@ class TelaJogo:
         """
         Reseta os elementos da tela para o estado padrão quando ocorre uma notificação de abandono.
         """
-        self.label_status.destroy()
-        self.label_jogador1.destroy()
-        self.label_jogador2.destroy()
-        self.label_jogador3.destroy()
-        self.label_jogador4.destroy()
+        if self.label_status != None:
+            self.label_status.destroy()
+        if self.label_jogador1 != None:
+            self.label_jogador1.destroy()
+        if self.label_jogador2 != None:
+            self.label_jogador2.destroy()
+        if self.label_jogador3 != None:
+            self.label_jogador3.destroy()
+        if self.label_jogador4 != None:
+            self.label_jogador4.destroy()
 
-        self._cartas_vaza.clear()
-        self._cartas_jogador.clear()
+        self._cartas_vaza = [[None, None], [None, None], [None, None], [None, None]]
+        self._cartas_jogador = [[None, None], [None, None], [None, None], [None, None], [None, None], [None, None], [None, None], [None, None], [None, None], [None, None]]
         self._slot_jogadores.clear()
 
         self._canvas.delete("all")
