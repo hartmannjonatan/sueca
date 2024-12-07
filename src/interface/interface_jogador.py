@@ -101,7 +101,6 @@ class InterfaceJogador(DogPlayerInterface):
         elif a_move['tipo'] == "jogada":
             self.jogo.receber_jogada(a_move)
         elif a_move['tipo'] == "reiniciar":
-            print("RECEBI NOTIFICAÇÃO DE REINICIAR PARTIDA !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
             self.jogo.reiniciar_partida()
         else:
             raise Exception("Erro de jogada recebida inesperada!")

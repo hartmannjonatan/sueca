@@ -4,7 +4,6 @@ from .naipe import Naipe
 
 class Jogador:
 	def __init__(self, nome, id):
-		print("meu id: ", id)
 		self._nome : str = nome
 		self._cartas : list[Carta] = list()
 		self._meu_turno : bool = None
@@ -23,7 +22,6 @@ class Jogador:
 			if c.naipe.name == carta["naipe"] and c.numero == carta["carta"]:
 				self.cartas.remove(c)
 				return c
-		print(f"CARTA {carta['carta']}_{carta['naipe']} NÃO ENCONTRADA NA MÃO DE JOGADOR {self.nome}")
 	
 	def jogar_carta(self, indice: int) -> Carta:
 		return self.cartas.pop(indice)
