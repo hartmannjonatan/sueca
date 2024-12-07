@@ -110,10 +110,11 @@ class DogProxy:
     def match_status(self):
         url = self.url + "match/"
         post_data = {"player_id": self.player_id, "game_id": self.game_id}
-        if (post_data["player_id"] == {} or post_data["game_id"] == {}):
-            print("ALGUM DOS DOIS ESTÁ VAZIO")
         resp = requests.post(url, data=post_data)
         resp_json = resp.text
+        # Ignora erro interno do servidor do DOG relacionado ao decode do arquivo json, ao chamar o match_status
+        # Isso foi considerado, pois investigamos a traceback e o retorno da requisição, que é uma página de erro (HTML) do servidor do DOG
+        # Entretanto, a requisição é feita pelo próprio código do DOG, nosso código fonte não tem relação direta com o que é enviado 
         try:
             seek_result = json.loads(resp_json)
             if bool(seek_result):
@@ -134,5 +135,5 @@ class DogProxy:
                                 self.dog_actor.receive_move(move_dictionary)
                                 if move_dictionary["match_status"] == "finished":
                                     self.status = 2
-        except Exception:
+        except json.JSONDecodeError:
             print("\n ERRO NO MATCH STATUS \n")
