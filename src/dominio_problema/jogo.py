@@ -235,6 +235,7 @@ class Jogo:
 			dupla.set_galhos(0)
 			for jogador in dupla.jogadores:
 				jogador.vencedor = False
+		self.mesa.reiniciar()
 		self.interface_jogador.tela_jogo.configurar_tela(self.ordem_jogadores, self.jogador_local)
 		self.nova_rodada()
 				

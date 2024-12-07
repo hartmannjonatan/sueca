@@ -42,6 +42,9 @@ class TelaJogo:
     def configurar_tela(self, ordem_jogadores: list[Jogador] = None, jogador_local: Jogador = None):
         self.canvas.delete("all")
 
+        self._cartas_vaza = [[None, None], [None, None], [None, None], [None, None]]
+        self._cartas_jogador = [[None, None], [None, None], [None, None], [None, None], [None, None], [None, None], [None, None], [None, None], [None, None], [None, None]]
+
         posicao_jogador_local = 0
         for i in range(0, len(ordem_jogadores)):
             if jogador_local == ordem_jogadores[i]:

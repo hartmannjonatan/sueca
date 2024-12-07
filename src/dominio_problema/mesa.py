@@ -120,7 +120,10 @@ class Mesa:
 
 	def naipe_vaza(self) -> Naipe | None:
 		return self.rodadas[-1].naipe_vaza()
-
+	
+	def reiniciar(self):
+		self.rodadas = list()
+		
 
 	@property
 	def baralho(self) -> Baralho:
