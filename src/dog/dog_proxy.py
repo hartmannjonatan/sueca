@@ -3,7 +3,6 @@ import json
 from urllib.parse import urldefrag
 import requests
 from dog.start_status import StartStatus
-from pprint import pprint
 
 
 class DogProxy:
@@ -100,9 +99,6 @@ class DogProxy:
     def send_move(self, a_move):
         url = self.url + "move/"
         json_move = json.dumps(a_move)  # convert move to json
-        print("\n--------------------- SEND MOVE --------------------------")
-        pprint(json_move)
-        print("-----------------------------------------------------------------\n")
         post_data = {"player_id": self.player_id, "game_id": self.game_id, "move": json_move}
         resp = requests.post(url, data=post_data)
         if a_move["match_status"] == "next":

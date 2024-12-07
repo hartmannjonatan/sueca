@@ -239,7 +239,6 @@ class TelaJogo:
         self.canvas.config(cursor="")
 
     def click_botao_instrucao(self, event):
-        self.interface_jogador.jogo.duplas[0].set_galhos(4)
         self.tela_instrucao.abrir_tela()
 
     def mostrar_aviso(self, event):
