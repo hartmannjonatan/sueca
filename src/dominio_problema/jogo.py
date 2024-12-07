@@ -5,8 +5,6 @@ from .mesa import Mesa
 from .jogador import Jogador
 from .vaza import Vaza
 
-from pprint import pprint
-
 
 class Jogo:
 	def __init__(self, interface_jogador):
@@ -22,7 +20,6 @@ class Jogo:
 		self._vaza_encerrada : bool = False	
 
 	def receber_jogada(self, jogada : dict):
-		print(f"(remoto) JOGADOR {self.proximo_jogador.nome} JOGOU A CARTA {jogada['carta_jogada']['carta']}_{jogada['carta_jogada']['naipe']}")
 		carta_jogada = self.proximo_jogador.remover_carta(jogada["carta_jogada"])
 		self.mesa.jogar_carta(carta_jogada, self.proximo_jogador)
 
@@ -48,8 +45,8 @@ class Jogo:
 					dupla.set_galhos(galhos)
 				
 				self.status_jogo = "Rodada Encerrada. Galhos atualizados!"
-				self.interface_jogador.atualizar_status_tela_jogo(self.status_jogo) # NOVO ADICIONAR NO DIAGRAMA
-				sleep(5) # NOVO ADICIONAR NO DIAGRAMA
+				self.atualizar_tela_jogo(self.status_jogo, self.mesa.rodadas[-1].vazas[-1], self.jogador_local) # NOVO ADICIONAR NO DIAGRAMA
+				sleep(3) # NOVO ADICIONAR NO DIAGRAMA
 
 				if jogada["status_partida"] == "encerrada":
 					self.partida_encerrada = True
@@ -62,21 +59,19 @@ class Jogo:
 				self.partida_encerrada = False
 				self.status_jogo = "Vaza finalizada! Pontuações atualizadas."
 				self.atualizar_tela_jogo(self.status_jogo, self.mesa.rodadas[-1].vazas[-1], self.jogador_local) # NOVO ADICIONAR NO DIAGRAMA
-				sleep(5) # NOVO ADICIONAR NO DIAGRAMA
+				sleep(3) # NOVO ADICIONAR NO DIAGRAMA
 				nova_vaza = self.mesa.nova_vaza()
 				self.atualizar_tela_jogo(self.status_jogo, nova_vaza, self.jogador_local)
-				print(f"(remoto) vencedor da vaza recebido: {vencedor_vaza.nome}")
 				self.habilitar_proximo_jogador(vencedor_vaza)
 				self.status_jogo = f"Vez de {jogada['proximo_jogador']}" if jogada['proximo_jogador'] != self.jogador_local.nome else "Sua vez de jogar!"
 				self.interface_jogador.atualizar_status_tela_jogo(self.status_jogo)
-				print("\n-> NOVA VAZA <- \n")
 		else:
 			self.vaza_encerrada = False
 			self.status_jogo = f"Vez de {jogada['proximo_jogador']}" if jogada['proximo_jogador'] != self.jogador_local.nome else "Sua vez de jogar!"
 			self.atualizar_tela_jogo(self.status_jogo, self.mesa.rodadas[-1].vazas[-1], self.jogador_local)
 			self.habilitar_proximo_jogador(None)
 
-		if jogada["status_rodada"] == "encerrada" and jogada["status_partida"] == "não encerrada":
+		if jogada["status_rodada"] == "encerrada" and jogada["status_partida"] == "nao encerrada":
 			for jogador in self.ordem_jogadores:
 				if jogada["proximo_jogador"] == jogador.nome:
 					self.proximo_jogador = jogador 
@@ -146,7 +141,6 @@ class Jogo:
 			self.proximo_jogador = vencedor
 
 		self.proximo_jogador.habilitar_turno()
-		print("JOGADOR HABILITADO: ", self.proximo_jogador.nome)
 
 		if self.proximo_jogador.id == self.jogador_local.id:
 			quantidade_cartas = self.proximo_jogador.quantidade_cartas()
@@ -162,9 +156,6 @@ class Jogo:
 	def avaliar_jogada(self):
 		jogada = self.mesa.avaliar_jogada()
 		self.interface_jogador.enviar_jogada(jogada)
-		print("\n--------------------- JOGADA ENVIADA --------------------------")
-		pprint(jogada)
-		print("-----------------------------------------------------------------\n")
 		if self.rodada_encerrada and not self.partida_encerrada:
 			self.nova_rodada()
 
@@ -199,7 +190,6 @@ class Jogo:
 			carta = self.jogador_local.jogar_carta(indice_carta)
 			self.mesa.jogar_carta(carta, self.jogador_local)
 			self.avaliar_jogada()
-			print(f"(local) JOGADOR {self.jogador_local.nome} JOGOU A CARTA {carta.nome}")
 
 	def inicializar_jogadores_duplas_e_mesa(self, jogadores : list[list[str]], id_jogador_local : str):
 		self.definir_jogadores(jogadores, id_jogador_local)
@@ -225,16 +215,20 @@ class Jogo:
 
 			if id_jogador == id_jogador_local:
 				self.jogador_local = jogador
-				print(f"SOU O JOGADOR: {self.jogador_local.nome}")
 				jogador.isLocal = True
 
 	def reiniciar_partida(self):
-		self.partida_encerrada = False
-		for dupla in self.duplas:
-			dupla.zerar_pontuacao_rodada()
-			dupla.set_galhos(0)
-			for jogador in dupla.jogadores:
-				jogador.vencedor = False
+		if self.partida_encerrada:
+			self.partida_encerrada = False
+			for dupla in self.duplas:
+				dupla.zerar_pontuacao_rodada()
+				dupla.set_galhos(0)
+				for jogador in dupla.jogadores:
+					jogador.vencedor = False
+			self.mesa.reiniciar()
+			self.interface_jogador.tela_jogo.configurar_tela(self.ordem_jogadores, self.jogador_local)
+			self.interface_jogador.tela_jogo.tela_vencedor.fechar_tela()
+			self.nova_rodada()
 				
 
 	@property

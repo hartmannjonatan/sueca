@@ -50,11 +50,11 @@ class Mesa:
 		}
 
 		if vencedor == None:
-			jogada["status_vaza"] = "não encerrada"
+			jogada["status_vaza"] = "nao encerrada"
 			self.jogo.vaza_encerrada = False
-			jogada["status_rodada"] = "não encerrada"
+			jogada["status_rodada"] = "nao encerrada"
 			self.jogo.rodada_encerrada = False
-			jogada["status_partida"] = "não encerrada"
+			jogada["status_partida"] = "nao encerrada"
 			self.jogo.partida_encerrada = False
 			self.jogo.atualizar_tela_jogo(None, self.rodadas[-1].vazas[-1], self.jogo.jogador_local)
 			self.jogo.habilitar_proximo_jogador(None)
@@ -81,7 +81,7 @@ class Mesa:
 
 				self.jogo.status_jogo = "Rodada finalizada! Galhos atualizados."
 				self.jogo.interface_jogador.atualizar_status_tela_jogo(self.jogo.status_jogo) # NOVO ADICIONAR NO DIAGRAMA
-				sleep(5) # NOVO ADICIONAR NO DIAGRAMA
+				sleep(3) # NOVO ADICIONAR NO DIAGRAMA
 
 				vencedora = self.jogo.avaliar_dupla_vencedora()
 				if vencedora != None:
@@ -91,18 +91,18 @@ class Mesa:
 					self.jogo.atualizar_tela_jogo(self.jogo.status_jogo, self.rodadas[-1].vazas[-1], self.jogo.jogador_local)
 					self.jogo.interface_jogador.atualizar_tela_vencedor(vencedora)
 				else:
-					jogada["status_partida"] = "não encerrada"
+					jogada["status_partida"] = "nao encerrada"
 					self.jogo.partida_encerrada = False
 					self.jogo.status_jogo = "Uma nova rodada será iniciada!"
 					self.jogo.atualizar_tela_jogo(self.jogo.status_jogo, self.rodadas[-1].vazas[-1], self.jogo.jogador_local)
 					#self.jogo.habilitar_proximo_jogador(vencedor) # MODIFICADO vv
 					self.jogo.proximo_jogador = vencedor # MODIFICADO (NOVO)
 			else:
-				jogada["status_rodada"] = "não encerrada"
+				jogada["status_rodada"] = "nao encerrada"
 				self.jogo.rodada_encerrada = False
 				self.jogo.status_jogo = "Vaza finalizada! Pontuações atualizadas."
 				self.jogo.atualizar_tela_jogo(self.jogo.status_jogo, self.rodadas[-1].vazas[-1], self.jogo.jogador_local) # NOVO ADICIONAR NO DIAGRAMA
-				sleep(5) # NOVO ADICIONAR NO DIAGRAMA
+				sleep(3) # NOVO ADICIONAR NO DIAGRAMA
 				nova_vaza = self.nova_vaza()
 				self.jogo.status_jogo = "Nova vaza iniciada!"
 				self.jogo.atualizar_tela_jogo(self.jogo.status_jogo, nova_vaza, self.jogo.jogador_local)
@@ -120,7 +120,10 @@ class Mesa:
 
 	def naipe_vaza(self) -> Naipe | None:
 		return self.rodadas[-1].naipe_vaza()
-
+	
+	def reiniciar(self):
+		self.rodadas = list()
+		
 
 	@property
 	def baralho(self) -> Baralho:
