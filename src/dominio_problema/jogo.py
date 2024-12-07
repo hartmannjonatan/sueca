@@ -71,7 +71,7 @@ class Jogo:
 			self.atualizar_tela_jogo(self.status_jogo, self.mesa.rodadas[-1].vazas[-1], self.jogador_local)
 			self.habilitar_proximo_jogador(None)
 
-		if jogada["status_rodada"] == "encerrada" and jogada["status_partida"] == "não encerrada":
+		if jogada["status_rodada"] == "encerrada" and jogada["status_partida"] == "nao encerrada":
 			for jogador in self.ordem_jogadores:
 				if jogada["proximo_jogador"] == jogador.nome:
 					self.proximo_jogador = jogador 
