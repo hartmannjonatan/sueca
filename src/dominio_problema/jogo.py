@@ -69,6 +69,7 @@ class Jogo:
 			self.vaza_encerrada = False
 			self.status_jogo = f"Vez de {jogada['proximo_jogador']}" if jogada['proximo_jogador'] != self.jogador_local.nome else "Sua vez de jogar!"
 			self.atualizar_tela_jogo(self.status_jogo, self.mesa.rodadas[-1].vazas[-1], self.jogador_local)
+			sleep(1)
 			self.habilitar_proximo_jogador(None)
 
 		if jogada["status_rodada"] == "encerrada" and jogada["status_partida"] == "nao encerrada":

@@ -57,6 +57,7 @@ class Mesa:
 			jogada["status_partida"] = "nao encerrada"
 			self.jogo.partida_encerrada = False
 			self.jogo.atualizar_tela_jogo(None, self.rodadas[-1].vazas[-1], self.jogo.jogador_local)
+			sleep(1)
 			self.jogo.habilitar_proximo_jogador(None)
 			self.jogo.status_jogo = "Sua vez de jogar!" if self.jogo.jogador_local.meu_turno else f"Vez do jogador {self.jogo.proximo_jogador.nome}"
 			self.jogo.interface_jogador.atualizar_status_tela_jogo(self.jogo.status_jogo)
@@ -101,7 +102,7 @@ class Mesa:
 				jogada["status_rodada"] = "nao encerrada"
 				self.jogo.rodada_encerrada = False
 				self.jogo.status_jogo = "Vaza finalizada! Pontuações atualizadas."
-				self.jogo.atualizar_tela_jogo(self.jogo.status_jogo, self.rodadas[-1].vazas[-1], self.jogo.jogador_local) # NOVO ADICIONAR NO DIAGRAMA
+				self.jogo.atualizar_tela_jogo(self.jogo.status_jogo, self.rodadas[-1].vazas[-1], self.jogo.jogador_local)
 				sleep(3) 
 				nova_vaza = self.nova_vaza()
 				self.jogo.status_jogo = "Nova vaza iniciada!"

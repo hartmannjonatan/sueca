@@ -22,6 +22,7 @@ class Jogador:
 			if c.naipe.name == carta["naipe"] and c.numero == carta["carta"]:
 				self.cartas.remove(c)
 				return c
+		raise Exception("Erro: Jogada recebida do DOG Server de forma inesperada!")
 	
 	def jogar_carta(self, indice: int) -> Carta:
 		return self.cartas.pop(indice)
