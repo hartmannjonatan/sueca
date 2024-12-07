@@ -147,7 +147,7 @@ class Jogo:
 
 			if quantidade_cartas > 0:
 				naipe = self.mesa.naipe_vaza()
-				cartas_validas = self.proximo_jogador.cartaas_validas(naipe)
+				cartas_validas = self.proximo_jogador.cartas_validas(naipe)
 				self.interface_jogador.habilitar_cartas(cartas_validas)
 
 	def atualizar_tela_jogo(self, status: str, vaza: Vaza, jogador_local: Jogador):
