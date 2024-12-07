@@ -18,6 +18,7 @@ class TelaSecundaria(ABC):
         pass
 
     def abrir_tela(self):
+        self.tela.attributes("-topmost", "true")
         self.tela.deiconify()
     
     def fechar_tela(self):
