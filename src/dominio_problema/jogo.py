@@ -58,8 +58,8 @@ class Jogo:
 				self.rodada_encerrada = False
 				self.partida_encerrada = False
 				self.status_jogo = "Vaza finalizada! Pontuações atualizadas."
-				self.atualizar_tela_jogo(self.status_jogo, self.mesa.rodadas[-1].vazas[-1], self.jogador_local) # NOVO ADICIONAR NO DIAGRAMA
-				sleep(3) # NOVO ADICIONAR NO DIAGRAMA
+				self.atualizar_tela_jogo(self.status_jogo, self.mesa.rodadas[-1].vazas[-1], self.jogador_local)
+				sleep(3)
 				nova_vaza = self.mesa.nova_vaza()
 				self.atualizar_tela_jogo(self.status_jogo, nova_vaza, self.jogador_local)
 				self.habilitar_proximo_jogador(vencedor_vaza)
