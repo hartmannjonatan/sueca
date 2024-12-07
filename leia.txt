@@ -4,10 +4,12 @@ cd src
 Criando e ativando o ambiente virtual:
 
 # cria o ambiente virtual (pasta venv)
-python -m venv venv
+python3 -m venv venv # Para Linux/macOS
+# ou
+python -m venv venv # Para Windows
 
 # ativa o ambiente virtual
-source venv\bin\activate  # Para Linux/macOS
+source venv/bin/activate  # Para Linux/macOS
 # ou
 source venv/Scripts/Activate  # Para Windows
 

@@ -78,7 +78,7 @@ class InterfaceJogador(DogPlayerInterface):
             self.jogo.nova_rodada()
         
     def revelar_trunfo(self, trunfo: Naipe):
-        self.tela_jogo.revelar_trrunfo(trunfo)
+        self.tela_jogo.revelar_trunfo(trunfo)
 
     def atualizar_tela_vencedor(self, dupla_vencedora: list[Dupla]):
         self.tela_jogo.atualizar_tela_vencedor(dupla_vencedora)
