@@ -116,9 +116,6 @@ class DogProxy:
         post_data = {"player_id": self.player_id, "game_id": self.game_id}
         resp = requests.post(url, data=post_data)
         resp_json = resp.text
-        print("\n--------------------- MATCH STATUS --------------------------")
-        pprint(resp_json)
-        print("-----------------------------------------------------------------\n")
         try:
             seek_result = json.loads(resp_json)
             if bool(seek_result):
