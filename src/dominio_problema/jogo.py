@@ -174,13 +174,13 @@ class Jogo:
 
 	def avaliar_dupla_vencedora(self) -> list[Dupla] | None:
 		vencedora = None
-		if self.duplas[0].pontuacao.galhos >= 4 or self.duplas[1].pontuacao.galhos >= 4:
+		if self.duplas[0].pontuacao.galhos >= 0 or self.duplas[1].pontuacao.galhos >= 0:
 			vencedora = []
-			if self.duplas[0].pontuacao.galhos >= 4:
+			if self.duplas[0].pontuacao.galhos >= 0:
 				vencedora.append(self.duplas[0])
 				self.duplas[0].jogadores[0].definir_vencedor()
 				self.duplas[0].jogadores[1].definir_vencedor()
-			if self.duplas[1].pontuacao.galhos >= 4:
+			if self.duplas[1].pontuacao.galhos >= 0:
 				vencedora.append(self.duplas[1])
 				self.duplas[1].jogadores[0].definir_vencedor()
 				self.duplas[1].jogadores[1].definir_vencedor()

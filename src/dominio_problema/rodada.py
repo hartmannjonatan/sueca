@@ -26,6 +26,7 @@ class Rodada:
 		return pontuacao, vencedor
 
 	def rodada_finalizada(self) -> bool:
+		return True
 		return len(self.vazas) == 10
 
 	def jogar_carta(self, carta : Carta, jogador : Jogador):
