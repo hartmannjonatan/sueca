@@ -1,6 +1,7 @@
 from tkinter import *
-from tkinter import messagebox
 from PIL import Image, ImageTk
+
+from time import sleep
 
 from dominio_problema.dupla import Dupla
 from images import IMAGES_DIR
@@ -249,6 +250,7 @@ class TelaJogo:
 
     def revelar_trunfo(self, trunfo: Naipe):
         self.atualizar_status(f"TRUNFO: {trunfo.name}")
+        sleep(3)
         imagem_botao_naipe_rodada = Image.open(IMAGES_DIR / f"tela_jogo/botoes/botao_{trunfo.name}.png")
         imagem_botao_naipe_rodada = imagem_botao_naipe_rodada.resize((50, 50), Image.LANCZOS)
         self.img_botao_naipe_rodada = ImageTk.PhotoImage(imagem_botao_naipe_rodada)
