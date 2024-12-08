@@ -16,9 +16,6 @@ class Dupla:
 	def set_galhos(self, galhos : int):
 		self.pontuacao.galhos = galhos
 
-	def reiniciar(self):
-		pass
-
 	@property
 	def jogadores(self) -> list[Jogador]:
 		return self._jogadores
