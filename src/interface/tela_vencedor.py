@@ -2,6 +2,7 @@ from tkinter import *
 
 from PIL import Image, ImageTk
 from images import IMAGES_DIR
+from time import sleep
 
 from .tela_secundaria import TelaSecundaria
 from dominio_problema.dupla import Dupla
@@ -51,6 +52,7 @@ class TelaVencedor(TelaSecundaria):
         self.canvas.tag_bind(self.botao_reiniciar_partida, "<Leave>",  self.saida_botao)
 
     def click_botao_reiniciar_partida(self, event):
+        sleep(3)
         jogo = self.interface_jogador.jogo
         jogada = {
             "tipo" : "reiniciar",
