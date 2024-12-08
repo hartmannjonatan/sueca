@@ -90,7 +90,7 @@ class Jogador:
 		self.meu_turno = False
 
 	def reiniciar(self):
-		pass
+		self.vencedor = False
 
 	def definir_vencedor(self):
 		self.vencedor = True
