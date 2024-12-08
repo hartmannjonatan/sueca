@@ -136,4 +136,4 @@ class DogProxy:
                                 if move_dictionary["match_status"] == "finished":
                                     self.status = 2
         except json.JSONDecodeError:
-            pass
+            print("sapo carecaaaaaaaaaaaaaaaaaaaaaa")

@@ -240,9 +240,6 @@ class TelaJogo:
 
     def click_botao_instrucao(self, event):
         self.tela_instrucao.abrir_tela()
-
-    def mostrar_aviso(self, event):
-        messagebox.showwarning("Aviso", "Você clicou em uma carta!")
     
     def on_hover_carta(self, event):
         self.canvas.config(cursor="hand2")
@@ -251,7 +248,7 @@ class TelaJogo:
         self.canvas.config(cursor="")
 
     def revelar_trunfo(self, trunfo: Naipe):
-        messagebox.showinfo(f"NAIPE TRUNFO REVELADA", f"A naipe trunfo desta rodada é: {trunfo.name}")
+        self.atualizar_status(f"TRUNFO: {trunfo.name}")
         imagem_botao_naipe_rodada = Image.open(IMAGES_DIR / f"tela_jogo/botoes/botao_{trunfo.name}.png")
         imagem_botao_naipe_rodada = imagem_botao_naipe_rodada.resize((50, 50), Image.LANCZOS)
         self.img_botao_naipe_rodada = ImageTk.PhotoImage(imagem_botao_naipe_rodada)
